@@ -1,0 +1,33 @@
+<html>
+	<head>
+
+	</head>
+	<body>
+		<p id="p1">&nbsp;</p>
+		<button id="bt1">Load Text</button>
+
+	</body>
+
+		<script  language="javascript">
+            document.getElementById("bt1").onclick = function () {
+                if(window.XMLHttpRequest)
+                {
+                    var xmlhtobj = new XMLHttpRequest();
+                }
+                else
+                {
+                    var xmlhtobj = new ActiveXObject("Microsoft.XMLHTPP");
+                }
+                xmlhtobj.open("get", "getServerTime.php", true);
+                xmlhtobj.onreadystatechange = function () {
+                    if(xmlhtobj.readyState==4 && xmlhtobj.status==200)
+                    {
+                        document.getElementById("p1").innerHTML = xmlhtobj.responseText;
+                    }
+                };
+                xmlhtobj.send();
+
+            };
+		
+		</script>
+</html>

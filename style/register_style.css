@@ -1,0 +1,93 @@
+body
+{
+	
+	margin:0;
+	padding:0;
+	background:url("bg_2.jpg");
+	background-size:cover;
+	font-family: sans-serif; 
+}
+.registerBox
+{
+	position:absolute;
+	top:40%;
+	left:50%;
+	transform:translate(-50%, -40%);
+	width:360px;
+	height:420px;
+	padding:80px 40px;
+	box-sizing: border-box;
+	background:rgba(25,0,0,0.5) ;
+	
+}
+h1,h4
+{
+	margin:0;
+	margin-top:-30px;
+	padding:-10px 0 20px;
+	color:#1E90FF;
+	text-align:center;
+} 
+.registerBox input
+{
+	width:100%;
+	margin-bottom: 20px; 
+}
+.registerBox input[type="text"], .registerBox input[type="password"],.registerBox input[type="email"]
+{
+	border: none;
+	border-bottom: 1px solid #fff;
+	background: transparent;
+	outline:none;
+	height:35px;
+	color:#fff;
+	font-size: 16px;
+	
+}
+.registerBox input[type="file"]{
+	
+	
+	background: transparent;
+	outline:none;
+	height:35px;
+	color:#fff;
+	font-size:14px;
+		
+}
+::placeholder
+{
+	color:rgba(255,255,255,0.5); 
+}
+.registerBox input[type="submit"]
+{
+	border:none;
+	outline:none;
+	height: 40px;
+	width:130px;
+	color:#fff;
+	font-size:16px;
+	background: rgb(255,38,126);
+	cursor:pointer;
+	border-radius:20px;
+	margin-left:65px;
+	margin-top:10px;
+	
+}
+
+
+.registerBox input[type="submit"]:hover
+{
+	background: lavender;
+	color: #262626;
+}
+.a1{
+	display:block;
+}
+.tim{
+	display: inline;
+	float:left;
+} 
+
+.tim input{
+	width: 90px;
+}

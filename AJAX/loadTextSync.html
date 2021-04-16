@@ -1,0 +1,29 @@
+<html>
+	<head>
+
+	</head>
+	<body>
+		<p id="p1">&nbsp;</p>
+		<button id="bt1">Load Text</button>
+
+	</body>
+
+		<script  language="javascript">
+            document.getElementById("bt1").onclick = function () {
+                if(window.XMLHttpRequest)
+                {
+                    var xmlhtobj = new XMLHttpRequest();
+                }
+                else
+                {
+                    var xmlhtobj = new ActiveXObject("Microsoft.XMLHTPP");
+                }
+                xmlhtobj.open("get", "abc.txt", false);
+              
+                xmlhtobj.send();
+                document.getElementById("p1").innerHTML = xmlhtobj.responseText;
+
+            };
+		
+		</script>
+</html>

@@ -1,0 +1,214 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+@font-face{
+    font-family: fontone;
+    src:url(../fonts/Rubik.ttf);
+}
+@font-face{
+    font-family: fonttwo;
+    src:url(../fonts/YuseiRegular.ttf);
+}
+
+body{
+    background-color: rgb(255, 255, 255);
+    font-family: fontone;
+}
+a{
+    text-decoration: none;
+}
+.topblack{
+    background-color: rgb(40, 40, 40);
+    color:rgba(255, 255, 255, 0.851);
+    height: 40px;
+    font-size: 14px;
+}
+.topblack .leftblock{
+    float:left;
+    padding-top: 12px;
+    padding-left: 20px;
+    margin-left: 100px;
+    cursor: pointer;
+}
+.topblack .rightblack{
+    float: right;
+    padding-top:12px;
+    margin-right: 150px;
+}
+.rightblack a{
+    display: inline;
+    margin-right: 10px;
+    cursor: pointer;
+    color: white;
+}
+.topblack a:hover{
+    color:greenyellow;
+}
+.topbargreen{
+    height:75px;
+    background:linear-gradient(to bottom right,rgb(37,188,176),rgb(53,205,142))
+}
+.topbargreen p{
+    color:white;
+    font-weight: 1000;
+    font-size: 30px;
+    padding-top: 18px;
+    margin-left: 120px;
+    display: inline-block;
+    /* background-color: violet; */
+}
+.topgreen_right{
+    float:right;
+    /* background-color: black; */
+    margin-top:23px;
+    margin-right:150px;
+    /* display: inline-block; */
+}
+.topgreen_right a{
+    color:white;
+    font-size: 18px;
+    display: inline;
+    margin-right: 10px;
+}
+.topgreen_right a:hover{
+    font-size: 21px;
+    background:linear-gradient(to bottom right,rgb(37,188,176),rgb(53,205,142))
+    
+}
+
+.item_display{
+    font-family:Helvetica, sans-serif;
+}
+.cartitems{
+    transition: transform .2s; 
+    margin:10px;
+    padding: 10px;
+    width:900px;
+    height:250px;
+    border-bottom: 1px solid rgba(0, 0, 0,.3);
+    background-color: rgb(255, 255, 255); 
+    float: left;
+    display: block;
+}
+.cartitems img{
+    float: left;
+    border-radius: 20px 0px 0px 20px;
+    width:250px;
+    height: 250px;
+}
+.cartitems:hover{
+    transform: scale(1.04);
+    border-bottom: 1px solid rgba(0, 0, 0, 1);
+}
+.cartitems button{
+    margin-left:20px;
+    height:10%;
+    width:10%;
+}
+.dis{
+    margin-top:40px;
+    float: left;
+    width:650px;
+    height: 250px;
+    background-color:rgba(255, 255, 255, 0);
+    /* border-radius: 2px 20px 20px 0px; */
+}
+.seller{
+    margin:20px;
+    font-size: 14px;
+    color:rgb(11,105,33);
+}
+.more{
+    margin:20px;
+    font-size: 11px;
+    color:black;
+}
+.head{
+    float: left;
+    width:75%;
+}
+.item_display h3{
+    margin-top:50px;
+    font-size:26px;
+    margin-bottom: 0px;
+    font-family:Helvetica, sans-serif;
+}
+hr{
+    margin:0px;
+    width:76%;
+}
+.item_display h2{
+    color:rgb(29,96,176);
+    font-size: 19px;
+}
+.pr{
+    position:relative;
+    right:40px;
+    color:brown;
+    font-size:21px;
+    float:right;
+    width:90px;
+}
+.item_display p{
+    width:76%;
+    font-size:14px;
+    letter-spacing:.3px;
+    word-spacing: 2px;
+}
+.toppart{
+    color:green;
+    padding-left: 20px;
+    padding-top: 15px;;
+    text-align: justify;
+}
+.bottompart{
+    position:absolute;
+    height:67%;
+    width:100%;
+    bottom: 0px;
+    background-color: rgb(241,241,241);
+    border-top:1px solid rgba(36, 36, 36, 0.192);
+}
+.checkout{
+    position:relative;
+    border-radius: 10px;
+    margin-top:120px;
+    float:right;
+    width:280px;
+    height:250px;
+    box-shadow: 1px 1px 8px 1px rgba(206, 204, 201, 0.301);
+    background-color: white;
+    border:1px solid rgba(36, 36, 36, 0.192);
+}
+.bottompart b{
+    float:left;
+    margin-top:20px;
+    margin-left:15px;
+    font-size:large;
+}
+.bottompart button{
+    background-color: rgba(235,185,94,.8);
+    width:90%;
+    height:35px;
+    margin-top:55px;
+    border:1px solid rgba(10, 10, 10, 0.431);
+    border-radius: 5px;
+    font-size:15px;
+    color:black;
+}
+.bottompart button:hover{
+    background-color: rgba(235,185,94,1);
+}
+
+.margin{
+    width:1230px;
+    margin:auto;
+}
+sup{
+    z-index: -1;
+    border-radius: 50%;
+    padding:4px;
+    position:relative;
+    background-color:red;
+}
