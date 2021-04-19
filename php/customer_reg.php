@@ -3,9 +3,12 @@ include("dbconnection.php");
 $name= $_POST["name"];
 $email= $_POST["email"];
 $password = $_POST["password"];
+$district=$_POST["district"];
+$location=$_POST["location"];
 //used coz each time give dffrnt hash value unlike md5 (converts 72chars encryption code)
 $password = password_hash($password,PASSWORD_DEFAULT); 
-
+echo $district;
+echo $location;
 
 $sql="select email from login_tbl where email='$email'";
 $result=mysqli_query($con,$sql);
@@ -15,7 +18,7 @@ if(mysqli_num_rows($result)<1)
         $sql1="insert into login_tbl (email,password,user_type) values ('$email','$password','customer')";
         mysqli_query($con,$sql1);
         $n=mysqli_insert_id($con);
-        $sql2="insert into customerreg_tbl(login_id,name) values($n,'$name')";
+        $sql2="insert into customerreg_tbl(login_id,name,cust_district,cust_location_id) values($n,'$name',$district,$location)";
         if(mysqli_query($con,$sql2))
         { 
             session_start();

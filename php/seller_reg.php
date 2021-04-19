@@ -14,13 +14,16 @@ if(mysqli_num_rows($result)<1)
         $sql1="insert into login_tbl (email,password,user_type) values ('$email','$password','seller')";
         mysqli_query($con,$sql1);
         $n=mysqli_insert_id($con);
-        echo $n ,$name;
-        $sql2="insert into sellerreg_tbl (login_id,name) values($n,'$name')";
+        // echo $n ,$name;
+        $sql2="insert into sellerreg_tbl (seller_login_id,seller_name) values($n,'$name')";
         if(mysqli_query($con,$sql2))
         {
             session_start();
             $_SESSION['id']=$n;
-            header("location:seller/seller.php?id=-1");
+            echo $_SESSION['id'];
+            // header("location:seller/seller.php?id=-1");
+            header("location:seller/shopdetails.php");
+
         }
         //check redirection later
      }
@@ -29,6 +32,7 @@ else
 ?>
 		<script>alert("already a user!");</script>
 <?php 
+      header("location:../login_reg.php#page3");  
 	}
 mysqli_close($con);
 ?> 
