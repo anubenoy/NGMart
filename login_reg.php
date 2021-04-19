@@ -402,7 +402,7 @@ require_once("php/dbconnection.php");
                     <input type="text" name="login_email" id="login_email" onKeyUp="none()" placeholder="Email_ID" required><br>
                     <input type="password" name="login_pass" id="login_pass" onKeyUp="none()" placeholder="Password" required><br>
                     <input type="submit" value="SIGN IN"><br>
-                    <a href="">forget password ?</a>
+                    <a href="php/forget_pass/forget_pass.php">Forget password ?</a>
                 </form>
             
                 <?php
