@@ -17,7 +17,7 @@
             $login=$_SESSION['login'];
             $password=$_POST['password'];
             $password = password_hash($password,PASSWORD_DEFAULT); 
-            $sql="UPDATE tbl_login SET password='$password' where login_id=$login";
+            $sql="UPDATE login_tbl SET password='$password' where login_id=$login";
             mysqli_query($con,$sql);
 
             
