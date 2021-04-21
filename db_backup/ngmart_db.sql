@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 02, 2021 at 05:18 AM
+-- Generation Time: Apr 21, 2021 at 02:56 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -24,26 +24,6 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `address_tbl`
---
-
-CREATE TABLE `address_tbl` (
-  `id` int(10) NOT NULL,
-  `phone_no` int(15) NOT NULL,
-  `pin_code` int(5) NOT NULL,
-  `buliding_name` varchar(100) NOT NULL,
-  `city` varchar(100) NOT NULL,
-  `district` varchar(100) NOT NULL,
-  `state` varchar(100) NOT NULL,
-  `country` varchar(100) NOT NULL,
-  `landmark` varchar(255) NOT NULL,
-  `latitude` varchar(255) NOT NULL,
-  `longitude` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `cart_tbl`
 --
 
@@ -53,28 +33,6 @@ CREATE TABLE `cart_tbl` (
   `ps_id` int(50) NOT NULL,
   `cart_qty` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `cart_tbl`
---
-
-INSERT INTO `cart_tbl` (`cart_id`, `customerreg_id`, `ps_id`, `cart_qty`) VALUES
-(4, 5, 9, 1),
-(5, 5, 2, 1),
-(6, 5, 12, 1),
-(7, 5, 1, 1),
-(9, 4, 4, 1),
-(10, 4, 6, 1),
-(11, 4, 12, 1),
-(12, 4, 3, 1),
-(27, 3, 10, 1),
-(28, 3, 5, 3),
-(29, 3, 2, 1),
-(30, 3, 3, 2),
-(33, 7, 2, 2),
-(36, 7, 4, 1),
-(37, 5, 3, 1),
-(38, 5, 8, 1);
 
 -- --------------------------------------------------------
 
@@ -108,20 +66,117 @@ INSERT INTO `categories_tbl` (`id`, `categories`, `image`, `status`) VALUES
 CREATE TABLE `customerreg_tbl` (
   `customerreg_id` int(8) NOT NULL,
   `login_id` int(8) NOT NULL,
-  `name` varchar(30) NOT NULL
+  `name` varchar(30) NOT NULL,
+  `cust_img` varchar(50) DEFAULT NULL,
+  `cust_phn_no` varchar(13) DEFAULT NULL,
+  `cust_add` varchar(255) DEFAULT NULL,
+  `cust_location_id` int(11) NOT NULL,
+  `cust_district` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `customerreg_tbl`
 --
 
-INSERT INTO `customerreg_tbl` (`customerreg_id`, `login_id`, `name`) VALUES
-(1, 1, 'ann'),
-(2, 2, 'annmary'),
-(4, 10, 'cust'),
-(5, 14, 'Anu Benoy'),
-(6, 15, 'Saritha Robin'),
-(7, 16, 'Mary Joseph');
+INSERT INTO `customerreg_tbl` (`customerreg_id`, `login_id`, `name`, `cust_img`, `cust_phn_no`, `cust_add`, `cust_location_id`, `cust_district`) VALUES
+(1, 20, 'cust', NULL, NULL, NULL, 2, 1),
+(2, 21, 'Alan', NULL, NULL, NULL, 7, 10),
+(3, 22, 'Divu', NULL, NULL, NULL, 1, 1),
+(4, 27, 'anu', NULL, NULL, NULL, 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `district_tbl`
+--
+
+CREATE TABLE `district_tbl` (
+  `dist_id` int(11) NOT NULL,
+  `district_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `district_tbl`
+--
+
+INSERT INTO `district_tbl` (`dist_id`, `district_name`) VALUES
+(1, 'Kottayam'),
+(2, 'Kannur'),
+(3, 'Thrissur'),
+(4, 'Kasargod'),
+(5, 'Kollam'),
+(6, 'Pathanamthitta'),
+(7, 'Wayand'),
+(8, 'Thiruvanthapuram'),
+(9, 'Allapuzya'),
+(10, 'Ernakulam'),
+(11, 'Idukki'),
+(12, '	Kannur'),
+(13, '	Palakkad'),
+(14, '	Malappuram');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `inventory_tbl`
+--
+
+CREATE TABLE `inventory_tbl` (
+  `inventory_id` int(11) NOT NULL,
+  `inventory_ps_id` int(11) NOT NULL,
+  `inventory_seller_id` int(11) NOT NULL,
+  `inventory_stock` int(11) NOT NULL,
+  `inventory_date` varchar(20) NOT NULL,
+  `inventory_expiry_date` varchar(20) NOT NULL,
+  `inventory_status` int(3) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `inventory_tbl`
+--
+
+INSERT INTO `inventory_tbl` (`inventory_id`, `inventory_ps_id`, `inventory_seller_id`, `inventory_stock`, `inventory_date`, `inventory_expiry_date`, `inventory_status`) VALUES
+(1, 1, 23, 30, '20-04-20 11:26:56', '20-08-24 11:26:56', 0),
+(2, 1, 23, 10, '21-04-21 11:42:48', '21-04-24 11:42:48', 1),
+(3, 1, 23, 20, '21-04-21 12:17:47', '21-04-24 12:17:47', 1),
+(4, 1, 23, 5, '20-04-20 12:20:13', '20-08-24 12:20:13', 0),
+(5, 3, 23, 10, '21-04-21 12:27:00', '21-04-24 12:27:00', 1),
+(6, 4, 23, 10, '21-04-21 12:57:37', '21-04-24 12:57:37', 1),
+(7, 5, 23, 20, '21-04-21 12:58:44', '21-04-24 12:58:44', 1),
+(8, 6, 23, 20, '21-04-21 01:00:04', '21-04-24 01:00:04', 1),
+(9, 7, 25, 30, '21-04-21 01:01:20', '21-04-24 01:01:20', 1),
+(10, 8, 25, 20, '21-04-21 01:02:47', '21-04-24 01:02:47', 1),
+(11, 9, 25, 20, '21-04-21 01:03:19', '21-04-24 01:03:19', 1),
+(12, 10, 25, 30, '21-04-21 01:03:51', '21-04-24 01:03:51', 1),
+(13, 11, 25, 20, '21-04-21 01:04:36', '21-04-24 01:04:36', 1),
+(14, 12, 25, 30, '21-04-21 01:05:59', '21-04-24 01:05:59', 1),
+(15, 13, 25, 20, '21-04-21 01:07:18', '21-04-24 01:07:18', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `location_tbl`
+--
+
+CREATE TABLE `location_tbl` (
+  `location_id` int(11) NOT NULL,
+  `location_name` varchar(40) NOT NULL,
+  `location_dist_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `location_tbl`
+--
+
+INSERT INTO `location_tbl` (`location_id`, `location_name`, `location_dist_id`) VALUES
+(1, 'Pala', 1),
+(2, 'Kanjirappally', 1),
+(3, '	Ettumanoor', 1),
+(4, 'Changanassery	', 1),
+(5, 'Kaloor', 10),
+(6, 'Petta', 10),
+(7, 'Kadavantara', 10),
+(8, 'Aluva', 10);
 
 -- --------------------------------------------------------
 
@@ -142,22 +197,18 @@ CREATE TABLE `login_tbl` (
 --
 
 INSERT INTO `login_tbl` (`login_id`, `email`, `password`, `user_type`, `status`) VALUES
-(1, 'annmariya@gmail.com', '$2y$10$PXXFXXQOH2gbp0YtmcZwfO6Bfbl6IUTU0ovClqWaSyEkuzmOvryi6', 'customer', 1),
-(2, 'annmary@gmail.com', '$2y$10$NgsmCE2DVnq1zwZ0eUZZQ.OYFtPbQi6Tn4/n4zTpTIGBDQ0oEhwSC', 'customer', 1),
-(3, 'seller1@gmail.com', '$2y$10$LdiRJvDgyi0c1oZ.pqA/Y.CIZD/sCiYsrPWLLSl6WFUVVpQv1cLM6', 'seller', 1),
-(4, 'admin@gmail.com', '$2y$10$kaSJU7blJt88aZXKF0lV/eA0ybVQEU/xUtYMtasjwTItSjVHdLGOO', 'admin', 1),
-(5, 'seller2@gmail.com', '$2y$10$xD34Zf.k1x6wpz3VqN0kR.eDFr/3KptlPaiF1.K1t3semBnGrsxaS', 'seller', 1),
+(4, 'admin@gmail.com', '$2y$10$kaSJU7blJt88aZXKF0lV/eA0ybVQEU/xUtYMtasjwTItSjVHdLGOO', 'admin', 0),
 (7, 'admin2@gmail.com', '$2y$10$NgsmCE2DVnq1zwZ0eUZZQ.OYFtPbQi6Tn4/n4zTpTIGBDQ0oEhwSC', 'admin', 1),
 (8, 'admin3@gmail.com', '$2y$10$DOouZ4J2R7J6.ajzLgzYIeBrnXIvEaa5Wq7tWGNAdMAjTYH2kVKki', 'admin', 1),
-(9, 'seller@gmail.com', '$2y$10$18NTm5Wu.AOiTjJvqEdeA.9n/PWcwsRyMmK4d0jhW3jk.A68Y/bry', 'seller', 1),
-(10, 'customer1@gmail.com', '$2y$10$P2pu2CGMlyjS7mZMZZKWzOU1wD8kCK4gfBOELrfj8QRudFIHJ78YW', 'customer', 1),
 (11, 'admin1@gmail.com', '$2y$10$whZol46ig1krOdYKi2vfdO9CSCQIYy1Z8YXDaNEZ0PCBbb6GIr5RC', 'admin', 1),
-(12, 'seller3@gmail.com', '$2y$10$zs2qxrpWxe9O8Is..m0kNe5ijVFzBSfH15RnqoeC69zTmu8k4zs0W', 'seller', 1),
-(13, 'seller4@gmail.com', '$2y$10$j8KTmCpNximlNZFifkpSzOT6.U65cE9rgkmQ4pM3xFqVko50r8Sam', 'seller', 1),
-(14, 'customer@gmail.com', '$2y$10$rxkUD7hkuFpsKRdyQnQPCeUWLRwAt7wt4JHzIrp6x5.0OdhPpaGLO', 'customer', 1),
-(15, 'saritha@gmail.com', '$2y$10$oUtBkg6IO4p6jaUvYifDTeKsI0lhWX4Np14qVr98QXdMU.r9400.i', 'customer', 1),
-(16, 'mary@gmail.com', '$2y$10$ZQi1Pt8hOtvWkVVAg6iEH.G8VTk65O4vH75TF2Lfrvc7A/n1U6VFG', 'customer', 1),
-(17, 'seller5@gmail.com', '$2y$10$OXS1hNJ7Ef8ZhA2VJUUlvuHcQGEYGhWxRsgIIS6mYQnavX/NNkH7C', 'seller', 1);
+(20, 'customer@gmail.com', '$2y$10$Dai8uA4PE0maI9LdAZQPVeabm30fJGXetHGqwP/iwKSDXruwpVb5a', 'customer', 1),
+(21, 'alaapi@gmail.com', '$2y$10$FG6wr5s6uKih1WcPQLgufOQQrjE07DLYQuvDVHJVEg4tEnQTKm/GS', 'customer', 1),
+(22, 'divu@gmail.com', '$2y$10$qy3Mb3XP.7XJFhcK6B3pl.9CGWqj77GPgFVc0h1EjqzmwLDl0NF.u', 'customer', 1),
+(23, 'seller@gmail.com', '$2y$10$9LdgMXkO8YEoNn4ndAjmmecIviYAiYluhkwumlYUvBsDHkf1XFX96', 'seller', 1),
+(24, 'seller2@gmail.com', '$2y$10$kcFlSfeSF6rk9NF815sVOOhNHxgDMWRuGzm5b2y/.II8u2.dFRuHW', 'seller', 1),
+(25, 'seller3@gmail.com', '$2y$10$YJZp9c9xpluK06sAzJrs.OqYxzHEg7AQjloR2QdnUPUN5FcpZCM5W', 'seller', 1),
+(26, 'seller4@gmail.com', '$2y$10$5pB03Xrw9ICQJUZ1uI0PeeHsGEAtIr.rbDKvS8dUHbVkkwOmMB7NO', 'seller', 1),
+(27, 'anubenoy@icloud.com', '$2y$10$j9VgCbd64sPIEXRwpF3Ffet2zbf0ev6VlOsiBEfFJzWlcYWwoCNSi', 'customer', 1);
 
 -- --------------------------------------------------------
 
@@ -199,33 +250,32 @@ CREATE TABLE `order_tbl` (
 
 CREATE TABLE `product_seller_tbl` (
   `ps_id` int(10) NOT NULL,
-  `seller_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `price` decimal(10,2) NOT NULL,
-  `qty` decimal(10,2) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `short_desc` varchar(255) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 1
+  `ps_seller_id` int(11) NOT NULL,
+  `ps_product_id` int(11) NOT NULL,
+  `ps_price` decimal(10,2) NOT NULL,
+  `ps_image` varchar(255) NOT NULL,
+  `ps_desc` varchar(255) NOT NULL,
+  `ps_total_stock` int(50) NOT NULL,
+  `ps_status` char(11) NOT NULL DEFAULT 'a'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `product_seller_tbl`
 --
 
-INSERT INTO `product_seller_tbl` (`ps_id`, `seller_id`, `product_id`, `price`, `qty`, `image`, `short_desc`, `status`) VALUES
-(1, 9, 1, '20.00', '50.00', 'veg1.png', 'crunchy carrots', 1),
-(2, 9, 2, '10.00', '20.00', 'Apple.jpg', 'juicy crunchy apples', 1),
-(3, 9, 3, '100.00', '500.00', 'pista.jpg', 'pistachos', 1),
-(4, 9, 4, '30.00', '40.00', 'toor dal.png', 'protein rich', 1),
-(5, 12, 5, '30.00', '10.00', 'veg2.png', 'Fresh vegies', 1),
-(6, 12, 6, '20.00', '10.00', 'veg3.png', 'Fresh vegies', 1),
-(7, 12, 7, '10.00', '50.00', 'Kala-chana.jpg', 'protein rich', 1),
-(8, 12, 8, '40.00', '10.00', 'mango.jpg', 'juicy mangoes', 1),
-(9, 9, 9, '10.00', '30.00', 'veg4.png', 'Fresh vegies', 1),
-(10, 9, 10, '50.00', '80.00', 'Almond-3.jpg', 'Crunchy Nuts', 1),
-(11, 12, 9, '9.00', '10.00', 'veg4.png', 'Fresh vegies', 1),
-(12, 12, 11, '60.00', '30.00', 'CASHEW.jpg', 'Right from farm', 1),
-(13, 9, 5, '30.00', '20.00', 'veg2.png', 'rich in iron.', 1);
+INSERT INTO `product_seller_tbl` (`ps_id`, `ps_seller_id`, `ps_product_id`, `ps_price`, `ps_image`, `ps_desc`, `ps_total_stock`, `ps_status`) VALUES
+(1, 23, 1, '40.00', 'veg1.png', 'crunchy carrots', 30, 'a'),
+(2, 23, 2, '15.00', 'veg1.png', 'crunchy carrots', 15, 'a'),
+(4, 23, 3, '150.00', 'Apple.jpg', 'juicy crunchy apples', 10, 'a'),
+(5, 23, 4, '250.00', 'Almond-3.jpg', 'nuty almonds', 20, 'a'),
+(6, 23, 5, '30.00', 'toor dal.png', 'protein rich', 20, 'a'),
+(7, 25, 6, '80.00', 'veg4.png', 'Fresh vegies', 30, 'a'),
+(8, 25, 7, '90.00', 'veg2.png', 'Fresh vegies', 20, 'a'),
+(9, 25, 8, '150.00', 'mango.jpg', 'juicy mangoes', 20, 'a'),
+(10, 25, 9, '245.00', 'mango.jpg', 'juicy mangoes', 30, 'a'),
+(11, 25, 10, '355.00', 'pista.jpg', 'Right from farm', 20, 'a'),
+(12, 25, 11, '15.00', 'Kala-chana.jpg', 'protein rich', 30, 'a'),
+(13, 25, 12, '450.00', 'pista.jpg', 'pistachos', 20, 'a');
 
 -- --------------------------------------------------------
 
@@ -234,29 +284,28 @@ INSERT INTO `product_seller_tbl` (`ps_id`, `seller_id`, `product_id`, `price`, `
 --
 
 CREATE TABLE `product_tbl` (
-  `id` int(11) NOT NULL,
-  `categories_id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `product_id` int(11) NOT NULL,
+  `prod_categories_id` int(11) NOT NULL,
+  `prod_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `product_tbl`
 --
 
-INSERT INTO `product_tbl` (`id`, `categories_id`, `name`) VALUES
-(1, 1, 'Carrot'),
-(2, 2, 'Apple'),
-(3, 3, 'In-Shell Pistachios'),
-(4, 4, 'Bengal Gram'),
-(5, 1, 'Beetroot'),
-(6, 1, 'Cabbage'),
-(7, 4, 'Amar-Gram'),
-(8, 2, 'Alphonsa Mango'),
-(9, 1, 'Beans'),
-(10, 3, 'Almonds'),
-(11, 3, 'Cashew'),
-(12, 1, 'Gram'),
-(13, 2, 'Mango');
+INSERT INTO `product_tbl` (`product_id`, `prod_categories_id`, `prod_name`) VALUES
+(1, 1, 'Carrot 1kg'),
+(2, 1, 'Carrot 500gm'),
+(3, 2, 'Apple 1kg'),
+(4, 3, 'Almonds 500gm'),
+(5, 4, 'Bengal Gram 500gm'),
+(6, 1, 'Beans 1kg'),
+(7, 1, 'Beetroot 500gm'),
+(8, 2, 'Mango 500gm'),
+(9, 2, 'Mango 1kg'),
+(10, 3, 'Cashew 200gm'),
+(11, 4, 'Amar-Gram 500gm'),
+(12, 3, 'In-Shell Pistachios');
 
 -- --------------------------------------------------------
 
@@ -266,22 +315,26 @@ INSERT INTO `product_tbl` (`id`, `categories_id`, `name`) VALUES
 
 CREATE TABLE `sellerreg_tbl` (
   `seller_id` int(8) NOT NULL,
-  `login_id` int(8) NOT NULL,
-  `name` varchar(30) NOT NULL,
-  `time_1` varchar(30) NOT NULL DEFAULT '09:00',
-  `time_2` varchar(30) NOT NULL DEFAULT '20:00'
+  `seller_login_id` int(8) NOT NULL,
+  `seller_name` varchar(30) NOT NULL,
+  `seller_mobile_no` varchar(13) DEFAULT NULL,
+  `seller_add` varchar(255) DEFAULT NULL,
+  `seller_work_days` varchar(30) DEFAULT NULL,
+  `seller_image` varchar(255) DEFAULT NULL,
+  `time_1` varchar(30) DEFAULT NULL,
+  `seller_location_id` int(11) DEFAULT NULL,
+  `seller_dist_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `sellerreg_tbl`
 --
 
-INSERT INTO `sellerreg_tbl` (`seller_id`, `login_id`, `name`, `time_1`, `time_2`) VALUES
-(1, 3, 'seller two', '15:06', '17:07'),
-(5, 9, 'seller three', '09:00', '20:00'),
-(6, 12, 'seller four', '09:00', '20:00'),
-(7, 13, 'seller four', '09:00', '20:00'),
-(8, 17, 'seller five', '09:00', '20:00');
+INSERT INTO `sellerreg_tbl` (`seller_id`, `seller_login_id`, `seller_name`, `seller_mobile_no`, `seller_add`, `seller_work_days`, `seller_image`, `time_1`, `seller_location_id`, `seller_dist_id`) VALUES
+(1, 23, 'seller_1', '8123456789', 'karikulam, koovappally po, kanjirapally, kottayam, 68651812', 'Monday-Saturday', 'a-typical-english-village-shop-at-great-bedwyn-wiltshire-england-uk-B3Y7GX.jpeg', '09:00-19:00', 1, 2),
+(2, 24, 'seller_2', '8123456789', 'karikulam, koovappally po, kanjirappally, kottayam, 686518\r\n', 'Monday-Saturday', 'a-typical-english-village-shop-at-great-bedwyn-wiltshire-england-uk-B3Y7GX.jpeg', '07:00-21:00', 2, 1),
+(3, 25, 'seller_3', '6789012345', 'kathrikadavu', 'Saturday-Friday', 'a-typical-english-village-shop-at-great-bedwyn-wiltshire-england-uk-B3Y7GX.jpeg', '10:00-20:00', 7, 10),
+(4, 26, 'seller_4', '6785943214', 'kanjirakattu, kadayanickadu', 'Monday-Saturday', 'a-typical-english-village-shop-at-great-bedwyn-wiltshire-england-uk-B3Y7GX.jpeg', '9:00-22:59', 2, 1);
 
 -- --------------------------------------------------------
 
@@ -299,6 +352,51 @@ CREATE TABLE `seller_sales_tbl` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `subcategories_tbl`
+--
+
+CREATE TABLE `subcategories_tbl` (
+  `subcat_id` int(11) NOT NULL,
+  `subcat_name` varchar(100) NOT NULL,
+  `subcat_img` varchar(200) NOT NULL,
+  `subcat_cat_id` int(11) NOT NULL,
+  `subcat_status` char(10) NOT NULL DEFAULT 'a'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `subcategories_tbl`
+--
+
+INSERT INTO `subcategories_tbl` (`subcat_id`, `subcat_name`, `subcat_img`, `subcat_cat_id`, `subcat_status`) VALUES
+(1, 'Apple', 'Apple.jpg', 2, 'a'),
+(2, 'Mango', 'mango.jpg', 2, 'a'),
+(3, 'Beans', 'veg4.png', 1, 'a'),
+(4, 'Cabbage', 'veg3.png', 1, 'a'),
+(5, 'Beetroot', 'veg2.png', 1, 'a'),
+(6, 'Carrot', 'veg1.png', 1, 'a'),
+(7, 'Almond', 'Almond-3.jpg', 3, 'a'),
+(8, 'Cashew', 'CASHEW.jpg', 3, 'a'),
+(9, 'Dal', 'toor dal.png\r\n', 4, 'a'),
+(10, 'Gram', 'Kala-chana.jpg', 4, 'a');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbl_otp`
+--
+
+CREATE TABLE `tbl_otp` (
+  `otp_id` int(11) NOT NULL,
+  `login_id` int(7) NOT NULL,
+  `otp_time` varchar(20) NOT NULL,
+  `otp_data` varchar(10) NOT NULL,
+  `otp_random` varchar(61) NOT NULL,
+  `otp_attempt` int(4) NOT NULL DEFAULT 3
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `wish_tbl`
 --
 
@@ -309,22 +407,8 @@ CREATE TABLE `wish_tbl` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `wish_tbl`
---
-
-INSERT INTO `wish_tbl` (`wish_id`, `customerreg_id`, `ps_id`) VALUES
-(1, 3, 6),
-(6, 3, 9);
-
---
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `address_tbl`
---
-ALTER TABLE `address_tbl`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `cart_tbl`
@@ -343,6 +427,24 @@ ALTER TABLE `categories_tbl`
 --
 ALTER TABLE `customerreg_tbl`
   ADD PRIMARY KEY (`customerreg_id`);
+
+--
+-- Indexes for table `district_tbl`
+--
+ALTER TABLE `district_tbl`
+  ADD PRIMARY KEY (`dist_id`);
+
+--
+-- Indexes for table `inventory_tbl`
+--
+ALTER TABLE `inventory_tbl`
+  ADD PRIMARY KEY (`inventory_id`);
+
+--
+-- Indexes for table `location_tbl`
+--
+ALTER TABLE `location_tbl`
+  ADD PRIMARY KEY (`location_id`);
 
 --
 -- Indexes for table `login_tbl`
@@ -372,7 +474,7 @@ ALTER TABLE `product_seller_tbl`
 -- Indexes for table `product_tbl`
 --
 ALTER TABLE `product_tbl`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`product_id`);
 
 --
 -- Indexes for table `sellerreg_tbl`
@@ -387,6 +489,18 @@ ALTER TABLE `seller_sales_tbl`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `subcategories_tbl`
+--
+ALTER TABLE `subcategories_tbl`
+  ADD PRIMARY KEY (`subcat_id`);
+
+--
+-- Indexes for table `tbl_otp`
+--
+ALTER TABLE `tbl_otp`
+  ADD PRIMARY KEY (`otp_id`);
+
+--
 -- Indexes for table `wish_tbl`
 --
 ALTER TABLE `wish_tbl`
@@ -397,16 +511,10 @@ ALTER TABLE `wish_tbl`
 --
 
 --
--- AUTO_INCREMENT for table `address_tbl`
---
-ALTER TABLE `address_tbl`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `cart_tbl`
 --
 ALTER TABLE `cart_tbl`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `categories_tbl`
@@ -418,13 +526,31 @@ ALTER TABLE `categories_tbl`
 -- AUTO_INCREMENT for table `customerreg_tbl`
 --
 ALTER TABLE `customerreg_tbl`
-  MODIFY `customerreg_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `customerreg_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `district_tbl`
+--
+ALTER TABLE `district_tbl`
+  MODIFY `dist_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- AUTO_INCREMENT for table `inventory_tbl`
+--
+ALTER TABLE `inventory_tbl`
+  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+
+--
+-- AUTO_INCREMENT for table `location_tbl`
+--
+ALTER TABLE `location_tbl`
+  MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `login_tbl`
 --
 ALTER TABLE `login_tbl`
-  MODIFY `login_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `login_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `order_history_tbl`
@@ -442,19 +568,19 @@ ALTER TABLE `order_tbl`
 -- AUTO_INCREMENT for table `product_seller_tbl`
 --
 ALTER TABLE `product_seller_tbl`
-  MODIFY `ps_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `ps_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `product_tbl`
 --
 ALTER TABLE `product_tbl`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `sellerreg_tbl`
 --
 ALTER TABLE `sellerreg_tbl`
-  MODIFY `seller_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `seller_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `seller_sales_tbl`
@@ -463,10 +589,22 @@ ALTER TABLE `seller_sales_tbl`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `subcategories_tbl`
+--
+ALTER TABLE `subcategories_tbl`
+  MODIFY `subcat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `tbl_otp`
+--
+ALTER TABLE `tbl_otp`
+  MODIFY `otp_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `wish_tbl`
 --
 ALTER TABLE `wish_tbl`
-  MODIFY `wish_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `wish_id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
