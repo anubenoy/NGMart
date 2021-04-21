@@ -40,33 +40,4 @@ else{
     header("location:forget_pass.php?err='wrong'");
 }
 
-
-// if($decode->value=="yes"){
-//     // echo("yeah");
-//     // $sql="select login_id from tbl_login where email='$email'";
-//     // $result= mysqli_query($con,$sql);
-//     // $row=mysqli_fetch_array($result);
-//     // $login_id=$row['login_id'];
-
-//     // log_activity($con,$login_id,'profile','Password reset attempt');
-
-//     // $sql="select * from tbl_otp where login_id=$login_id";
-//     // $result= mysqli_query($con,$sql);
-//     // $row=mysqli_fetch_array($result);
-//     // $_SESSION['rand']=$row['otp_random'];
-//     // $_SESSION['otp_data']=$row['otp_data'];
-//     // $_SESSION['email']=$email;
-//     // header("location:sentmail.php");
-
-// // ------ delete this after testing 
-//     // session_unset();
-//     // if(session_destroy()){header("location:sentmail.php");}
-
-// }
-// else{
-//     header("location:../forget_pass.php?err='wrong'");
-//     // echo ("wrong email");
-// }
-// curl_close($ch);
-
 ?>

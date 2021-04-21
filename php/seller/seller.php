@@ -82,7 +82,7 @@ if(isset($_GET['ps_id']))
 	<form id="addProduct" action="editProduct.php?id=<?php echo $ps_id ?>" method="POST" style="padding:20px;" enctype="multipart/form-data">
 		<?php
 		$ps_id=$_GET['ps_id'];
-		$sql="select p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.id=ps.product_id and ps_id=$ps_id";
+		$sql="select p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id and ps_id=$ps_id";
 
 		if($result=mysqli_query($con,$sql))
 		{
@@ -92,7 +92,7 @@ if(isset($_GET['ps_id']))
 		?>
 		<div >
 				
-					<img src="../../images/<?php echo $row['image']?>" class="img" alt="no image">
+					<img src="../../images/<?php echo $row['ps_image']?>" class="img" alt="no image">
 					<div onclick="upload()" class="img_upload"><center><p style="color:white;font-size:15px;">Upload an image</p></center></div>
                 	<input id="upload" style="visibility:hidden;cursor:pointer" type="FILE" accept="image/x-png,image/jpeg" name='file'>
 
@@ -110,21 +110,21 @@ if(isset($_GET['ps_id']))
 		
 		
 		<div class="addInput">
-			<input type="text" id="name" name="name" value="<?php echo $row['name']?>" pattern="[A-Za-z\-\s]{3,}" disabled>
+			<input type="text" id="name" name="name" value="<?php echo $row['prod_name']?>" pattern="[A-Za-z\-\s]{3,}" disabled>
 		</div> 
 
 		<div class="addInput" >
 		<div class="p">Rs/kg</div>
-			<input type="text" style="width:200px" name="price" id="price" min="1" value="<?php echo $row['price']?>" pattern="^[0-9]+(\.[0-9]{1,2})?{1,}$" required>
+			<input type="text" style="width:200px" name="price" id="price" min="1" value="<?php echo $row['ps_price']?>" pattern="^[0-9]+(\.[0-9]{1,2})?{1,}$" required>
 		</div> 
 		
 		<div class="addInput" >
 		<div class="p">Availale kg</div>
-			<input type="text" style="width:200px" name="qty" id="qty" min="1" value="<?php echo $row['qty']?>" pattern="^[0-9]+(\.[0-9]{1,2})?{1,}$" required>
+			<input type="text" style="width:200px" name="qty" id="qty" min="1" value="<?php echo $row['ps_total_stock']?>" pattern="^[0-9]+(\.[0-9]{1,2})?{1,}$" required>
 		</div> 
 
 		<div class="addInput">
-			<input type="text" name="desc" id="desc" value="<?php echo $row['short_desc']?>" pattern="[A-Za-z0-9\s\.\-]{3,}" required> 
+			<input type="text" name="desc" id="desc" value="<?php echo $row['ps_desc']?>" pattern="[A-Za-z0-9\s\.\-]{3,}" required> 
 		</div> 
 		
 
@@ -165,17 +165,17 @@ if($_GET['id'] >= 1)
 	<form id="addProduct" action="addProduct.php?id=<?php echo $cat_id?>" method="POST" style="padding:20px;" enctype="multipart/form-data">
 		
 		<div class="addInput">
-			<input type="text" id="name" name="name" placeholder="Product name" pattern="[A-Za-z\s\-]{3,}" required>
+			<input type="text" id="name" name="name" placeholder="Product name (eg:Carrot 1kg)" pattern="[A-Za-z0-9\s\-]{3,}" required>
 		</div> 
 
 		<div class="addInput">
-		<div class="p">Rs/kg</div>
-			<input type="number" style="width:200px" name="price" id="price" min="1" placeholder="Price/kg" required>
+		<div class="p">Rupees</div>
+			<input type="number" style="width:200px" name="price" id="price" min="1" placeholder="Price" required>
 		</div> 
 		
 		<div class="addInput">
-		<div class="p">Availale kg</div>
-			<input type="number" style="width:200px" name="qty" id="qty" min="1" placeholder=" Quantity(in kilograms)" required>
+		<div class="p">Bundles</div>
+			<input type="number" style="width:200px" name="qty" id="qty" min="1" placeholder="Available Stock" required>
 		</div> 
 
 		<div class="addInput">
@@ -236,7 +236,7 @@ if($_GET['id'] == -1)
 	  
       <tbody> 
 	  <?php
-        $sql="select p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.id=ps.product_id and ps.seller_id=$id order by p.id desc";
+        $sql="select p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id and ps.ps_seller_id=$id order by p.product_id desc";
         if($result=mysqli_query($con,$sql))
         {
             $i=0;
@@ -247,16 +247,16 @@ if($_GET['id'] == -1)
                 ?>
                 <tr>
 				 <td><?php echo $i?></td>
-				 <td><img src="../../images/<?php echo $row['image']?>" style="border-radius:50%;height:40px;width:40px;"/></td>
-                 <td><?php echo $row['name']?></td>
-                 <td><?php echo $row['price']?></td>
-				 <td><?php echo $row['qty']?></td>
-                 <td><?php echo $row['short_desc']?></td>
-                 <td><?php echo $row['qty']*$row['price']?></td>
+				 <td><img src="../../images/<?php echo $row['ps_image']?>" style="border-radius:50%;height:40px;width:40px;"/></td>
+                 <td><?php echo $row['prod_name']?></td>
+                 <td><?php echo $row['ps_price']?></td>
+				 <td><?php echo $row['ps_total_stock']?></td>
+                 <td><?php echo $row['ps_desc']?></td>
+                 <td><?php echo $row['ps_total_stock']*$row['ps_price']?></td>
 				 
                 <td> 
                 <!-- edit button -->
-                 <a href="?id=<?php echo $row['categories_id'];?>&ps_id=<?php echo $row['ps_id'];?>"><button style="background-color:green;padding:7px;border:none;color:white;">Edit</button></a>
+                 <a href="?id=<?php echo $row['prod_categories_id'];?>&ps_id=<?php echo $row['ps_id'];?>"><button style="background-color:green;padding:7px;border:none;color:white;">Edit</button></a>
                 <!-- delete button -->
                  <a href="delProduct.php?delete=true&id=<?php echo $row['ps_id'];?>"><button style="background-color:red;padding:7px;border:none;color:white;">Delete</button></a> 
                 </td>
