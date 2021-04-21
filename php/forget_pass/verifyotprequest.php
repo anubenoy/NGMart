@@ -38,7 +38,7 @@ if(isset($_GET['varify'])){
             $sql="delete from tbl_otp where otp_random='$rand'";
             mysqli_query($con,$sql);
             ?>
-                <center><img src="../../images/find_logo.png" alt=""></center>
+                <center><img src="../../images/logo.png" alt=""></center>
                 <div class="container">
                     <h1>Link invalid !</h1>
                     <p>The link you recived is either invalid for this purpose or got expaired. Please try within 3 minutes after requesting for reset password.

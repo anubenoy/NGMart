@@ -80,7 +80,7 @@ if(isset($_SESSION['email']) && isset($_SESSION['rand']) && isset($_SESSION['otp
             </head>
             <body>
                 <div class="container">
-                <img src="https://raw.githubusercontent.com/anubenoy/NGMart/main/images/logo.png" alt="Find logo" loading="lazy"/>
+                <img src="https://raw.githubusercontent.com/anubenoy/NGMart/main/images/logo.png" alt="NGMartlogo" loading="lazy"/>
                     <center><h1>Hello.</h1></center>
                     <p>No need to worry, you can reset your NMGart account password by clicking the link below or entering the OTP:</p>
                     <a href="https://localhost/NGMart/php/forget_pass/verifyotprequest.php?varify='.$rand.'">Reset Password</a>
@@ -92,7 +92,7 @@ if(isset($_SESSION['email']) && isset($_SESSION['rand']) && isset($_SESSION['otp
             </body>
             </html>
         ';
-        $mail->AltBody = 'OPT:'.$otp_data;
+        $mail->AltBody = 'OTP:'.$otp_data;
 
         $mail->send();
 

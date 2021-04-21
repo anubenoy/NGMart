@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("php/dbconnection.php");
+del();
 if(isset($_SESSION['reg_id'])) $reg_id=$_SESSION['reg_id'];
 // echo $_SESSION['reg_id'];
 // echo $_SESSION['id'];

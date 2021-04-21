@@ -50,9 +50,9 @@ if(mysqli_num_rows($result5)<1)
     echo $ps_id;
      // setting product expiry 
      date_default_timezone_set("Asia/Kolkata");
-     $date=date('d-m-y h:i:s');
+     $date=date('y-m-d h:i:s');
   
-     $expdate=Date('y:m:d h:i:s', strtotime('+3 days'));
+     $expdate=Date('y-m-d h:i:s', strtotime('+3 days'));
  
      $sql4="INSERT INTO inventory_tbl (inventory_ps_id,inventory_seller_id,inventory_stock,inventory_date,inventory_expiry_date) VALUES ($ps_id,$seller_id,$qty,'$date','$expdate')";
      if(mysqli_query($con,$sql4))

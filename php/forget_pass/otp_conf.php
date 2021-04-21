@@ -11,11 +11,13 @@ if(mysqli_num_rows($result)>0){
 
     $row=mysqli_fetch_array($result);
     $login=$row['login_id'];
+    ////checking whether user already done a password reset 
     $sql="SELECT * FROM tbl_otp where login_id = '$login'";
     $result=mysqli_query($con,$sql);
 
     $date=date('y-m-d h:i:s');
     $otp_data=rand(100000,999999);
+    
     $seed = str_split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
     shuffle($seed);
     $rand = '';

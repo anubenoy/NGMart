@@ -4,6 +4,7 @@ if(isset($_SESSION['id']))
 {
 	$id=$_SESSION['id'];
 	include("../dbconnection.php");
+	del();
 ?>
 
 <!DOCTYPE html>
@@ -272,8 +273,77 @@ if($_GET['id'] == -1)
             </tbody>
     </table>
 
+	<!-- listing expired products  -->
+
+	<table width="100%">
+		 <col style="width:4%">
+		 <col style="width:12%">
+		 <col style="width:12%">
+		 <col style="width:12%">
+		 <col style="width:12%">
+		 <col style="width:22%">
+		 <col style="width:12%">
+		 <col style="width:18%">
+
+
+	
+      <thead>
+      <caption>
+		  <h3> Expired products </h3>
+      </caption>
+	  
+	  <tr>
+		 <th>#</th>
+		 <th>Image</th>
+	     <th>Item</th>
+		 <th>Price</th>
+		 <th>Qty</th>
+		 <th>Desc</th>
+		 <th>Total Price</th>
+	     <th> </th>	
+      </tr>
+	  </thead>
+	  
+      <tbody> 
+	  <?php
+        $sql="select p.*,ps.*,i.* from product_tbl as p,product_seller_tbl as ps,inventory_tbl as i where p.product_id=ps.ps_product_id and ps.ps_seller_id=$id  order by p.product_id desc";
+        if($result=mysqli_query($con,$sql))
+        {
+            $i=0;
+            while($row=mysqli_fetch_array($result))
+            {
+                    
+                $i=$i+1;
+                ?>
+                <tr>
+				 <td><?php echo $i?></td>
+				 <td><img src="../../images/<?php echo $row['ps_image']?>" style="border-radius:50%;height:40px;width:40px;"/></td>
+                 <td><?php echo $row['prod_name']?></td>
+                 <td><?php echo $row['ps_price']?></td>
+				 <td><?php echo $row['ps_total_stock']?></td>
+                 <td><?php echo $row['ps_desc']?></td>
+                 <td><?php echo $row['ps_total_stock']*$row['ps_price']?></td>
+				 
+                <td> 
+                <!-- edit button -->
+                 <a href="?id=<?php echo $row['prod_categories_id'];?>&ps_id=<?php echo $row['ps_id'];?>"><button style="background-color:green;padding:7px;border:none;color:white;">Edit</button></a>
+                <!-- delete button -->
+                 <a href="delProduct.php?delete=true&id=<?php echo $row['ps_id'];?>"><button style="background-color:red;padding:7px;border:none;color:white;">Delete</button></a> 
+                </td>
+				
+				</tr>                        
+			
+			<?php
+                       
+            }
+		}
+		
+        ?>
+            </tbody>
+    </table>
+
     	 </center>
-    	 </div>
+</div>
 
 <?php
 }?>

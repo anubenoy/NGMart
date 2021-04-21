@@ -27,7 +27,7 @@
                     <center><img src="../../images/logo.png" alt=""></center>
                     <div class="container">
                         <h1>Reset Sucessfull </h1>
-                        <p>Your password is been sucessfully reseted. You can use your new password to login to your Find account.</p>
+                        <p>Your password is been sucessfully reseted. You can use your new password to login to your NGMart account.</p>
                         <a href="../../index.php"><button class="click_button" > Continue to home page  </button></a>
                     </div> 
                 <?php

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include("dbconnection.php");
+del();
 //fetching data from login form
 $password = $_POST['login_pass'];
 $email = mysqli_real_escape_string($con,$_POST['login_email']);

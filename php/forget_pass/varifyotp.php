@@ -23,7 +23,7 @@
     <center><img src="../../images/logo.png" alt=""></center>
     <div class="container">
         <h1>Verify OTP</h1>
-        <p>Enter the OTP sent to your registered email address with your Find account.</p>
+        <p>Enter the OTP sent to your registered email address with your NGMart account.</p>
         <form action="verifyotprequest.php" method="POST" id="frm">
             <?php
             if(isset($_GET['err'])){
