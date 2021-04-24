@@ -17,15 +17,18 @@ if(isset($_SESSION['id']))
 	<link href="../../style/seller_style.css" rel="stylesheet" />
 	<style>
 		.addInput .p{
-    margin:17px 0px 0px 7px;
-    width:90px;
-    position:relative;
-    float:right;
-    font-size: 13px;
-    color:black;
-    /* background-color: brown; */
+			margin:17px 0px 0px 7px;
+			width:90px;
+			position:relative;
+			float:right;
+			font-size: 13px;
+			color:black;
+			/* background-color: brown; */
 
-}
+		}
+		td{
+			font-size:15px;
+		}
 
 	</style>
 </head>
@@ -208,13 +211,16 @@ if($_GET['id'] == -1)
 	
     <table width="100%">
 		 <col style="width:4%">
-		 <col style="width:12%">
-		 <col style="width:12%">
-		 <col style="width:12%">
-		 <col style="width:12%">
-		 <col style="width:22%">
-		 <col style="width:12%">
-		 <col style="width:18%">
+		 <col style="width:9%">
+		 <col style="width:9%">
+		 <col style="width:9%">
+		 <col style="width:6%">
+		 <col style="width:10%">
+		 <col style="width:9%">
+		 <col style="width:9%">
+		 <col style="width:9%">
+		 <col style="width:10%">
+		 <col style="width:14%">
 
 
 	
@@ -228,62 +234,78 @@ if($_GET['id'] == -1)
 		 <th>Image</th>
 	     <th>Item</th>
 		 <th>Price</th>
-		 <th>Qty</th>
+		 <th>Stock</th>
 		 <th>Desc</th>
 		 <th>Total Price</th>
+		 <th>Manufacture Date</th>
+		 <th>Expiry Date</th>
+		 <th>Expiry Due</th>
 	     <th> </th>	
       </tr>
 	  </thead>
 	  
       <tbody> 
+	  
 	  <?php
-        $sql="select p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id and ps.ps_seller_id=$id order by p.product_id desc";
-        if($result=mysqli_query($con,$sql))
-        {
-            $i=0;
-            while($row=mysqli_fetch_array($result))
-            {
-                    
-                $i=$i+1;
-                ?>
-                <tr>
-				 <td><?php echo $i?></td>
-				 <td><img src="../../images/<?php echo $row['ps_image']?>" style="border-radius:50%;height:40px;width:40px;"/></td>
-                 <td><?php echo $row['prod_name']?></td>
-                 <td><?php echo $row['ps_price']?></td>
-				 <td><?php echo $row['ps_total_stock']?></td>
-                 <td><?php echo $row['ps_desc']?></td>
-                 <td><?php echo $row['ps_total_stock']*$row['ps_price']?></td>
-				 
-                <td> 
-                <!-- edit button -->
-                 <a href="?id=<?php echo $row['prod_categories_id'];?>&ps_id=<?php echo $row['ps_id'];?>"><button style="background-color:green;padding:7px;border:none;color:white;">Edit</button></a>
-                <!-- delete button -->
-                 <a href="delProduct.php?delete=true&id=<?php echo $row['ps_id'];?>"><button style="background-color:red;padding:7px;border:none;color:white;">Delete</button></a> 
-                </td>
-				
-				</tr>                        
-			
-			<?php
-                       
-            }
-		}
-		
-        ?>
-            </tbody>
-    </table>
+							$i=0;
+							$sq1 = "select * from inventory_tbl where inventory_status=1 and inventory_seller_id='$id'";
+							//an item in product_seller table will always be same but in inventory table it might appear defferent because of the different expairy and manfu date.
+							$rst1 = mysqli_query($con, $sq1);
+							while ($ro1 = mysqli_fetch_array($rst1)) {
+								// echo $ro1['inventory_ps_id'];
+								$inv_id = $ro1['inventory_ps_id'];
+								$sq2 = "SELECT * FROM product_seller_tbl where ps_id='$inv_id' and ps_seller_id=$id";
+								$rst2 = mysqli_query($con, $sq2);
 
+								while ($ro2 = mysqli_fetch_array($rst2)) {
+									$product_id = $ro2['ps_product_id'];
+									$sq3 = "SELECT * FROM product_tbl where product_id='$product_id'";
+									$rst3 = mysqli_query($con, $sq3);
+
+									while ($ro3 = mysqli_fetch_array($rst3)) {
+										$i++;
+										// echo $ro3['prod_name'];
+										echo "<tr>";
+										echo "<td>$i</td>";
+										echo "<td><img src='../../images/".$ro2['ps_image']."' style='border-radius:50%;height:40px;width:40px;' /></td>";
+										echo "<td>".$ro3['prod_name']."</td>";
+										echo "<td>".$ro2['ps_price']."</td>";
+										echo "<td>".$ro1['inventory_stock']."</td>";
+										echo "<td>".$ro2['ps_desc']."</td>";
+										echo "<td>".$ro2['ps_price']*$ro2['ps_price']."</td>";
+										echo "<td>".$ro1['inventory_date']."</td>";
+										echo "<td>".$ro1['inventory_expiry_date']."</td>";
+										$expdate = new DateTime(date($ro1['inventory_expiry_date']));
+										$diffBtwTodayAndExpiry = $expdate->diff(new DateTime(date('y-m-d h:i:s')));
+										echo "<td>$diffBtwTodayAndExpiry->days days $diffBtwTodayAndExpiry->h hrs $diffBtwTodayAndExpiry->i min </td>";
+
+										?>
+										<td>
+											<a href="?id=<?php echo $ro3['prod_categories_id']; ?>&ps_id=<?php echo $ro2['ps_id']; ?>"><button style="background-color:green;padding:7px;border:none;color:white;">Edit</button></a>
+											<a href="delProduct.php?delete=true&id=<?php echo $ro1['inventory_id'].'&ps_id='.$inv_id ?>"><button style="background-color:red;padding:7px;border:none;color:white;">Delete</button></a>
+										</td>
+										<?php
+									}
+								}
+							}
+
+							?>
+            
+    </tbody>
+    </table>
+	<br><br>
 	<!-- listing expired products  -->
 
 	<table width="100%">
 		 <col style="width:4%">
-		 <col style="width:12%">
-		 <col style="width:12%">
-		 <col style="width:12%">
-		 <col style="width:12%">
-		 <col style="width:22%">
-		 <col style="width:12%">
-		 <col style="width:18%">
+		 <col style="width:11%">
+		 <col style="width:13%">
+		 <col style="width:11%">
+		 <col style="width:11%">
+		 <col style="width:11%">
+		 <col style="width:11%">
+		 <col style="width:11%">
+		 <col style="width:16%">
 
 
 	
@@ -297,20 +319,33 @@ if($_GET['id'] == -1)
 		 <th>Image</th>
 	     <th>Item</th>
 		 <th>Price</th>
-		 <th>Qty</th>
-		 <th>Desc</th>
-		 <th>Total Price</th>
+		 <th>Stock</th>
+		 <th>Manufacture Date</th>
+		 <th>Expiry Date</th>
+		 <th>Expired</th>
 	     <th> </th>	
       </tr>
 	  </thead>
 	  
       <tbody> 
 	  <?php
-        $sql="select p.*,ps.*,i.* from product_tbl as p,product_seller_tbl as ps,inventory_tbl as i where p.product_id=ps.ps_product_id and ps.ps_seller_id=$id  order by p.product_id desc";
-        if($result=mysqli_query($con,$sql))
+	  $sql2="SELECT * FROM inventory_tbl WHERE inventory_status=0";
+	  $result2=mysqli_query($con,$sql2);
+	  while($row2=mysqli_fetch_array($result2))
+	  {
+		$ps_id=$row2['inventory_ps_id'];
+		$expdate = new DateTime(date($row2['inventory_expiry_date']));
+		$diffBtwTodayAndExpiry = $expdate->diff(new DateTime(date('y-m-d h:i:s')));
+		
+		$sql4="SELECT sum(inventory_stock) as s FROM inventory_tbl GROUP BY inventory_date,inventory_ps_id";
+		$result4=mysqli_query($con,$sql4);
+		$row4=mysqli_fetch_array($result4);
+		
+		$sql3="SELECT DISTINCT ps.ps_id,p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id and  ps.ps_seller_id=$id and ps.ps_id=$ps_id order by p.product_id desc";
+        if($result3=mysqli_query($con,$sql3))
         {
             $i=0;
-            while($row=mysqli_fetch_array($result))
+            while($row=mysqli_fetch_array($result3))
             {
                     
                 $i=$i+1;
@@ -320,15 +355,19 @@ if($_GET['id'] == -1)
 				 <td><img src="../../images/<?php echo $row['ps_image']?>" style="border-radius:50%;height:40px;width:40px;"/></td>
                  <td><?php echo $row['prod_name']?></td>
                  <td><?php echo $row['ps_price']?></td>
-				 <td><?php echo $row['ps_total_stock']?></td>
-                 <td><?php echo $row['ps_desc']?></td>
-                 <td><?php echo $row['ps_total_stock']*$row['ps_price']?></td>
+				 <td><?php echo $row2['inventory_stock'] //actually display sum of stock of same ps_id and manu_date?> </td> 
+                 <td><?php echo $row2['inventory_date']?></td>
+				 <td><?php echo $row2['inventory_expiry_date']?></td>
+				 <td><?php echo $diffBtwTodayAndExpiry->days.' days' ?></td>
+				
+	
+                 <!-- <td><?php echo $row4['s']*$row['ps_price']?></td> -->
 				 
                 <td> 
                 <!-- edit button -->
-                 <a href="?id=<?php echo $row['prod_categories_id'];?>&ps_id=<?php echo $row['ps_id'];?>"><button style="background-color:green;padding:7px;border:none;color:white;">Edit</button></a>
+                 <button style="background-color:grey;padding:7px;border:none;color:white;">Edit</button>
                 <!-- delete button -->
-                 <a href="delProduct.php?delete=true&id=<?php echo $row['ps_id'];?>"><button style="background-color:red;padding:7px;border:none;color:white;">Delete</button></a> 
+                 <button style="background-color:grey;padding:7px;border:none;color:white;">Delete</button>
                 </td>
 				
 				</tr>                        
@@ -337,8 +376,11 @@ if($_GET['id'] == -1)
                        
             }
 		}
+	}
 		
-        ?>
+        ?> 
+	
+        
             </tbody>
     </table>
 

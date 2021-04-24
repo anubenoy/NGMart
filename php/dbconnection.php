@@ -10,13 +10,14 @@ function del()
 
     while($row = mysqli_fetch_array($result))
     {
-        // $row = mysqli_fetch_array($result);
+        $id = $row['inventory_id'];
+        $ps_id=$row['inventory_ps_id'];
 
         $expdate = new DateTime(date($row['inventory_expiry_date']));
         $period = $expdate->diff(new DateTime(date($row['inventory_date']))); // days of expairy of prod from manufacture
 
         $manDate = new DateTime(date($row['inventory_date']));
-        $diffOfTodayWithMan = $manDate->diff(new DateTime(date('y-m-d h:i:s'))); // peroid from manufacture
+        $diffOfTodayWithMan = $manDate->diff(new DateTime(date('y-m-d h:i:s'))); // period from manufacturẻ
 
         // echo $diffOfTodayWithMan->days."< difference from manufacture date <br>";
         // echo $diffOfTodayWithMan->m."< difference from manufacture date <br>";
@@ -31,33 +32,100 @@ function del()
         if ( $diffOfTodayWithMan->days > $period->days && $diffOfTodayWithMan->m >= $period->m && $diffOfTodayWithMan->y >= $period->y ) 
         {
                 // echo "gonna change 1 <br>";
-                $id = $row['inventory_id'];
+               
                 $sql1 = "update inventory_tbl set inventory_status=0 where inventory_id=$id";
                 mysqli_query($GLOBALS['con'], $sql1);
-                $ps_id=$row['inventory_ps_id'];
-                echo $ps_id;
-                $sql6="UPDATE product_seller_tbl SET ps_total_stock=(SELECT sum(inventory_stock) FROM inventory_tbl WHERE inventory_ps_id=$ps_id and inventory_status=1) WHERE ps_id=$ps_id";
-                mysqli_query($GLOBALS['con'],$sql6);
-                if(mysqli_query($GLOBALS['con'],$sql6)){echo "done";}
+                
+                
+                echo $ps_id."in 1st cond";
+
+                $sql8="SELECT sum(inventory_stock)as s FROM inventory_tbl WHERE inventory_ps_id=$ps_id AND inventory_status=1";
+                if($result8=mysqli_query($GLOBALS['con'],$sql8))
+                {
+                    $row8=mysqli_fetch_array($result8);
+                    $ps_total_stock=$row8['s'];
+                    // echo $ps_total_stock;
+                    if($ps_total_stock!='')
+                    {
+                        $sql6="UPDATE product_seller_tbl SET ps_total_stock=$ps_total_stock WHERE ps_id=$ps_id";
+                        mysqli_query($GLOBALS['con'],$sql6);
+                        
+                    }
+                    else{
+                        $sql7="UPDATE product_seller_tbl SET ps_total_stock=0 WHERE ps_id=$ps_id";
+                        mysqli_query($GLOBALS['con'],$sql7);
+                    }
+                } 
+                
             }
         elseif($diffOfTodayWithMan->m == $period->m && $diffOfTodayWithMan->y > $period->y ){
             // echo "gonna change 2 <br>";
-            $id = $row['inventory_id'];
+            
             $sql1 = "update inventory_tbl set inventory_status=0 where inventory_id=$id";
             mysqli_query($GLOBALS['con'], $sql1);
-            $ps_id=$row['inventory_ps_id'];
-            $sql6="UPDATE product_seller_tbl SET ps_total_stock=(SELECT sum(inventory_stock) FROM inventory_tbl WHERE inventory_ps_id=$ps_id and inventory_status=1) WHERE ps_id=$ps_id";
-            if(mysqli_query($GLOBALS['con'],$sql6)){echo"done";}
+            
+            
+            echo $ps_id."in 2nd cond";
+            $sql8="SELECT sum(inventory_stock) as s FROM inventory_tbl WHERE inventory_ps_id=$ps_id AND inventory_status=1";
+                if($result8=mysqli_query($GLOBALS['con'],$sql8))
+                {
+                    $row8=mysqli_fetch_array($result8);
+                    $ps_total_stock=$row8['s'];
+                    // echo $ps_total_stock;
+                    if($ps_total_stock!='')
+                    {
+                        $sql6="UPDATE product_seller_tbl SET ps_total_stock=$ps_total_stock WHERE ps_id=$ps_id";
+                        mysqli_query($GLOBALS['con'],$sql6);
+                        
+                    }
+                    else{
+                        $sql7="UPDATE product_seller_tbl SET ps_total_stock=0 WHERE ps_id=$ps_id";
+                        mysqli_query($GLOBALS['con'],$sql7);
+                    }
+                } 
+           
+            // $sql6="UPDATE product_seller_tbl SET ps_total_stock=(SELECT sum(inventory_stock) FROM inventory_tbl WHERE inventory_ps_id=$ps_id and inventory_status=1) WHERE ps_id=$ps_id";
+            // if(mysqli_query($GLOBALS['con'],$sql6))
+            // {echo"done";}
+            // else{
+            //     $sql7="DELETE FROM product_seller_tbl WHERE ps_id=$ps_id";
+            //     mysqli_query($GLOBALS['con'],$sql7);
+            // }
         }
         elseif($diffOfTodayWithMan->y > $period->y){
             // echo "gonna change 3 <br>";
-            $id = $row['inventory_id'];
+            
             $sql1 = "update inventory_tbl set inventory_status=0 where inventory_id=$id";
             mysqli_query($GLOBALS['con'], $sql1);
-            $ps_id=$row['inventory_ps_id'];
-            $sql6="UPDATE product_seller_tbl SET ps_total_stock=(SELECT sum(inventory_stock) FROM inventory_tbl WHERE inventory_ps_id=$ps_id and inventory_status=1 ) WHERE ps_id=$ps_id";
-            mysqli_query($GLOBALS['con'],$sql6);
-            if(mysqli_query($GLOBALS['con'],$sql6)){echo"done";}
+           
+            
+            // echo $ps_id."in 3rd cond";
+           
+            $sql8="SELECT sum(inventory_stock)as s FROM inventory_tbl WHERE inventory_ps_id=$ps_id AND inventory_status=1";
+                if($result8=mysqli_query($GLOBALS['con'],$sql8))
+                {
+                    $row8=mysqli_fetch_array($result8);
+                    $ps_total_stock=$row8['s'];
+                    echo $ps_total_stock;
+                    if($ps_total_stock!='')
+                    {
+                        $sql6="UPDATE product_seller_tbl SET ps_total_stock=$ps_total_stock WHERE ps_id=$ps_id";
+                        mysqli_query($GLOBALS['con'],$sql6);
+                        
+                    }
+                    else{
+                        $sql7="UPDATE product_seller_tbl SET ps_total_stock=0 WHERE ps_id=$ps_id";
+                        mysqli_query($GLOBALS['con'],$sql7);
+                    }
+                } 
+            
+            // $sql6="UPDATE product_seller_tbl SET ps_total_stock=(SELECT sum(inventory_stock) FROM inventory_tbl WHERE inventory_ps_id=$ps_id and inventory_status=1 ) WHERE ps_id=$ps_id";
+            // if(mysqli_query($GLOBALS['con'],$sql6))
+            // {echo"done";}
+            // else{
+            //     $sql7="DELETE FROM product_seller_tbl WHERE ps_id=$ps_id";
+            //     mysqli_query($GLOBALS['con'],$sql7);
+            // }
         }
         // else{
         //     echo "not gonna change <br>";

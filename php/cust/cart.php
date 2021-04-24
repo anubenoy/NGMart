@@ -68,10 +68,10 @@ if(isset($_SESSION['id'])){
                     $r1=mysqli_query($con,$l);
                     while($row1=mysqli_fetch_array($r1)){
                         $ps=$row1['ps_id'];
-                        $sub="select price from product_seller_tbl where ps_id=$ps";
+                        $sub="select ps_price from product_seller_tbl where ps_id=$ps";
                         $r2=mysqli_query($con,$sub);
                         $row2=mysqli_fetch_array($r2);
-                        $total+=$row2['price']*$row1['cart_qty'];
+                        $total+=$row2['ps_price']*$row1['cart_qty'];
                     }
             // ?> 
             <!-- --------------------------------- -->
@@ -96,18 +96,18 @@ if(isset($_SESSION['id'])){
         
                 $item_id=$row["ps_id"];
                 // $q="select * from product_seller_tbl where ps_id=$item_id";
-                $sql2="select *,p.name as prod,s.name as seller from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l,product_tbl as p where ps.seller_id=l.login_id and p.id=ps.product_id and s.login_id=l.login_id and ps_id=$item_id";
+                $sql2="select *,p.prod_name as prod,s.seller_name as seller from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l,product_tbl as p where ps.ps_seller_id=l.login_id and p.product_id=ps.ps_product_id and s.seller_login_id=l.login_id and ps_id=$item_id";
 
                 $resulti=mysqli_query($con,$sql2);
                 $rowi=mysqli_fetch_array($resulti);
-                $image="../../images/".$rowi['image'];
+                $image="../../images/".$rowi['ps_image'];
                 ?>
                 <div class="cartitems">
-                <a href=""><img src="../../images/<?php echo $rowi['image'] ?>">
+                <a href=""><img src="../../images/<?php echo $rowi['ps_image'] ?>">
                     <div class="dis"><h2 style="margin-left:20px;"><?php echo $rowi['prod'] ?></h2>
                     <div class="seller">Sold by <?php echo $rowi['seller'] ?></div>
                     <div class="more">Click here to learn more</div></a>
-                    <div class="pr">Rs <?php echo $rowi['price']*$row['cart_qty']?></div>
+                    <div class="pr">Rs <?php echo $rowi['ps_price']*$row['cart_qty']?></div>
                     <div class="more"><?php echo $row['cart_qty'] ?> kg</div>
                     <a href="delete_cartitems.php?id=<?php echo $row['cart_id'] ?>"><button>Delete</button></a>
                     <a href="deleteupdate.php?id=<?php echo $row['cart_id']?>&ps_id=<?php echo $row['ps_id'] ?>"><button style="width:240px;">Add to wishlist and delete from cart</button></a>
