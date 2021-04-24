@@ -4,7 +4,7 @@ session_start();
 include("../dbconnection.php");
 
 
-//disable enable a user server side
+//delete product from inventory and update stock in product tbl
  if(isset($_GET['delete'])=='true' && isset($_GET['id']) && isset($_GET['ps_id'])){
     $id=$_GET["id"];
     $ps_id=$_GET["ps_id"];
