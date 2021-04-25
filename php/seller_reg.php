@@ -19,8 +19,8 @@ if(mysqli_num_rows($result)<1)
         if(mysqli_query($con,$sql2))
         {
             session_start();
-            $_SESSION['id']=$n;
-            echo $_SESSION['id'];
+            $_SESSION['temp_id']=$n;
+            // echo $_SESSION['id'];
             // header("location:seller/seller.php?id=-1");
             header("location:seller/shopdetails.php");
 

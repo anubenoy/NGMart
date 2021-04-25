@@ -1,7 +1,7 @@
 <?php
 include("../dbconnection.php");
 session_start();
-$id=$_SESSION['id'];
+$id=$_SESSION['temp_id'];
 
 $phone= $_POST["phone"];
 $address= $_POST["address"];
@@ -20,7 +20,16 @@ echo $district, $location, $file, $work_days, $time1;
         {
             $file_path='../../images/seller/'.$file;
             move_uploaded_file($_FILES["0"]["tmp_name"], $file_path);
-            header("location:seller.php?id=-1");
+            
+            session_unset();
+            if(session_destroy())
+            {  
+                session_start();
+                $_SESSION['id']=$id;  
+                header("location:seller.php?id=-1");
+            }
+
+            
             
         }
 

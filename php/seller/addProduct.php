@@ -60,7 +60,7 @@ if(mysqli_num_rows($result5)<1)
      $date=date('y-m-d h:i:s');
      $expdate;
     if($cat_id == 1 || $cat_id == 2){ $expdate=Date('y-m-d h:i:s', strtotime('+3 days')); }
-    elseif($cat_id == 3 || $cat_id == 4){$expdate=Date('y-m-d h:i:s', strtotime('+180 days'));}
+    elseif($cat_id == 3 || $cat_id == 4 || $cat_id == 5){$expdate=Date('y-m-d h:i:s', strtotime('+180 days'));}
      
  
      $sql4="INSERT INTO inventory_tbl (inventory_ps_id,inventory_seller_id,inventory_stock,inventory_date,inventory_expiry_date) VALUES ($ps_id,$seller_id,$qty,'$date','$expdate')";

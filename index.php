@@ -148,7 +148,7 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 						$result1 = mysqli_query($con, $sql1);
 						while ($row = mysqli_fetch_array($result1)) {
 							$seller_id = $row['seller_login_id'];
-							$sql = "SELECT p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id AND ps.ps_seller_id=$seller_id"; //set only for category status=1
+							$sql = "SELECT p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id AND ps.ps_seller_id=$seller_id AND ps.ps_total_stock>0 "; //set only for category status=1
 							if ($result = mysqli_query($con, $sql)) {
 								while ($row = mysqli_fetch_array($result)) {
 									$ps_id = $row['ps_id'];
@@ -188,7 +188,7 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 							}
 						}
 					} else {
-						$sql = "select p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id"; //set only for category status=1
+						$sql = "SELECT p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id AND ps.ps_total_stock>0 "; //set only for category status=1
 						if ($result = mysqli_query($con, $sql)) {
 							while ($row = mysqli_fetch_array($result)) {
 								$ps_id = $row['ps_id'];
@@ -256,7 +256,7 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 						$result1 = mysqli_query($con, $sql1);
 						while ($row = mysqli_fetch_array($result1)) {
 							$seller_id = $row['seller_login_id'];
-							$sql = "SELECT p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id AND ps.ps_seller_id=$seller_id and p.prod_categories_id=$id"; //set only for category status=1
+							$sql = "SELECT p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id AND ps.ps_seller_id=$seller_id and p.prod_categories_id=$id AND ps.ps_total_stock>0 "; //set only for category status=1
 							if ($result = mysqli_query($con, $sql)) {
 								while ($row = mysqli_fetch_array($result)) {
 									$ps_id = $row['ps_id'];
@@ -297,7 +297,7 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 						}
 					}
 					else{
-						$sql = "select p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id and p.prod_categories_id=$id";
+						$sql = "select p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id and p.prod_categories_id=$id AND ps.ps_total_stock>0 ";
 
 						if ($result = mysqli_query($con, $sql)) {
 							while ($row = mysqli_fetch_array($result)) {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 21, 2021 at 02:56 PM
+-- Generation Time: Apr 25, 2021 at 03:14 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.2.34
 
@@ -34,6 +34,15 @@ CREATE TABLE `cart_tbl` (
   `cart_qty` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `cart_tbl`
+--
+
+INSERT INTO `cart_tbl` (`cart_id`, `customerreg_id`, `ps_id`, `cart_qty`) VALUES
+(2, 1, 4, 2),
+(3, 1, 5, 1),
+(4, 1, 6, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -55,7 +64,8 @@ INSERT INTO `categories_tbl` (`id`, `categories`, `image`, `status`) VALUES
 (1, 'Vegies', 'vegies.jpg', 1),
 (2, 'Fruits', 'download.jpeg', 1),
 (3, 'Seeds', 'seeds.jpg', 1),
-(4, 'Pulses', 'pulses.jpg', 1);
+(4, 'Pulses', 'pulses.jpg', 1),
+(5, 'Dry Fruits', 'all dried fruits.png', 1);
 
 -- --------------------------------------------------------
 
@@ -136,21 +146,22 @@ CREATE TABLE `inventory_tbl` (
 --
 
 INSERT INTO `inventory_tbl` (`inventory_id`, `inventory_ps_id`, `inventory_seller_id`, `inventory_stock`, `inventory_date`, `inventory_expiry_date`, `inventory_status`) VALUES
-(1, 1, 23, 30, '20-04-20 11:26:56', '20-08-24 11:26:56', 0),
-(2, 1, 23, 10, '21-04-21 11:42:48', '21-04-24 11:42:48', 1),
-(3, 1, 23, 20, '21-04-21 12:17:47', '21-04-24 12:17:47', 1),
-(4, 1, 23, 5, '20-04-20 12:20:13', '20-08-24 12:20:13', 0),
-(5, 3, 23, 10, '21-04-21 12:27:00', '21-04-24 12:27:00', 1),
-(6, 4, 23, 10, '21-04-21 12:57:37', '21-04-24 12:57:37', 1),
-(7, 5, 23, 20, '21-04-21 12:58:44', '21-04-24 12:58:44', 1),
-(8, 6, 23, 20, '21-04-21 01:00:04', '21-04-24 01:00:04', 1),
-(9, 7, 25, 30, '21-04-21 01:01:20', '21-04-24 01:01:20', 1),
-(10, 8, 25, 20, '21-04-21 01:02:47', '21-04-24 01:02:47', 1),
-(11, 9, 25, 20, '21-04-21 01:03:19', '21-04-24 01:03:19', 1),
-(12, 10, 25, 30, '21-04-21 01:03:51', '21-04-24 01:03:51', 1),
-(13, 11, 25, 20, '21-04-21 01:04:36', '21-04-24 01:04:36', 1),
-(14, 12, 25, 30, '21-04-21 01:05:59', '21-04-24 01:05:59', 1),
-(15, 13, 25, 20, '21-04-21 01:07:18', '21-04-24 01:07:18', 1);
+(3, 3, 23, 20, '20-04-20 10:09:18', '20-10-23 10:09:18', 0),
+(5, 2, 23, 15, '21-04-24 04:40:23', '21-04-27 04:40:23', 1),
+(6, 5, 23, 20, '21-04-24 04:41:24', '21-04-27 04:41:24', 1),
+(7, 6, 23, 30, '21-04-24 04:47:05', '21-04-27 04:47:05', 1),
+(8, 1, 23, 20, '21-04-24 05:03:03', '21-04-27 05:03:03', 1),
+(9, 7, 23, 10, '21-04-24 05:04:31', '21-10-21 05:04:31', 1),
+(10, 8, 23, 20, '21-04-24 05:05:42', '21-10-21 05:05:42', 1),
+(11, 3, 23, 30, '21-04-24 05:07:23', '21-10-21 05:07:23', 1),
+(12, 9, 23, 30, '21-04-24 05:09:05', '21-10-21 05:09:05', 1),
+(13, 10, 23, 15, '21-04-25 03:52:33', '21-10-22 03:52:33', 1),
+(14, 11, 25, 40, '21-04-25 04:20:01', '21-04-28 04:20:01', 1),
+(15, 12, 25, 20, '21-04-25 04:20:50', '21-04-28 04:20:50', 1),
+(16, 13, 25, 15, '21-04-25 05:14:46', '21-10-22 05:14:46', 1),
+(18, 14, 25, 30, '21-04-25 05:26:06', '21-10-22 05:26:06', 1),
+(19, 15, 25, 20, '21-04-25 05:31:17', '21-10-22 05:31:17', 1),
+(20, 16, 25, 30, '21-04-25 05:40:21', '21-04-28 05:40:21', 1);
 
 -- --------------------------------------------------------
 
@@ -197,8 +208,8 @@ CREATE TABLE `login_tbl` (
 --
 
 INSERT INTO `login_tbl` (`login_id`, `email`, `password`, `user_type`, `status`) VALUES
-(4, 'admin@gmail.com', '$2y$10$kaSJU7blJt88aZXKF0lV/eA0ybVQEU/xUtYMtasjwTItSjVHdLGOO', 'admin', 0),
-(7, 'admin2@gmail.com', '$2y$10$NgsmCE2DVnq1zwZ0eUZZQ.OYFtPbQi6Tn4/n4zTpTIGBDQ0oEhwSC', 'admin', 1),
+(4, 'admin@gmail.com', '$2y$10$kaSJU7blJt88aZXKF0lV/eA0ybVQEU/xUtYMtasjwTItSjVHdLGOO', 'admin', 1),
+(7, 'admin2@gmail.com', '$2y$10$NgsmCE2DVnq1zwZ0eUZZQ.OYFtPbQi6Tn4/n4zTpTIGBDQ0oEhwSC', 'admin', 0),
 (8, 'admin3@gmail.com', '$2y$10$DOouZ4J2R7J6.ajzLgzYIeBrnXIvEaa5Wq7tWGNAdMAjTYH2kVKki', 'admin', 1),
 (11, 'admin1@gmail.com', '$2y$10$whZol46ig1krOdYKi2vfdO9CSCQIYy1Z8YXDaNEZ0PCBbb6GIr5RC', 'admin', 1),
 (20, 'customer@gmail.com', '$2y$10$Dai8uA4PE0maI9LdAZQPVeabm30fJGXetHGqwP/iwKSDXruwpVb5a', 'customer', 1),
@@ -255,27 +266,30 @@ CREATE TABLE `product_seller_tbl` (
   `ps_price` decimal(10,2) NOT NULL,
   `ps_image` varchar(255) NOT NULL,
   `ps_desc` varchar(255) NOT NULL,
-  `ps_total_stock` int(50) NOT NULL,
-  `ps_status` char(11) NOT NULL DEFAULT 'a'
+  `ps_total_stock` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `product_seller_tbl`
 --
 
-INSERT INTO `product_seller_tbl` (`ps_id`, `ps_seller_id`, `ps_product_id`, `ps_price`, `ps_image`, `ps_desc`, `ps_total_stock`, `ps_status`) VALUES
-(1, 23, 1, '40.00', 'veg1.png', 'crunchy carrots', 30, 'a'),
-(2, 23, 2, '15.00', 'veg1.png', 'crunchy carrots', 15, 'a'),
-(4, 23, 3, '150.00', 'Apple.jpg', 'juicy crunchy apples', 10, 'a'),
-(5, 23, 4, '250.00', 'Almond-3.jpg', 'nuty almonds', 20, 'a'),
-(6, 23, 5, '30.00', 'toor dal.png', 'protein rich', 20, 'a'),
-(7, 25, 6, '80.00', 'veg4.png', 'Fresh vegies', 30, 'a'),
-(8, 25, 7, '90.00', 'veg2.png', 'Fresh vegies', 20, 'a'),
-(9, 25, 8, '150.00', 'mango.jpg', 'juicy mangoes', 20, 'a'),
-(10, 25, 9, '245.00', 'mango.jpg', 'juicy mangoes', 30, 'a'),
-(11, 25, 10, '355.00', 'pista.jpg', 'Right from farm', 20, 'a'),
-(12, 25, 11, '15.00', 'Kala-chana.jpg', 'protein rich', 30, 'a'),
-(13, 25, 12, '450.00', 'pista.jpg', 'pistachos', 20, 'a');
+INSERT INTO `product_seller_tbl` (`ps_id`, `ps_seller_id`, `ps_product_id`, `ps_price`, `ps_image`, `ps_desc`, `ps_total_stock`) VALUES
+(1, 23, 1, '30.00', 'veg1.png', 'crunchy carrots', 20),
+(2, 23, 2, '15.00', 'veg1.png', 'crunchy carrots', 15),
+(3, 23, 5, '15.00', 'Kala-chana.jpg', 'protein rich', 50),
+(4, 23, 11, '10.00', 'toor dal.png', 'protein rich', 0),
+(5, 23, 3, '150.00', 'Apple.jpg', 'juicy crunchy apples', 20),
+(6, 23, 9, '50.00', 'mango.jpg', 'juicy mangoes', 30),
+(7, 23, 13, '355.00', 'pista.jpg', 'pistachos', 10),
+(8, 23, 14, '200.00', 'CASHEW.jpg', 'Right from farm', 20),
+(9, 23, 11, '20.00', 'toor dal.png', 'protein rich', 30),
+(10, 23, 4, '455.00', 'Almond-3.jpg', 'nuty almonds', 15),
+(11, 25, 7, '30.00', 'veg2.png', 'Fresh vegies', 40),
+(12, 25, 15, '40.00', 'veg3.png', 'Fresh vegies', 20),
+(13, 25, 16, '120.00', '37418-2-dry-apricot-photos.png', 'Variety of premium quality nuts and spices.', 15),
+(14, 25, 17, '139.00', 'golden Raisins.png', 'Variety of premium quality nuts and spices.', 30),
+(15, 25, 18, '455.00', 'Almond-3.jpg', 'nuty almonds', 20),
+(16, 25, 9, '50.00', 'mango.jpg', 'juicy mangoes', 30);
 
 -- --------------------------------------------------------
 
@@ -305,7 +319,13 @@ INSERT INTO `product_tbl` (`product_id`, `prod_categories_id`, `prod_name`) VALU
 (9, 2, 'Mango 1kg'),
 (10, 3, 'Cashew 200gm'),
 (11, 4, 'Amar-Gram 500gm'),
-(12, 3, 'In-Shell Pistachios');
+(12, 3, 'In-Shell Pistachios'),
+(13, 3, 'In-Shell Pistachios 200gm'),
+(14, 3, 'Carrot 250gm'),
+(15, 1, 'Cabbage 1kg'),
+(16, 5, 'Apricot-Dried 200g'),
+(17, 5, 'Yellow Kishmish 500g'),
+(18, 3, 'Almonds 250gm');
 
 -- --------------------------------------------------------
 
@@ -331,10 +351,15 @@ CREATE TABLE `sellerreg_tbl` (
 --
 
 INSERT INTO `sellerreg_tbl` (`seller_id`, `seller_login_id`, `seller_name`, `seller_mobile_no`, `seller_add`, `seller_work_days`, `seller_image`, `time_1`, `seller_location_id`, `seller_dist_id`) VALUES
-(1, 23, 'seller_1', '8123456789', 'karikulam, koovappally po, kanjirapally, kottayam, 68651812', 'Monday-Saturday', 'a-typical-english-village-shop-at-great-bedwyn-wiltshire-england-uk-B3Y7GX.jpeg', '09:00-19:00', 1, 2),
-(2, 24, 'seller_2', '8123456789', 'karikulam, koovappally po, kanjirappally, kottayam, 686518\r\n', 'Monday-Saturday', 'a-typical-english-village-shop-at-great-bedwyn-wiltshire-england-uk-B3Y7GX.jpeg', '07:00-21:00', 2, 1),
-(3, 25, 'seller_3', '6789012345', 'kathrikadavu', 'Saturday-Friday', 'a-typical-english-village-shop-at-great-bedwyn-wiltshire-england-uk-B3Y7GX.jpeg', '10:00-20:00', 7, 10),
-(4, 26, 'seller_4', '6785943214', 'kanjirakattu, kadayanickadu', 'Monday-Saturday', 'a-typical-english-village-shop-at-great-bedwyn-wiltshire-england-uk-B3Y7GX.jpeg', '9:00-22:59', 2, 1);
+(1, 23, 'seller_1', '8123456789', 'karikulam, koovappally po, kanjirapally, kottayam, 68651812', 'Monday-Saturday', 'shop 1.jpeg', '09:00-19:00', 2, 1),
+(2, 24, 'seller_2', '8123456789', 'karikulam, koovappally po, kanjirappally, kottayam, 686518\r\n', 'Monday-Saturday', 'shop 2.jpeg', '07:00-21:00', 2, 1),
+(3, 25, 'seller_3', '6789012345', 'kathrikadavu', 'Saturday-Friday', 'shop 3.jpeg', '10:00-20:00', 7, 10),
+(4, 26, 'seller_4', '6785943214', 'kanjirakattu, kadayanickadu', 'Monday-Saturday', 'shop 4.jpeg', '9:00-22:59', 2, 1),
+(5, 28, 'seller_5', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 28, 'seller_5', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 28, 'seller_5', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 28, 'seller_5', NULL, NULL, NULL, NULL, NULL, NULL, NULL),
+(9, 28, 'seller_5', NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -405,6 +430,14 @@ CREATE TABLE `wish_tbl` (
   `customerreg_id` int(11) NOT NULL,
   `ps_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `wish_tbl`
+--
+
+INSERT INTO `wish_tbl` (`wish_id`, `customerreg_id`, `ps_id`) VALUES
+(1, 1, 1),
+(2, 2, 13);
 
 --
 -- Indexes for dumped tables
@@ -514,13 +547,13 @@ ALTER TABLE `wish_tbl`
 -- AUTO_INCREMENT for table `cart_tbl`
 --
 ALTER TABLE `cart_tbl`
-  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `cart_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `categories_tbl`
 --
 ALTER TABLE `categories_tbl`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `customerreg_tbl`
@@ -538,7 +571,7 @@ ALTER TABLE `district_tbl`
 -- AUTO_INCREMENT for table `inventory_tbl`
 --
 ALTER TABLE `inventory_tbl`
-  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `inventory_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `location_tbl`
@@ -568,19 +601,19 @@ ALTER TABLE `order_tbl`
 -- AUTO_INCREMENT for table `product_seller_tbl`
 --
 ALTER TABLE `product_seller_tbl`
-  MODIFY `ps_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `ps_id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `product_tbl`
 --
 ALTER TABLE `product_tbl`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `sellerreg_tbl`
 --
 ALTER TABLE `sellerreg_tbl`
-  MODIFY `seller_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `seller_id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `seller_sales_tbl`
@@ -604,7 +637,7 @@ ALTER TABLE `tbl_otp`
 -- AUTO_INCREMENT for table `wish_tbl`
 --
 ALTER TABLE `wish_tbl`
-  MODIFY `wish_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `wish_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

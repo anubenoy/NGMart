@@ -450,7 +450,7 @@ require_once("php/dbconnection.php");
                     </div>
                  <!-- district -->
                     <div>
-                        <select name="district" id="dis" onchange="ajax()" required>
+                        <select name="district" id="dis" onchange="ajax()" required style="font-size:13.5px;">
                             <option  value="0">District</option>
                             <?php
                                 $query="select * from district_tbl";
@@ -463,7 +463,7 @@ require_once("php/dbconnection.php");
                     </div>
                         <!-- location place -->
                     <div>
-                        <select name="location" id="loc" required>
+                        <select name="location" id="loc" style="font-size:13.5px;" required>
                             <option  value="0">Location</option>
                         </select>
                     </div>

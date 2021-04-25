@@ -217,11 +217,18 @@ a{
 }
 .bdy .itembox{
     position: relative;
-    width:240px;
+    width:270px;
     height:370px;
     background-color: white;
-    margin:4px;
+    margin:8px;
     float: left;
+    border-radius: 9px;
+    transition: .3s ease-in-out;
+}
+.itembox:hover{
+    box-shadow: 10px 10px 10px rgb(211, 211, 211), -7px -7px 4px rgba(255,255,255,0.2);
+    /* width:276px; */
+    /* margin:7px; */
 }
 .itembox .img_sec{
     position: relative;

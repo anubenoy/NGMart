@@ -30,21 +30,6 @@ if(isset($_SESSION['id']))
 		td{
 			font-size:15px;
 		}
-		.topgreen_right button{
-			background-color: rgba(255, 255, 255, 0);
-			padding:10px;
-			border-radius: 9px;
-			border: .5px solid green ;
-			color:white;
-			cursor: pointer;
-			margin:2px;
-			transition: .2s ease-in-out;
-		}
-		.topgreen_right button:hover{
-			padding: 12px;
-			margin:0px;
-			color:rgb(250, 250, 250);
-		}
 
 	</style>
 </head>
@@ -65,13 +50,6 @@ if(isset($_SESSION['id']))
 	<div class="topbargreen">
 		<p>NGMART</p>
 		<div class="topgreen_right" style="margin-right:140px;">
-		<?php 
-		if($_GET['id']==-1){
-			echo '<a href="../reportGen/pdf.php?from=view&id=<?php echo $id?>" target="new"><button> View PDF </button></a>
-				<a href="../reportGen/pdf.php?from=download&id=<?php echo $id?>" target="new"><button> Download PDF</button></a>';
-		}
-		?>
-
 		<a href="../logout.php">Logout</a>	
 		</div>
 	</div>
