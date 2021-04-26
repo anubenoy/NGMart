@@ -15,6 +15,12 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Home page</title>
 	<link href="style/style.css" rel="stylesheet" />
+	<script>
+		function search_function() {
+			term = document.getElementById('term').value;
+			window.location.replace("index.php?id=100&search=" + term);
+		}
+	</script>
 </head>
 
 <body>
@@ -40,8 +46,8 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 	<div class="topbargreen">
 		<p onclick="location.href='index.php'">NGMART</p>
 		<div class="centerdiv">
-			<input type="text" placeholder="Search products">
-			<button>Search</button>
+			<input type="text" id='term' placeholder="Search products">
+			<button onclick="search_function()">Search</button>
 		</div>
 		<div class="topgreen_right">
 			<?php
@@ -104,7 +110,7 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 
 
 		<div class="mvgbackground">
-			<div class="cover" style="possition:abslolute;top:164px">
+			<div class="cover" style="position:abslolute;top:164px">
 				<p data-animation-offset="1.2">Fresh <br> Vegetables <br> </p>
 			</div>
 
@@ -120,7 +126,7 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 				<div class="cover">
 					<p data-animation-offset="1.3">Collect<br> from nearest shop <br> </p>
 				</div>
-			</div>s
+			</div>
 
 			<div class="node">
 				<img src="images/image1.jpeg" alt="" srcset="">
@@ -295,19 +301,18 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 								}
 							}
 						}
-					}
-					else{
+					} else {
 						$sql = "select p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id and p.prod_categories_id=$id AND ps.ps_total_stock>0 ";
 
 						if ($result = mysqli_query($con, $sql)) {
 							while ($row = mysqli_fetch_array($result)) {
 								$ps_id = $row['ps_id'];
 								$sql2 = "select s.seller_name from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
-	
+
 								if ($result2 = mysqli_query($con, $sql2)) {
 									$row2 = mysqli_fetch_array($result2);
-						?>
-	
+									?>
+
 									<div class="itembox">
 										<div class="img_sec">
 											<img src="images/<?php echo $row['ps_image'] ?>" alt="">
@@ -318,23 +323,22 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 											<h2>Rs.<?php echo $row['ps_price'] ?> </h2>
 											<?php
 											if (isset($_SESSION['id'])) {
-	
+
 												// echo '<a href="php/cust/cart.php?ps_id='.$ps_id.'"><button>Add to cart</button></a>';
 												echo '<button onclick="purchase(' . $ps_id . ')">Add to cart</button>';
 											} else {
 												echo '<a href="login_reg.php"><button>Add to cart</button></a>';
 											}
-	
+
 											?>
-	
+
 										</div>
 									</div>
-	
-						<?php
+
+					<?php
 								}
 							}
 						}
-
 					}
 					?>
 
@@ -346,54 +350,167 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
         <div class="check icon"></div>
     </div> -->
 
-	<?php
-	}
-	?>
+		<div class="container_body">
+			<center>
+				<div class="bdy">
 
-	<!-- <--- category wise sorted prod only if id iseet-->
+					<?php
+
+					if ($_GET['id'] == 100) {
+						$temp_term=$_GET['search'];
+						$term = '%' . $_GET['search'] . '%';
+						$sqlsearch = "SELECT * FROM product_tbl where prod_name like '$term'";
+						$resultsearch = mysqli_query($con, $sqlsearch);
+						$numbersofitems = mysqli_num_rows($resultsearch);
+						if ($numbersofitems > 0) {
+
+							echo '<P class="noofitem">Items found for the corresponding search :'.$temp_term.'<BR></P>';
+
+							if (isset($_SESSION['id'])) {
+								$sql1 = "SELECT seller_login_id FROM sellerreg_tbl WHERE seller_location_id=(SELECT cust_location_id FROM customerreg_tbl WHERE customerreg_id=$reg_id) AND seller_dist_id=(SELECT cust_district FROM customerreg_tbl WHERE customerreg_id=$reg_id)"; //set only for category status=1
+								$result1 = mysqli_query($con, $sql1);
+								while ($row = mysqli_fetch_array($result1)) {
+									$seller_id = $row['seller_login_id'];
+									$sql = "SELECT p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id AND ps.ps_seller_id=$seller_id AND ps.ps_total_stock>0 and p.prod_name like '$term'"; //set only for category status=1
+									if ($result = mysqli_query($con, $sql)) {
+										while ($row = mysqli_fetch_array($result)) {
+											$ps_id = $row['ps_id'];
+											$sql2 = "select s.seller_name from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
+
+											if ($result2 = mysqli_query($con, $sql2)) {
+												$row2 = mysqli_fetch_array($result2);
+					?>
+												<!-- part where displays stuff  -->
+
+												<div class="itembox">
+													<div class="img_sec">
+														<img src="images/<?php echo $row['ps_image'] ?>" alt="">
+													</div>
+													<div class="btm_sec">
+														<h1><?php echo $row['prod_name'] ?></h1>
+														<p><?php echo $row2['seller_name'] ?></p>
+														<h2>Rs.<?php echo $row['ps_price'] ?> </h2>
+														<?php
+														if (isset($_SESSION['id'])) {
+
+															// echo '<a href="php/cust/cart.php?ps_id='.$ps_id.'"><button onclick="purchase($ps_id)>Add to cart</button></a>';
+															echo '<button onclick="purchase(' . $ps_id . ')">Add to cart</button>';
+														} else {
+															echo '<a href="login_reg.php"><button> Add to cart</button></a>';
+														}
+
+														?>
+													</div>
+												</div>
+
+												<!-- ------------------------------------------ -->
+
+											<?php
+											}
+										}
+									}
+								}
+							} else {
+								$sql = "SELECT p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id AND ps.ps_total_stock>0 and p.prod_name like '$term'"; //set only for category status=1
+								if ($result = mysqli_query($con, $sql)) {
+									while ($row = mysqli_fetch_array($result)) {
+										$ps_id = $row['ps_id'];
+										$sql2 = "select s.seller_name from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
+
+										if ($result2 = mysqli_query($con, $sql2)) {
+											$row2 = mysqli_fetch_array($result2);
+											?>
+											<!-- part where displays stuff  -->
+
+											<div class="itembox">
+												<div class="img_sec">
+													<img src="images/<?php echo $row['ps_image'] ?>" alt="">
+												</div>
+												<div class="btm_sec">
+													<h1><?php echo $row['prod_name'] ?></h1>
+													<p><?php echo $row2['seller_name'] ?></p>
+													<h2>Rs.<?php echo $row['ps_price'] ?> </h2>
+													<?php
+													if (isset($_SESSION['id'])) {
+
+														// echo '<a href="php/cust/cart.php?ps_id='.$ps_id.'"><button onclick="purchase($ps_id)>Add to cart</button></a>';
+														echo '<button onclick="purchase(' . $ps_id . ')">Add to cart</button>';
+													} else {
+														echo '<a href="login_reg.php"><button> Add to cart</button></a>';
+													}
+
+													?>
+												</div>
+											</div>
+
+											<!-- ------------------------------------------ -->
+				<?php
+										}
+									}
+								}
+							} // else part if user is not logged in, user can see all items (without location) -> ends here 
 
 
-	<script>
-		// function diss(){
-		//             document.getElementById("tic").style.display="none";
-		//         }
 
-		// var xmlhttp = new XMLHttpRequest();
-		//         function purchase(x){
-		// 			// alert(x);
-		//             var url="addtocart.php?id="+x;
-		// 			var xhttp = new XMLHttpRequest();
-		// 			// xhttp.onreadystatechange = function() 
-		// 			// {
-		// 			// 	if (this.readyState == 4 && this.status == 200) 
-		// 			// 	{
-		// 			// 		alert(this.responseText);
-		// 			// 	}
-		// 			// };
-		// 			xhttp.open("GET", url, true);
-		// 			xhttp.send();
-		//         }
-		function diss() {
-			document.getElementById("tic").style.display = "none";
-		}
 
-		var xmlhttp = new XMLHttpRequest();
-
-		function purchase(x) {
-			// alert(x);
-			var sup = document.getElementById("ss");
-			var url = "addtocart.php?id=" + x;
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					// alert(this.responseText);
-					sup.innerHTML = this.responseText;
+						}
+						else{
+							echo '<div class="noofitem">No items found for the corresponding search :$temp_term </div>';
+						}
+						// echo'<div class="searchitem"> </div>';
+						// echo $_GET['search'];
+					}
 				}
-			};
-			xhttp.open("GET", url, true);
-			xhttp.send();
-		}
-	</script>
+
+				?> 
+				</div>
+			</center>
+		</div>
+
+		<!-- <--- category wise sorted prod only if id iseet-->
+
+
+		<script>
+			// function diss(){
+			//             document.getElementById("tic").style.display="none";
+			//         }
+
+			// var xmlhttp = new XMLHttpRequest();
+			//         function purchase(x){
+			// 			// alert(x);
+			//             var url="addtocart.php?id="+x;
+			// 			var xhttp = new XMLHttpRequest();
+			// 			// xhttp.onreadystatechange = function() 
+			// 			// {
+			// 			// 	if (this.readyState == 4 && this.status == 200) 
+			// 			// 	{
+			// 			// 		alert(this.responseText);
+			// 			// 	}
+			// 			// };
+			// 			xhttp.open("GET", url, true);
+			// 			xhttp.send();
+			//         }
+			function diss() {
+				document.getElementById("tic").style.display = "none";
+			}
+
+			var xmlhttp = new XMLHttpRequest();
+
+			function purchase(x) {
+				// alert(x);
+				var sup = document.getElementById("ss");
+				var url = "addtocart.php?id=" + x;
+				var xhttp = new XMLHttpRequest();
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+						// alert(this.responseText);
+						sup.innerHTML = this.responseText;
+					}
+				};
+				xhttp.open("GET", url, true);
+				xhttp.send();
+			}
+		</script>
 
 </body>
 

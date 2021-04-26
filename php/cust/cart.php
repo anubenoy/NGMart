@@ -108,7 +108,7 @@ if(isset($_SESSION['id'])){
                     <div class="seller">Sold by <?php echo $rowi['seller'] ?></div>
                     <div class="more">Click here to learn more</div></a>
                     <div class="pr">Rs <?php echo $rowi['ps_price']*$row['cart_qty']?></div>
-                    <div class="more"><?php echo $row['cart_qty'] ?> kg</div>
+                    <div class="more">Quantity : <?php echo $row['cart_qty'] ?></div>
                     <a href="delete_cartitems.php?id=<?php echo $row['cart_id'] ?>"><button>Delete</button></a>
                     <a href="deleteupdate.php?id=<?php echo $row['cart_id']?>&ps_id=<?php echo $row['ps_id'] ?>"><button style="width:240px;">Add to wishlist and delete from cart</button></a>
                 </div>

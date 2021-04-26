@@ -1,12 +1,6 @@
 <?php
 require_once("php/dbconnection.php");
-// if(session_id())//if session set evaluates to true.
-// {
 
-// }
-// else
-// {
-    
 
 ?>
 <!DOCTYPE html>
@@ -336,6 +330,9 @@ require_once("php/dbconnection.php");
             box-shadow:1px 2px 20px rgba(117, 174, 160, 0.467);
         }
         a{
+            cursor: pointer;
+        }
+        .forget{
             font-family: 'Roboto', sans-serif;
             text-decoration: none;
             color:rgba(128, 128, 128, 0.646);
@@ -398,11 +395,11 @@ require_once("php/dbconnection.php");
         <div class="container" id="page1" >
             <center>
                 <form action="php/login.php" method="POST" id="login_form">
-                    <h1 style="color:rgb(65,178,151);">Sign in to NGMART</h1>
+                    <h1 style="color:rgb(65,178,151);">Sign in to <a href="index.php" style="text-decoration: none;color:rgb(65,178,151);cursor: pointer;">NGMART</a> </h1>
                     <input type="text" name="login_email" id="login_email" onKeyUp="none()" placeholder="Email_ID" required><br>
                     <input type="password" name="login_pass" id="login_pass" onKeyUp="none()" placeholder="Password" required><br>
                     <input type="submit" value="SIGN IN"><br>
-                    <a href="php/forget_pass/forget_pass.php">Forget password ?</a>
+                    <a class="forget" href="php/forget_pass/forget_pass.php">Forget password ?</a>
                 </form>
             
                 <?php

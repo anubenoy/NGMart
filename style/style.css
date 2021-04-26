@@ -195,20 +195,26 @@ a{
 .container_body{
     position: relative;
     width:100%;
-    float:left;
+    /* float:left; */
     margin-top: 40px;
+    /* background-color: bisque; */
 
 }
 .bdy{
     position: relative;
-    width:90%;
-    margin-top: 10px;
-    /* top:50%;
-    left:50%;
-    transform: translate(-50%,-50%); */
-    /* display: flex;
+    display: flex;
+    width: 90%;
+    display: flex;
     flex-wrap: wrap;
-    justify-content: space-around; */
+    justify-content:center;
+    margin: auto;
+    /* background-color: brown; */
+}
+.noofitem{
+    position:absolute;
+    top:-40px;
+    font-size: 20px;
+
 }
 .bdy p{
     text-align: left;
@@ -217,18 +223,17 @@ a{
 }
 .bdy .itembox{
     position: relative;
-    width:270px;
+    width:236px;
     height:370px;
     background-color: white;
-    margin:8px;
-    float: left;
+    margin:7px;
     border-radius: 9px;
-    transition: .3s ease-in-out;
+    transition: .2s ease-in;
 }
 .itembox:hover{
-    box-shadow: 10px 10px 10px rgb(211, 211, 211), -7px -7px 4px rgba(255,255,255,0.2);
-    /* width:276px; */
-    /* margin:7px; */
+    /* box-shadow: 10px 10px 10px rgb(211, 211, 211), -7px -7px 4px rgba(255,255,255,0.2); */
+    width:242px;
+    margin:4px;
 }
 .itembox .img_sec{
     position: relative;
@@ -250,7 +255,7 @@ a{
 }
 .btm_sec h1{
     text-align: center;
-    font-size: 21px;
+    font-size: 19px;
     color:rgb(37,188,176);
 }
 .btm_sec p{

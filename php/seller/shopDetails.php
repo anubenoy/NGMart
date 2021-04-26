@@ -152,6 +152,31 @@ require_once("../dbconnection.php");
             padding: 0px;
             margin:0px;
             display: block;
+            background-color: rgb(253,253,253);
+        }
+        .bakground1{
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            z-index: -2;
+            background-image: url(../../images/gif2.gif);
+            background-repeat: no-repeat;
+            background-size: cover;
+            opacity: .15;
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+
+        }
+        .background2{
+            width: 50vw;
+            height: 50vh;
+            position: absolute;
+            top:50%;
+            transform: translate(0,-64%);
+            right: 0px;
+            z-index: -3;
+            opacity: .9;
+
         }
         
         @keyframes banding2{
@@ -175,7 +200,6 @@ require_once("../dbconnection.php");
             font-size:large;
             font-weight: 300;
         }
-
         button{
             position: relative;
             display: flex;
@@ -226,13 +250,13 @@ require_once("../dbconnection.php");
             margin-top: 10px;
             padding: 10px;
             border: none;
-            font-size: large;
+            font-size: 15px;
             background-color: rgba(209, 233, 215, 0.255);
             
         }
+        
         input[type=FILE]{
-            background-color: white;
-            margin-left:-40px;
+            margin-left:-30px;
         }
         input:focus,select:focus{
             outline: none;
@@ -292,10 +316,25 @@ require_once("../dbconnection.php");
         .container form div div div{
             margin-top: 10px;
         }
+        input::placeholder {
+            font-size: 15px;
+        }
+        input[type=file]::file-selector-button {
+            border:none;
+            width:100px;
+            height:30px;
+            padding: .2em .4em;
+            border-radius: .2em;
+            background: rgba(47, 130, 100,.7);
+            color:white;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
         <!-- ------------------------------page 3 -------------------------- -->
+    <div class="bakground1"></div>
+    <div class="background2"><img src="../../images/gif1.gif" alt=""></div>
     <div class="content_login" id="pages"> 
         
         <div class="container" id="page3">

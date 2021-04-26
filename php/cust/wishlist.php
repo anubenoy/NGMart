@@ -94,14 +94,14 @@ if(!isset($_GET['id'])){
         {
             $ps_id=$row_main['ps_id'];  
 			
-			$sql="select p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.id=ps.product_id and ps_id=$ps_id";
+			$sql="select p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id and ps_id=$ps_id";
 			
 			if($result=mysqli_query($con,$sql))
 			{
 				while($row=mysqli_fetch_array($result))
 				{
 					$ps_id=$row['ps_id'];
-					$sql2="select s.name from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.seller_id=l.login_id and s.login_id=l.login_id and ps_id=$ps_id;";
+					$sql2="select s.seller_name from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
 
 					if($result2=mysqli_query($con,$sql2))
 					{
@@ -110,12 +110,12 @@ if(!isset($_GET['id'])){
 
 			<div class="itembox">
 				<div class="img_sec">
-					<img src="../../images/<?php echo $row['image'] ?>" alt="">
+					<img src="../../images/<?php echo $row['ps_image'] ?>" alt="">
 				</div>
 				<div class="btm_sec">
-					<h1><?php echo $row['name'] ?></h1>
-					<p><?php echo $row2['name'] ?></p>
-					<h2>Rs.<?php echo $row['price'] ?> /kg</h2>
+					<h1><?php echo $row['prod_name'] ?></h1>
+					<p><?php echo $row2['seller_name'] ?></p>
+					<h2>Rs.<?php echo $row['ps_price'] ?> /kg</h2>
 					<?php 
 						
 							echo '<button onclick="purchase('.$ps_id.')">Add to cart</button>';	
@@ -155,14 +155,14 @@ else if(isset($_GET['id'])){
 		{
 			    $ps_id=$row_main['ps_id'];
             
-            $sql="select p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.id=ps.product_id and p.categories_id=$id and ps_id=$ps_id";
+            $sql="select p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id and p.prod_categories_id=$id and ps_id=$ps_id";
 			
 			if($result=mysqli_query($con,$sql))
 			{
 				while($row=mysqli_fetch_array($result))
 				{
 					$ps_id=$row['ps_id'];
-					$sql2="select s.name from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.seller_id=l.login_id and s.login_id=l.login_id and ps_id=$ps_id;";
+					$sql2="select s.seller_name from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
 
 					if($result2=mysqli_query($con,$sql2))
 					{
@@ -171,12 +171,12 @@ else if(isset($_GET['id'])){
 			
 			<div class="itembox">
 				<div class="img_sec">
-					<img src="../../images/<?php echo $row['image'] ?>" alt="">
+					<img src="../../images/<?php echo $row['ps_image'] ?>" alt="">
 				</div>
 				<div class="btm_sec">
-					<h1><?php echo $row['name'] ?></h1>
-					<p><?php echo $row2['name'] ?></p>
-					<h2>Rs.<?php echo $row['price'] ?></h2>
+					<h1><?php echo $row['prod_name'] ?></h1>
+					<p><?php echo $row2['seller_name'] ?></p>
+					<h2>Rs.<?php echo $row['ps_price'] ?></h2>
 					<?php 
 							echo '<button onclick="purchase('.$ps_id.')">Add to cart</button>';
 							// echo '<button onclick="">Remove from wishlist</button>';
