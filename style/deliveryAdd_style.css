@@ -1,0 +1,224 @@
+
+*{
+    font-family: fontone;
+    font-size:12px;
+}
+@font-face{
+    font-family: fontone;
+    src:url(../fonts/Rubik.ttf);
+}
+@font-face{
+    font-family: fonttwo;
+    src:url(../fonts/YuseiRegular.ttf);
+}
+.delivery_main{
+    position:relative;
+    left:15%; 
+    transform:transilate(-50%);
+    width:85%;
+}
+#d_logo{
+    max-width:13%;
+    height:auto;
+    float:left;
+}
+.status .logo_hr{
+    position: relative;
+    width:77%; 
+    top:25px;
+    /* margin-top:25px; */
+    margin-left:4px;
+    border: 1px solid rgb(240, 239, 239);
+}
+.status .hr_progress{
+    position: absolute;
+    width:6.5%; 
+    top:19px;
+    /* margin-top:25px; */
+    margin-left:4px;
+    border: 1px solid rgb(241, 139, 5);
+}
+.delivery_main .status{
+    width:400px;
+    height:50px;
+    /* background-color: blue; */
+    /* height:70px; */
+    margin-left:13.5%;
+}
+.status p{
+    position: relative;
+    top:30px;
+    font-size: 9px;
+    margin:0px 5px;
+    float:left;
+    font-weight: bold;
+}
+/* .vl {
+    border-left: 1px solid rgb(240, 239, 239);
+    height: 150px;
+
+    margin-top: -46px;
+    margin-left:150px;
+  } */
+a{
+    text-decoration: none;
+    color:rgb(9, 188, 219);
+}
+h3{
+    font-size: x-large;
+    font-weight: normal;
+}
+.hor_line{
+    border: 1px solid rgb(240, 239, 239);
+    width: 800px;
+    margin: 0;
+}
+.delivery_main h4{
+    font-size: 20px;
+    
+}
+.addr_box{
+    position: relative;
+    width: 236px;
+    height: 270px;
+    /* background-color: rgba(172, 255, 47, 0.281); */
+    margin: 0px 157px 1px 0px;
+    border-radius: 9px;
+    transition: 0.2s ease-in;
+    float:left;
+}
+
+.content p,h5{
+  margin:4px 0;
+}
+.content p .na{
+    font-size: 24px;
+    font-weight:bold;
+}
+.addr_box_body{
+    margin-top:17px;
+}
+
+.deliver_btn1 {
+    width:222px;
+    height:25px;
+    margin-top: 15px;
+    border: none;
+    color: white;
+    font-size: 10px;
+    font-family: fontone;
+    font-weight: 800;
+    border-radius: 2px;
+    /* margin-top: 6px; */
+    background: linear-gradient(
+      to bottom right,
+      rgb(240, 120, 55),
+      rgb(242, 85, 73)
+    );
+    box-shadow: 3px 3px 10px rgba(240, 120, 55, 0.749);
+    transition: ease-in-out 0.4s;
+    cursor: pointer;
+  }
+
+.deliver_btn {
+    width:110px;
+    height:25px;
+    margin-top: 15px;
+    border: none;
+    font-size: 10px;
+    font-family: fontone;
+    font-weight: 800;
+    border-radius: 2px;
+    /* margin-top: 6px; */
+    background: linear-gradient(
+      to bottom right,
+      rgb(252, 252, 252),
+      rgb(238, 238, 238)
+    );
+    box-shadow: 3px 3px 10px rgba(252, 252, 252, 0.749);
+    transition: ease-in-out 0.4s;
+    cursor: pointer;
+  }
+  
+  .addr_box_body button:hover {
+    font-size: 11px;
+    box-shadow: 3px 3px 10px rgba(240, 120, 55, 0.447);
+  }
+
+  .new_addr{
+      display: block;
+      width:100%;
+      float: left;
+
+  }
+  .new_addr label{
+      font-weight: bold;
+      margin-top: 10px;
+  }
+
+  input[type=text],select{
+    width: 43.5vw;
+    height: 8px;
+    margin-top: 10px;
+    padding: 10px;
+    border: 1px solid rgb(219, 219, 219);
+    font-size: 12px;
+    /* background-color: rgba(209, 233, 215, 0.255);
+     */
+}
+input::placeholder{
+    font-size: 11px;
+}
+select{
+    height: 33.5px;
+    width: 45vw;
+    font-size: 11px;
+}
+
+input:focus,select:focus{
+    outline: none;
+}
+
+body{
+    padding:0px;
+    margin:0px;
+}
+.footer{
+    margin:50px;
+    width: 50%;
+    height:20px;
+    position:relative;
+    float: left;
+    bottom: 0px;
+    background-image:radial-gradient(circle,rgb(247,247,247),rgb(255,255,255)); 
+    left:50%;
+    transform: translate(-50%);
+}
+.footer .topborder{
+    position: relative;
+    top:0px;
+    /* background-color: black; */
+    background-image:radial-gradient(circle,rgba(128, 127, 127, 0.269),rgb(255,255,255)); 
+    width:100%;
+    height:2px;
+}
+.footer p{
+    margin-top:25px;
+}
+
+.error{
+    color: red;
+    display: none;
+    float: left;
+    position: absolute;
+    left: 38.5vw;
+    z-index: 2;
+    margin-top: -22px;
+
+}
+.defaultAddress{
+    position: relative;
+    width:100%;
+    float:left;
+    
+}
