@@ -77,7 +77,7 @@ if(isset($_SESSION['id'])){
             <!-- --------------------------------- -->
                 <b> Subtotal (<?php echo $row['count'] ?>) : <i style="color:brown"> Rs. <?php echo $total ?> </i></b>
 
-               <center> <a href="deliveryAdd.php"><button > Proceed to buy </button> </a></center>
+               <center> <a href="update.html"><button > Proceed to buy </button> </a></center>
             </div>
 
         </div>
@@ -96,7 +96,7 @@ if(isset($_SESSION['id'])){
         
                 $item_id=$row["ps_id"];
                 // $q="select * from product_seller_tbl where ps_id=$item_id";
-                $sql2="select *,p.prod_name as prod,s.seller_name as seller from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l,product_tbl as p where ps.ps_seller_id=l.login_id and p.product_id=ps.ps_product_id and s.seller_login_id=l.login_id and ps_id=$item_id and ps.ps_total_stock>0";
+                $sql2="select *,p.prod_name as prod,s.seller_name as seller from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l,product_tbl as p where ps.ps_seller_id=l.login_id and p.product_id=ps.ps_product_id and s.seller_login_id=l.login_id and ps_id=$item_id";
 
                 $resulti=mysqli_query($con,$sql2);
                 $rowi=mysqli_fetch_array($resulti);
@@ -108,7 +108,7 @@ if(isset($_SESSION['id'])){
                     <div class="seller">Sold by <?php echo $rowi['seller'] ?></div>
                     <div class="more">Click here to learn more</div></a>
                     <div class="pr">Rs <?php echo $rowi['ps_price']*$row['cart_qty']?></div>
-                    <div class="more">Quantity :  <input type="number" name="qty" class="qty_box" value="<?php echo $row['cart_qty'] ?>" min="1" max="<?php echo $rowi['ps_total_stock']?>" oninput="checkValue(this);" onchange="updateqty(this,<?php echo $row['cart_id']?>)"> </div>
+                    <div class="more">Quantity : <?php echo $row['cart_qty'] ?></div>
                     <a href="delete_cartitems.php?id=<?php echo $row['cart_id'] ?>"><button>Delete</button></a>
                     <a href="deleteupdate.php?id=<?php echo $row['cart_id']?>&ps_id=<?php echo $row['ps_id'] ?>"><button style="width:240px;">Add to wishlist and delete from cart</button></a>
                 </div>
@@ -120,46 +120,12 @@ if(isset($_SESSION['id'])){
     </div>
  </div>
     
- <script>
-        function checkValue(sender) {
-         let min = sender.min;
-         let max = sender.max;
-         // here we perform the parsing instead of calling another function
-         let value = parseInt(sender.value);
-         if (value>max) {
-             value=max
-              sender.value = max;
-         } else if (value<min) {
-             value=min
-              sender.value = min;
-         }
-}
-function updateqty(textbox,cartid){
-    value=textbox.value
-    console.log(value,cartid)
-    var url= "../../AJAX/cartqtyupdate.php?cartid="+cartid+"&qty="+value
-    
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function() {
-					if (this.readyState == 4 && this.status == 200) {
-						// alert(this.responseText);
-                        console.log(this.responseText)
-                        if (this.responseText == "sucess"){
-                            location.reload();
-                        }
-					}
-				};
-				xhttp.open("GET", url, true);
-		xhttp.send();
-    
-}
-    </script>
+
 
 
 
 
 </body>
-
     </html>
 
 <!--session logout!-->

@@ -212,3 +212,13 @@ sup{
     position:relative;
     background-color:red;
 }
+.more .qty_box{
+    border:none;
+    width:50px;
+    margin-left: 10px;  
+}
+input[type='number']:focus {
+    border:none;
+    outline: none;
+  }
+  
