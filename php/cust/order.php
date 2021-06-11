@@ -76,9 +76,11 @@ if(isset($_SESSION['reg_id'])){
     <div class="orders">
             <h4>Order Summary</h4>
             <?php
+            $subtotal=0;
+            $item_count=0;
+            $delivery_charge=20;
             
             $sql="select * from cart_tbl where customerreg_id=$reg_id";
-            
             $result=mysqli_query($con,$sql);
             while($row=mysqli_fetch_array($result))
             {
@@ -96,13 +98,20 @@ if(isset($_SESSION['reg_id'])){
                     <div class="dis">
                         <h2 style="margin-bottom:0px;"><?php echo $rowi['prod'] ?></h2>
                         <div class="seller">Sold by <?php echo $rowi['seller'] ?></div>
-                        <div class="pr">Rs <?php echo $rowi['ps_price']?></div>
+                        <div class="pr">&#8377 <?php echo $rowi['ps_price']?></div>
                         <a href="deleteupdate.php?add_id=<?php echo $add_id ?> &order_final=true&id=<?php echo $row['cart_id']?>&ps_id=<?php echo $row['ps_id'] ?>"><button style="width:240px;">Save for later</button></a>
                     </div>
                     <div class="more"> x <?php echo $row['cart_qty'] ?> </div>
                     <div class="del_item"><a href="delete_cartitems.php?id=<?php echo $row['cart_id'] ?>"><button class="del ">x</button></a></div>    
-                </div>   
-        <?php } ?>
+                </div>  
+                
+        <?php 
+        $item_count+=$row['cart_qty'];
+        $subtotal+= $rowi['ps_price']*$row['cart_qty'];
+        } 
+        $tax = (10/100) * $subtotal; 
+        $total =  $subtotal + $delivery_charge + $tax;
+        ?>
 
     </div>
 
@@ -110,26 +119,30 @@ if(isset($_SESSION['reg_id'])){
         <h4>Payment Summary</h4>
         <table>
             <tr>
-                <td class="pay_head">Subtotal</td>
-                <td class="pay_price">Rs.20.00</td>
+                <td class="pay_head">Subtotal <label class="sub_head">(<?php echo $item_count?> items) </label></td>
+                <td class="pay_price">&#8377 <?php echo $subtotal ?></td> <!-- &#8377 - ruppee symbol-->
             </tr>
             <tr>
                 <td class="pay_head">Delivery</td>
-                <td>Rs.20.00</td>
+                <td>&#8377 20.00</td>
             </tr>
             <tr>
-                <td class="pay_head">Tax</td>
-                <td>Rs.00.00</td>
+                <td class="pay_head">Tax <label class="sub_head"> GST 10% (included)</label></td>
+                <td>&#8377 <?php echo $tax ?></td>
             </tr>
             <tr>
                 <td class="pay_head">Total paid by customer</td>
-                <td>Rs.20.00</td>
+                <td>&#8377 <?php echo $total ?></td>
             </tr>
         </table>
                 
     </div>
+    <div class="pay_btn">
+        <button  onclick="" class="deliver_btn1" style="font-size: 11px; width:100px;">Pay</button> <br><br>
+
+    </div>
     
-    <?php require_once("footer.php"); ?>
+    <?php //require_once("footer.php"); ?>
 </div>
     
 </body>

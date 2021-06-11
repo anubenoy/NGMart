@@ -189,3 +189,29 @@ body{
     position: relative;
     top:60px;
 }
+.sub_head{
+    color:rgb(172, 170, 170);
+}
+.pay_btn{
+    position: relative;
+}
+.deliver_btn1 {
+    width:222px;
+    height:25px;
+    margin-top: 15px;
+    border: none;
+    color: white;
+    font-size: 10px;
+    font-family: fontone;
+    font-weight: 800;
+    border-radius: 2px;
+    /* margin-top: 6px; */
+    background: linear-gradient(
+      to bottom right,
+      rgb(240, 120, 55),
+      rgb(242, 85, 73)
+    );
+    box-shadow: 3px 3px 10px rgba(240, 120, 55, 0.749);
+    transition: ease-in-out 0.4s;
+    cursor: pointer;
+  }
