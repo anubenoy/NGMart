@@ -21,11 +21,27 @@ $ps_id=$_GET['ps_id'];
             //update wishlist tbl
             $sql2="INSERT INTO wish_tbl (customerreg_id, ps_id) VALUES ($reg_id, $ps_id)";
 
-            if($result=mysqli_query($con,$sql2)){
-                header("location:cart.php");
+            if($result=mysqli_query($con,$sql2))
+            {
+                echo "query yes";
+                if(isset($_GET['order_final']))
+                {
+                    // if(isset($_GET['add_id']))
+                    // {
+                        $add_id=$_GET['add_id']; echo $add_id;
+                        header("location:order.php?add=$add_id");  
+                    // }
+                }
+                else{
+                    
+                        header("location:cart.php");
+                    }
+                    
+                }
+                
             }
         }
     }
-}
+
 
 ?>

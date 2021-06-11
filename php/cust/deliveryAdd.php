@@ -202,7 +202,7 @@ if(isset($_SESSION['reg_id'])){
                                 // echo " <p><a>Add delivery instructions</a></p>"
                             echo "</div>";
                         
-                                echo '<button  class="deliver_btn1">Deliver to this address</button>';
+                                echo '<a href="order.php?add='.$row['add_id'].'"><button  class="deliver_btn1">Deliver to this address</button></a>';
                                 echo '<a href="editAdd.php?add_id='.$row['add_id'].'"><button  class="deliver_btn">Edit</button></a>';
                                 echo '<a href="delAdd.php?add_id='.$row['add_id'].'"><button class="deliver_btn");">Delete</button></a>';
 
@@ -245,7 +245,7 @@ if(isset($_SESSION['reg_id'])){
                                 // echo " <p><a>Add delivery instructions</a></p>"
                             echo "</div>";
                 
-                                echo '<button  onclick="" class="deliver_btn1">Deliver to this address</button>';
+                                echo '<a href="order.php?add='.$row['add_id'].'"><button class="deliver_btn1">Deliver to this address</button></a>';
                                 echo '<a href="editAdd.php?add_id='.$row['add_id'].'"><button  class="deliver_btn">Edit</button></a>';
                                 echo '<a href="delAdd.php?add_id='.$row['add_id'].'"><button class="deliver_btn">Delete</button></a>';
                 

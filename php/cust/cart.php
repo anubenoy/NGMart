@@ -106,7 +106,7 @@ if(isset($_SESSION['id'])){
                 <a href=""><img src="../../images/<?php echo $rowi['ps_image'] ?>">
                     <div class="dis"><h2 style="margin-left:20px;"><?php echo $rowi['prod'] ?></h2>
                     <div class="seller">Sold by <?php echo $rowi['seller'] ?></div>
-                    <div class="more">Click here to learn more</div></a>
+                    <div class="more">Click here to learn more</div>
                     <div class="pr">Rs <?php echo $rowi['ps_price']*$row['cart_qty']?></div>
                     <div class="more">Quantity :  <input type="number" name="qty" class="qty_box" value="<?php echo $row['cart_qty'] ?>" min="1" max="<?php echo $rowi['ps_total_stock']?>" oninput="checkValue(this);" onchange="updateqty(this,<?php echo $row['cart_id']?>)"> </div>
                     <a href="delete_cartitems.php?id=<?php echo $row['cart_id'] ?>"><button>Delete</button></a>

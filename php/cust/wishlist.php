@@ -101,11 +101,12 @@ if(!isset($_GET['id'])){
 				while($row=mysqli_fetch_array($result))
 				{
 					$ps_id=$row['ps_id'];
-					$sql2="select s.seller_name from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
-
+					$sql2="select s.* from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
+					
 					if($result2=mysqli_query($con,$sql2))
 					{
 						$row2=mysqli_fetch_array($result2);
+						$seller_id = $row2['seller_login_id'];
 			?>
 
 			<div class="itembox">
@@ -118,7 +119,7 @@ if(!isset($_GET['id'])){
 					<h2>Rs.<?php echo $row['ps_price'] ?> /kg</h2>
 					<?php 
 						
-							echo '<button onclick="purchase('.$ps_id.')">Add to cart</button>';	
+							echo '<button onclick="purchase('.$ps_id.','.$seller_id.')">Add to cart</button>';	
                     ?>
                     <br><a href="deletewish.php?id=<?php echo $row_main['wish_id']?>" style="font-size:12px;color:gray;">Remove</a>
 				</div>
@@ -162,11 +163,12 @@ else if(isset($_GET['id'])){
 				while($row=mysqli_fetch_array($result))
 				{
 					$ps_id=$row['ps_id'];
-					$sql2="select s.seller_name from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
+					$sql2="select s.* from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
 
 					if($result2=mysqli_query($con,$sql2))
 					{
 						$row2=mysqli_fetch_array($result2);
+						$seller_id = $row2['seller_login_id'];
 			?>
 			
 			<div class="itembox">
@@ -178,7 +180,7 @@ else if(isset($_GET['id'])){
 					<p><?php echo $row2['seller_name'] ?></p>
 					<h2>Rs.<?php echo $row['ps_price'] ?></h2>
 					<?php 
-							echo '<button onclick="purchase('.$ps_id.')">Add to cart</button>';
+							echo '<button onclick="purchase('.$ps_id.','.$seller_id.')">Add to cart</button>';
 							// echo '<button onclick="">Remove from wishlist</button>';
 							
                     ?>
@@ -217,9 +219,9 @@ function diss(){
         }
 
 var xmlhttp = new XMLHttpRequest();
-        function purchase(x){
+        function purchase(x,y){
 			var sup=document.getElementById("ss");
-            var url="../../addtocart.php?id="+x;
+            var url="../../addtocart.php?seller_id=" + y + "&id=" + x;
 			var xhttp = new XMLHttpRequest();
 			xhttp.onreadystatechange = function() 
 			{

@@ -1,0 +1,176 @@
+@font-face{
+    font-family: fontone;
+    src:url(../fonts/Rubik.ttf);
+}
+@font-face{
+    font-family: fonttwo;
+    src:url(../fonts/YuseiRegular.ttf);
+}
+*{
+    font-family: fontone;
+    font-size:12px;
+}
+body{
+    background-color: rgb(255, 255, 255);
+    font-family: fontone;
+}
+.order_main{
+    position:relative;
+    left:15%; 
+    /* transform:transilate(-50%); */
+    width:85%;
+    margin:10px 0px;
+}
+#d_logo{
+    max-width:13%;
+    height:auto;
+    float:left;
+}
+.status .logo_hr{
+    position: relative;
+    width:77%; 
+    top:25px;
+    /* margin-top:25px; */
+    margin-left:4px;
+    border: 1px solid rgb(240, 239, 239);
+}
+.status .hr_progress{
+    position: absolute;
+    width:13%; 
+    top:19px;
+    margin-left:4px;
+    border: 1px solid rgb(241, 139, 5);
+}
+.order_main .status{
+    width:400px;
+    height:50px;
+    margin-left:13.5%;
+}
+.status p{
+    position: relative;
+    top:30px;
+    font-size: 9px;
+    margin:0px 5px;
+    float:left;
+    font-weight: bold;
+}
+.ship_add{
+    position: relative; 
+    width:900px;
+    height:100px;  
+}
+.order_main h4{
+    font-size: 15px;
+}
+.loca_box{
+    height:70px;
+    width:70px;
+    float:left;
+}
+.loca_logo{
+    position: relative;
+    /* background-color: rgb(255, 223, 163); */
+    background: linear-gradient(
+        to bottom right,
+        rgb(240, 120, 55,.1),
+        rgb(242, 85, 73,.1)
+      );
+    height:40px;
+    width:40px;
+    border-radius: 100%;
+    float:left;
+}
+.loca_logo img{
+    position: absolute;
+    left:10px;
+    top:10px;
+    z-index:3;   
+}
+.addr_box{
+    position: relative;
+    height: auto;
+    width:700px;
+    /* background-color: rgba(172, 255, 47, 0.281); */
+    float:left;
+}
+
+.addr_box p,h5{
+    margin:4px 0;
+    color:rgb(172, 170, 170);
+    font-size: 13px;
+  }
+
+.deliver_btn {
+    width:60px;
+    height:30px;
+    color: rgb(255, 94, 1);
+    margin-top: 15px;
+    border: none;
+    font-size: 11px;
+    font-family: fontone;
+    font-weight: 800;
+    background: linear-gradient(
+        to bottom right,
+        rgb(240, 120, 55,.1),
+        rgb(242, 85, 73,.1)
+      );
+    box-shadow: 3px 3px 10px rgba(252, 252, 252, 0.749);
+    transition: ease-in-out 0.4s;
+    cursor: pointer;
+    border-radius: 10%;
+  }
+  .addr_box button:hover {
+    font-size: 11px;
+    box-shadow: 3px 3px 10px rgba(240, 120, 55, 0.447);
+  }
+  
+  .edit_btn{
+      position: relative;
+  }
+  .orders{
+      position: relative;
+      top:40px;
+      width:100%;
+      height:auto;
+  } 
+
+  .cartitems{
+    margin:10px;
+    padding: 10px;
+    width:900px;
+    height:150px;
+    border-bottom: 1px solid rgba(131, 121, 121, 0.3);
+    background-color: rgb(255, 255, 255); 
+    background: linear-gradient(
+        to bottom right,
+        rgb(240, 120, 55,.1),
+        rgb(242, 85, 73,.1)
+      );
+    float: left;
+    display: block;
+}
+.cartitems img{
+    float: left;
+    border-radius: 20px 0px 0px 20px;
+    width:100px;
+    height: 100px; 
+}
+.cartitems a{
+    text-decoration: none;
+    color: black;
+}
+.cartitems h2{
+    font-size:medium;
+}
+.seller{
+    color:rgb(172, 170, 170);
+
+}
+.pr{
+    font-size: 17px;
+}
+.more
+ /* .cartitems:hover{
+    
+    border-bottom: 1px solid rgba(0, 0, 0, 1);
+}  */
