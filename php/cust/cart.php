@@ -77,7 +77,7 @@ if(isset($_SESSION['id'])){
             <!-- --------------------------------- -->
                 <b> Subtotal (<?php echo $row['count'] ?>) : <i style="color:brown"> Rs. <?php echo $total ?> </i></b>
 
-               <center> <a href="deliveryAdd.php"><button > Proceed to buy </button> </a></center>
+               <center> <button onclick="item_availability()"> Proceed to buy </button></center>
             </div>
 
         </div>
@@ -121,7 +121,7 @@ if(isset($_SESSION['id'])){
  </div>
     
  <script>
-        function checkValue(sender) {
+    function checkValue(sender) {
          let min = sender.min;
          let max = sender.max;
          // here we perform the parsing instead of calling another function
@@ -133,26 +133,29 @@ if(isset($_SESSION['id'])){
              value=min
               sender.value = min;
          }
-}
-function updateqty(textbox,cartid){
-    value=textbox.value
-    console.log(value,cartid)
-    var url= "../../AJAX/cartqtyupdate.php?cartid="+cartid+"&qty="+value
-    
-				var xhttp = new XMLHttpRequest();
-				xhttp.onreadystatechange = function() {
-					if (this.readyState == 4 && this.status == 200) {
-						// alert(this.responseText);
-                        console.log(this.responseText)
-                        if (this.responseText == "sucess"){
-                            location.reload();
-                        }
-					}
-				};
-				xhttp.open("GET", url, true);
-		xhttp.send();
-    
-}
+    }
+    function updateqty(textbox,cartid){
+        value=textbox.value
+        console.log(value,cartid)
+        var url= "../../AJAX/cartqtyupdate.php?cartid="+cartid+"&qty="+value
+
+    				var xhttp = new XMLHttpRequest();
+    				xhttp.onreadystatechange = function() {
+    					if (this.readyState == 4 && this.status == 200) {
+    						// alert(this.responseText);
+                            console.log(this.responseText)
+                            if (this.responseText == "sucess"){
+                                location.reload();
+                            }
+    					}
+    				};
+    				xhttp.open("GET", url, true);
+    		xhttp.send();
+                
+    }
+    function item_availability(){
+
+    }
     </script>
 
 
