@@ -94,7 +94,7 @@ if(isset($_SESSION['reg_id'])){
                 <div class="cartitems">
                     <a href=""><img src="../../images/<?php echo $rowi['ps_image'] ?>">
                     <div class="dis">
-                        <h2 style="margin-left:20px; margin-bottom:0px;"><?php echo $rowi['prod'] ?></h2>
+                        <h2 style="margin-bottom:0px;"><?php echo $rowi['prod'] ?></h2>
                         <div class="seller">Sold by <?php echo $rowi['seller'] ?></div>
                         <div class="pr">Rs <?php echo $rowi['ps_price']?></div>
                         <a href="deleteupdate.php?add_id=<?php echo $add_id ?> &order_final=true&id=<?php echo $row['cart_id']?>&ps_id=<?php echo $row['ps_id'] ?>"><button style="width:240px;">Save for later</button></a>
@@ -104,7 +104,32 @@ if(isset($_SESSION['reg_id'])){
                 </div>   
         <?php } ?>
 
-        </div>
+    </div>
+
+    <div class="pay_summary">
+        <h4>Payment Summary</h4>
+        <table>
+            <tr>
+                <td class="pay_head">Subtotal</td>
+                <td class="pay_price">Rs.20.00</td>
+            </tr>
+            <tr>
+                <td class="pay_head">Delivery</td>
+                <td>Rs.20.00</td>
+            </tr>
+            <tr>
+                <td class="pay_head">Tax</td>
+                <td>Rs.00.00</td>
+            </tr>
+            <tr>
+                <td class="pay_head">Total paid by customer</td>
+                <td>Rs.20.00</td>
+            </tr>
+        </table>
+                
+    </div>
+    
+    <?php require_once("footer.php"); ?>
 </div>
     
 </body>

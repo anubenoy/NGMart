@@ -146,7 +146,6 @@ body{
         rgb(240, 120, 55,.1),
         rgb(242, 85, 73,.1)
       );
-    float: left;
     display: block;
 }
 .cartitems img{
@@ -169,8 +168,24 @@ body{
 .pr{
     font-size: 17px;
 }
-.more
+.dis{
+    position:relative;
+    margin-left: 30px;
+    float:left;
+}
+.more{
+    position: relative;
+    float: right;
+}
+.del_item{
+    position: relative;
+    float:right;
+}
  /* .cartitems:hover{
     
     border-bottom: 1px solid rgba(0, 0, 0, 1);
 }  */
+.pay_summary{
+    position: relative;
+    top:60px;
+}
