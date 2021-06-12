@@ -1,7 +1,8 @@
 <?php
 
 session_start();
-if(isset($_SESSION['reg_id'])){
+if(isset($_SESSION['reg_id']))
+{
     include("../dbconnection.php");
     $reg_id=$_SESSION['reg_id'];
     $add_id=$_GET['add'];
@@ -253,7 +254,7 @@ if(isset($_SESSION['reg_id'])){
         <div class="pay_btn">
             <a href="place_order.php?add=<?php echo $add_id;?>"><button class="deliver_btn1" style="font-size: 11px; width:150px;height:35px;position:relative; left:890px">Proceed to Pay</button></a> <br><br>
         </div>
-        <?
+        <?php
     }
     ?>
     

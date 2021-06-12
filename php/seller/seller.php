@@ -71,7 +71,7 @@ if(isset($_SESSION['id']))
 				<a href="../reportGen/pdf.php?from=download&id=<?php echo $id?>" target="new"><button> Download PDF</button></a>';
 		}
 		?>
-
+		<a href="shopOrders.php">Orders</a>
 		<a href="../logout.php">Logout</a>	
 		</div>
 	</div>
