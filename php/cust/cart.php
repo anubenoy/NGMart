@@ -60,6 +60,7 @@ if(isset($_SESSION['id'])){
             <!-- // total cost --------------------------------- -->
             <?php
                 $total=0;
+                $cart_count=0;
             
                 $sql="select count(ps_id) as count from cart_tbl where customerreg_id=$reg_id";
                 $result=mysqli_query($con,$sql);
@@ -72,12 +73,20 @@ if(isset($_SESSION['id'])){
                         $r2=mysqli_query($con,$sub);
                         $row2=mysqli_fetch_array($r2);
                         $total+=$row2['ps_price']*$row1['cart_qty'];
+
+                        $cart_count=$row['count'];
                     }
             // ?> 
             <!-- --------------------------------- -->
                 <b> Subtotal (<?php echo $row['count'] ?>) : <i style="color:brown"> Rs. <?php echo $total ?> </i></b>
-
-               <center> <a href="deliveryAdd.php"><button onclick="item_availability()"> Proceed to buy </button> </a></center>
+                    <?php if($cart_count>0 )
+                    {?>
+                        <center> <a href="deliveryAdd.php"><button> Proceed to buy </button> </a></center>
+            <?php   }
+                    else{ ?>
+                        <center> <a href="#"><button> Proceed to buy </button> </a></center>
+                        <script> alert("Cart empty! Add items to proceed!"); </script>
+                   <?php } ?>
             </div>
 
         </div>
@@ -153,6 +162,7 @@ if(isset($_SESSION['id'])){
     		xhttp.send();
                 
     }
+     
     </script>
 
 

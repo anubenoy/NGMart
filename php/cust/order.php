@@ -32,13 +32,104 @@ if(isset($_SESSION['reg_id'])){
         <!-- CURRENT STATUS ENDS HERE  -->
         <br>
 
-        <div class="ship_add">
-        
-            <h4>Shipping Address</h4>
 
-            <div class="loca_box"><div class="loca_logo">
-            <img src="../../images/logo_loca.png" width="20px" height="25px">
-            </div></div>
+        <!-- error page for qty problem -->
+        <?php // step 1. Checking if there is any qty issuse, if yes display error box 
+            $userid=$_SESSION['reg_id'];
+
+            $response = true;
+            $responseText="⚠️ Please remove below items or adjust there quantity.";
+            // echo $response;
+        
+            // check if a person has cart items
+            $sql="SELECT * FROM cart_tbl WHERE customerreg_id=$userid";
+            $result=mysqli_query($con,$sql);
+            if(mysqli_num_rows($result)>=1){ //proceed to buy if  cart  has atleast one item for a cust
+                while($row=mysqli_fetch_array($result))
+                {
+                    $ps_id=$row['ps_id'];
+                    $sql4="SELECT * FROM product_seller_tbl as ps,cart_tbl as c WHERE c.ps_id=ps.ps_id AND ps.ps_id=$ps_id";
+                    $result4=mysqli_query($con,$sql4);
+                    $row4=mysqli_fetch_array($result4);
+                    $cart_qty=$row4['cart_qty'];
+                    $ps_stock=$row4['ps_total_stock'];
+                    if($cart_qty > $ps_stock)
+                    {
+                        $response = false;
+                        break;
+                    }
+                }
+            }
+            else{
+                $response = false;
+                $responseText="⚠️ No items found in cart, Please add items and continue...";
+            }
+            
+            if (!$response){
+                ?>
+                <div class="item_top_container">
+                    <div class="headerforerror"><?php echo $responseText?></div>
+                    <div class="horizontal_scroll">
+                        <?php
+                            $sql="SELECT * FROM cart_tbl WHERE customerreg_id=$userid";
+                            $result=mysqli_query($con,$sql);
+                            while($row=mysqli_fetch_array($result))
+                            {
+                                if(mysqli_num_rows($result)>=1) //proceed to buy if  cart  has atleast one item for a cust
+                                {   
+                                    $ps_id=$row['ps_id'];
+                                    $sql4="SELECT * FROM product_seller_tbl as ps,cart_tbl as c WHERE c.ps_id=ps.ps_id AND ps.ps_id=$ps_id";
+                                    $result4=mysqli_query($con,$sql4);
+                                    $row4=mysqli_fetch_array($result4);
+                                    $cart_qty=$row4['cart_qty'];
+                                    $ps_stock=$row4['ps_total_stock'];
+                                    if($cart_qty > $ps_stock)
+                                    {
+                                        ?>
+                                            <!-- step 2. Display item for invalid items, -->
+                                            <div class="cust_items">
+                                                <center><img src="../../images/<?php echo $row4['ps_image'] ?>" alt=""></center>
+                                                <?php 
+                                                    $product_id = $row4['ps_product_id'];
+                                                    $sqlForPrdName="SELECT * FROM product_tbl where product_id = $product_id";
+                                                    $resultForPrdName=mysqli_query($con,$sqlForPrdName);
+                                                    $rowForPrdName = mysqli_fetch_array($resultForPrdName);
+                                                    $product_name= $rowForPrdName['prod_name'];
+                                                ?>
+                                                <div class="item_name">
+                                                    <p class="name"><?php echo $product_name ?></p> 
+                                                </div>
+                                                <center><p class="qty">Avl. Qty <?php echo $row4['ps_total_stock'] ?> </p></center>
+                                                <center><div class="price"> &#8377 <?php echo $row4['ps_price']?> </div></center>
+                                                <!-- <button>Save for later</button> -->
+                                                <a href="deleteupdate.php?add_id=<?php echo $add_id ?> &order_final=true&id=<?php echo $row4['cart_id']?>&ps_id=<?php echo $row4['ps_id'] ?>"><button>Save for later</button></a>
+                                            </div>
+
+                                        <?php
+                                    }
+                                }
+                            }
+
+                        ?> 
+
+                    </div> 
+                </div>
+                <?php
+            }
+
+        ?>
+        <!-- error ends here  -->
+
+        <div class="ship_add">
+        <div class="box_div" style="padding:20px">
+            <h4>Shipping Address</h4>
+            <!-- <div class="loca_box"><div class="loca_logo"> -->
+                <table width=100%>
+                    <tr>
+                        <td width=70px><div class="loca_logo"><img src="../../images/logo_loca.png" width="20px" height="25px"></div></td>
+            
+            <!-- </div> -->
+            <!-- </div> -->
 
             <?php
                 $sql="SELECT * FROM address_tbl WHERE add_id=$add_id ";
@@ -54,23 +145,31 @@ if(isset($_SESSION['reg_id'])){
                     // $sql2="SELECT * FROM countries_tbl WHERE country_id=$country_id";
                     $result2=mysqli_query($con,$sql2);
                     $row2=mysqli_fetch_array($result2);
+                    echo '<td><div class="addr_box"><p style="font-weight:bold;">'.$row['add_full_name'].'</p> 
+                    <p>'.$row['add_mobile_no'].'</p>
+                    <p>'.$row['add_house_name'].', '.$row['add_area'].', '.$row2['cities_name'].'</p>
+                    <p>'.$row2['state_name'].', '.$row2['country_name'].', '.$row['add_pincode'].'</p>
+                    </div></td>
+                    <td >';
+                    echo '<a href="editAdd.php?add_id='.$row['add_id'].'"><button  class="deliver_btn">Edit</button></a>';
+                    echo'</td></tr></table>';
 
-                        echo '<div class="addr_box">';
+                        // echo '<div class="addr_box">';
                            
-                                echo '<p style="font-weight:bold;">'.$row['add_full_name']."</p>";
-                                echo "<p>".$row['add_mobile_no']."</p>";
-                                echo "<p>".$row['add_house_name'].", ".$row['add_area'].", ".$row2['cities_name']."</p>";
-                                echo "<p>".$row2['state_name'].", ".$row2['country_name'].", ".$row['add_pincode']."</p>";
+                                // echo '<p style="font-weight:bold;">'.$row['add_full_name'].'</p>';
+                                // echo "<p>".$row['add_mobile_no']."</p>";
+                                // echo "<p>".$row['add_house_name'].", ".$row['add_area'].", ".$row2['cities_name']."</p>";
+                                // echo "<p>".$row2['state_name'].", ".$row2['country_name'].", ".$row['add_pincode']."</p>";
                             
-                        echo "</div>";
+                        // echo "</div>";
 
-                        echo "<div class='edit_btn'>";
-                            echo '<a href="editAdd.php?add_id='.$row['add_id'].'"><button  class="deliver_btn">Edit</button></a>';
-                        echo "</div>";   
+                        // echo "<div class='edit_btn'>";
+                            // echo '<a href="editAdd.php?add_id='.$row['add_id'].'"><button  class="deliver_btn">Edit</button></a>';
+                        // echo "</div>";   
                 }
                  ?>
-         </div>
-        
+        </div>
+    </div>
         
     <div class="orders">
         <div class="box_div" style="padding:20px;">
@@ -81,6 +180,7 @@ if(isset($_SESSION['reg_id'])){
             $subtotal=0;
             $item_count=0;
             $delivery_charge=20;
+            echo "<table width=100%>";
             
             $sql="select * from cart_tbl where customerreg_id=$reg_id";
             $result=mysqli_query($con,$sql);
@@ -95,20 +195,16 @@ if(isset($_SESSION['reg_id'])){
                 $rowi=mysqli_fetch_array($resulti);
                 $image="../../images/".$rowi['ps_image'];
                 ?>
-                <div class="cartitems">
-                    <a href=""><img src="../../images/<?php echo $rowi['ps_image'] ?>">
-                    <div class="dis">
-                        <h2 style="margin-bottom:0px;"><?php echo $rowi['prod'] ?></h2>
-                        <div class="seller">Sold by <?php echo $rowi['seller'] ?></div>
-                        <button >Save for later</button></a>
-                    </div>
-                    <div class="thirdclass">
-                    &#8377 <?php echo $rowi['ps_price']?>
-                    </div>
-                    <div class="thirdclass"> x <?php echo $row['cart_qty'] ?> </div>
-                    <div class="del_item"><a href="delete_cartitems.php?id=<?php echo $row['cart_id'] ?>"><button class="del ">x</button></a></div>    
-                    <a href="deleteupdate.php?add_id=<?php echo $add_id ?> &order_final=true&id=<?php echo $row['cart_id']?>&ps_id=<?php echo $row['ps_id'] ?>"></a>
-                </div>    
+                <tr height=150px>
+                    <td width=150px><a href=""><img class="table_image" src="../../images/<?php echo $rowi['ps_image'] ?>"></td>
+                    <td><h2 style="margin-bottom:0px;"><?php echo $rowi['prod'] ?></h2><div class="seller">Sold by <?php echo $rowi['seller'] ?></div></td>
+                    <td>&#8377 <?php echo $rowi['ps_price']?></td>
+                    <td width=100px>x <?php echo $row['cart_qty'] ?></td>
+                    <td width=150px>
+                        <a href="delete_cartitems.php?add_id=<?php echo $add_id ?> &order_final=true&id=<?php echo $row['cart_id'] ?>"><button class="carttablebuttons">Delete from cart</button></a><br><BR>
+                        <a href="deleteupdate.php?add_id=<?php echo $add_id ?> &order_final=true&id=<?php echo $row['cart_id']?>&ps_id=<?php echo $row['ps_id'] ?>"><button class="carttablebuttons">Save for later</button></a>
+                    </td>
+                </tr> 
                 
         <?php 
         $item_count+=$row['cart_qty'];
@@ -117,14 +213,8 @@ if(isset($_SESSION['reg_id'])){
         $tax = (10/100) * $subtotal; 
         $total =  $subtotal + $delivery_charge + $tax;
         ?>
-
-        <!-- //testing  -->
-
-
-
-        <!-- testing done  -->
+        </table>
         </div>
-
     </div>
 
     <div class="box_div" style="padding:20px 20px 0px 20px; margin-top:80px">
@@ -156,11 +246,16 @@ if(isset($_SESSION['reg_id'])){
         
     </div>
 
-    <div class="pay_btn">
-       <a href="place_order.php?add=<?php echo $add_id ?>"><button class="deliver_btn1" style="font-size: 11px; width:100px;">Pay</button></a> <br><br>
-
-    </div>
-    
+    <!-- no error only shows the pay button -->
+    <?php 
+    if($response){
+        ?>
+        <div class="pay_btn">
+            <a href="place_order.php?add=<?php echo $add_id;?>"><button class="deliver_btn1" style="font-size: 11px; width:150px;height:35px;position:relative; left:890px">Proceed to Pay</button></a> <br><br>
+        </div>
+        <?
+    }
+    ?>
     
 </div>
 <?php require_once("footer.php"); ?>

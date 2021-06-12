@@ -15,6 +15,9 @@ body{
     /* background-color: rgb(245,249,251); */
     font-family: fontone;
 }
+::-webkit-scrollbar {
+    width: 0px;
+}
 .order_main{
     position:relative;
     left:15%; 
@@ -58,7 +61,7 @@ body{
 .ship_add{
     position: relative; 
     width:900px;
-    height:100px;  
+    /* height:100px;   */
 }
 .order_main h4{
     font-size: 18px;
@@ -140,7 +143,7 @@ body{
     padding: 10px;
     width:96%;
     height:120px;
-    border-bottom: 1px solid rgba(131, 121, 121, 0.16);
+    /* border-bottom: 1px solid rgba(131, 121, 121, 0.16); */
     /* background-color: rgb(194, 38, 38);  */
     /* background: linear-gradient(
         to bottom right,
@@ -152,6 +155,10 @@ body{
 .cartitems img{
     float: left;
     border-radius: 20px 0px 0px 20px;
+    width:100px;
+    height: 100px; 
+}
+.table_image{
     width:100px;
     height: 100px; 
 }
@@ -235,12 +242,12 @@ body{
   }
 
   .box_div{
-      width:58%;
+      width:1000px;
       /* height:100vh; */
       /* background-color: aqua; */
           /* background-color: rgb(245,249,251); */
       border-radius: 5px;
-      /* box-shadow: rgba(0, 0, 0, 0.125) 0px 7px 10px, rgb(250, 251, 252) -10px -10px 10px; */
+      box-shadow: rgba(0, 0, 0, 0.125) 0px 7px 10px, rgb(250, 251, 252) -10px -10px 10px;
   }
 
   .color_bottom{
@@ -252,5 +259,94 @@ body{
       background-color: rgb(245,249,251);
       padding: 20px;
       border-radius: 0px 0px 5px 5px;
-
   }
+  .carttablebuttons{
+      width:100%;
+      height:25px;
+  }
+
+
+  /* error page styling  ----------------------- */
+
+  .item_top_container{
+    /* height: 100vh; */
+    width:1000px;
+    padding:20px;
+    height: 300px;
+    /* background-color: rgb(215, 159, 38); */
+    margin:25px 0px;
+    /* left:0; */
+    /* transform: translate(0%); */
+    /* display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center; */
+}
+.horizontal_scroll{
+    position: relative;
+    display: flex;
+    flex-wrap: no-wrap;
+    overflow-x: scroll;
+}
+.item_top_container .headerforerror{
+    padding: 10px;
+    width:980px;
+    background-color: rgb(208, 63, 63);
+    text-align: center;
+    border-radius: 20px;
+    font-size: 17px;
+    font-family: sans-serif;
+    color: white;
+    margin-bottom: 10px;
+}
+.item_top_container .cust_items{
+    position: relative;
+    min-width: 210px;
+    height: 250px;
+    /* background-color: chocolate; */
+    float: left;
+    margin:5px;
+    border-radius:10px;
+    border:1px rgba(255, 0, 0, 0.714) solid;
+}
+.cust_items img{
+    width:120px;
+}
+.item_name{
+    text-align: center;
+    min-width: 210px;
+    margin-bottom: -10px;
+}
+.name{
+    font-size: 13px;
+    font-family: sans-serif;
+    color:black;
+}
+.qty{
+    margin-top: 0px;
+    position: relative;
+    font-size: 12px;
+    font-family: sans-serif;
+    color:rgba(0, 0, 0, 0.399);
+}
+.price{
+    color:red;
+    font-family: sans-serif;
+    font-size: 13px;
+}
+.cust_items button{
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 40px;
+    border-top:1px dotted rgba(21, 80, 228, 0.173);
+    border-bottom: 0px;
+    border-right: 0px;
+    border-left: 0px;
+    background-color: rgba(0, 0, 0, 0);
+    border-radius: 0px 0px 0px 10px;
+    color:blue;
+    cursor: pointer;
+}
+
+/* error page styling ends here  */
