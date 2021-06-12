@@ -77,7 +77,7 @@ if(isset($_SESSION['id'])){
             <!-- --------------------------------- -->
                 <b> Subtotal (<?php echo $row['count'] ?>) : <i style="color:brown"> Rs. <?php echo $total ?> </i></b>
 
-               <center> <button onclick="item_availability()"> Proceed to buy </button></center>
+               <center> <a href="deliveryAdd.php"><button onclick="item_availability()"> Proceed to buy </button> </a></center>
             </div>
 
         </div>
@@ -138,7 +138,7 @@ if(isset($_SESSION['id'])){
         value=textbox.value
         console.log(value,cartid)
         var url= "../../AJAX/cartqtyupdate.php?cartid="+cartid+"&qty="+value
-
+        
     				var xhttp = new XMLHttpRequest();
     				xhttp.onreadystatechange = function() {
     					if (this.readyState == 4 && this.status == 200) {
@@ -152,9 +152,6 @@ if(isset($_SESSION['id'])){
     				xhttp.open("GET", url, true);
     		xhttp.send();
                 
-    }
-    function item_availability(){
-
     }
     </script>
 

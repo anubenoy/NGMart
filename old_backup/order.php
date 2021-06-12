@@ -5,6 +5,8 @@ if(isset($_SESSION['reg_id'])){
     include("../dbconnection.php");
     $reg_id=$_SESSION['reg_id'];
     $add_id=$_GET['add'];
+    
+
 
 ?>
 <!DOCTYPE html>
@@ -33,7 +35,7 @@ if(isset($_SESSION['reg_id'])){
         <br>
 
         <div class="ship_add">
-        
+
             <h4>Shipping Address</h4>
 
             <div class="loca_box"><div class="loca_logo">
@@ -71,11 +73,7 @@ if(isset($_SESSION['reg_id'])){
                  ?>
          </div>
         
-        
     <div class="orders">
-        <div class="box_div" style="padding:20px;">
-
-        
             <h4>Order Summary</h4>
             <?php
             $subtotal=0;
@@ -100,15 +98,12 @@ if(isset($_SESSION['reg_id'])){
                     <div class="dis">
                         <h2 style="margin-bottom:0px;"><?php echo $rowi['prod'] ?></h2>
                         <div class="seller">Sold by <?php echo $rowi['seller'] ?></div>
-                        <button >Save for later</button></a>
+                        <div class="pr">&#8377 <?php echo $rowi['ps_price']?></div>
+                        <a href="deleteupdate.php?add_id=<?php echo $add_id ?> &order_final=true&id=<?php echo $row['cart_id']?>&ps_id=<?php echo $row['ps_id'] ?>"><button style="width:240px;">Save for later</button></a>
                     </div>
-                    <div class="thirdclass">
-                    &#8377 <?php echo $rowi['ps_price']?>
-                    </div>
-                    <div class="thirdclass"> x <?php echo $row['cart_qty'] ?> </div>
+                    <div class="more"> x <?php echo $row['cart_qty'] ?> </div>
                     <div class="del_item"><a href="delete_cartitems.php?id=<?php echo $row['cart_id'] ?>"><button class="del ">x</button></a></div>    
-                    <a href="deleteupdate.php?add_id=<?php echo $add_id ?> &order_final=true&id=<?php echo $row['cart_id']?>&ps_id=<?php echo $row['ps_id'] ?>"></a>
-                </div>    
+                </div>  
                 
         <?php 
         $item_count+=$row['cart_qty'];
@@ -118,52 +113,37 @@ if(isset($_SESSION['reg_id'])){
         $total =  $subtotal + $delivery_charge + $tax;
         ?>
 
-        <!-- //testing  -->
-
-
-
-        <!-- testing done  -->
-        </div>
-
     </div>
 
-    <div class="box_div" style="padding:20px 20px 0px 20px; margin-top:80px">
+    <div class="pay_summary">
         <h4>Payment Summary</h4>
-        <table width=100%>
+        <table>
             <tr>
                 <td class="pay_head">Subtotal <label class="sub_head">(<?php echo $item_count?> items) </label></td>
-                <td class="pay_price" style="text-align:right">&#8377 <?php echo $subtotal ?></td> <!-- &#8377 - ruppee symbol-->
+                <td class="pay_price">&#8377 <?php echo $subtotal ?></td> <!-- &#8377 - ruppee symbol-->
             </tr>
             <tr>
                 <td class="pay_head">Delivery</td>
-                <td style="text-align:right">&#8377 20.00</td>
+                <td>&#8377 20.00</td>
             </tr>
             <tr>
                 <td class="pay_head">Tax <label class="sub_head"> GST 10% (included)</label></td>
-                <td style="text-align:right">&#8377 <?php echo $tax ?></td>
+                <td>&#8377 <?php echo $tax ?></td>
             </tr>
             <tr>
                 <td class="pay_head">Total paid by customer</td>
-                <td style="text-align:right">&#8377 <?php echo $total ?></td>
+                <td>&#8377 <?php echo $total ?></td>
             </tr>
         </table>
-        <div class="color_bottom">
-            <table width=100%><tr>
-                <td class="pay_head">Total paid by customer</td>
-                <td style="text-align:right">&#8377 <?php echo $total ?></td>
-            </tr></table>
-        </div>
-        
+                
     </div>
-
     <div class="pay_btn">
-       <a href="place_order.php?add=<?php echo $add_id ?>"><button class="deliver_btn1" style="font-size: 11px; width:100px;">Pay</button></a> <br><br>
+        <button  onclick="" class="deliver_btn1" style="font-size: 11px; width:100px;">Pay</button> <br><br>
 
     </div>
     
-    
+    <?php //require_once("footer.php"); ?>
 </div>
-<?php require_once("footer.php"); ?>
     
 </body>
 </html>
