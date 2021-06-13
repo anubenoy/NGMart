@@ -13,8 +13,16 @@ $seller_id=$_GET['seller_id'];
     {   
         $sql2="INSERT INTO cart_tbl (customerreg_id, ps_id) VALUES ($userid,$ps_id)";
         mysqli_query($con,$sql2);
+        
+        //update cart_qty in index page
+        $sqlc="select count(ps_id) as count from cart_tbl where customerreg_id=$userid"; 
+        $resultc=mysqli_query($con,$sqlc);
+        $rowc=mysqli_fetch_array($resultc);
+        echo $rowc['count'];
+
     }
-    else{  //if cart item present
+    else
+    {  //if cart item present
         $cart_ps_id=$row['ps_id'];
         $sql3="SELECT * FROM product_seller_tbl WHERE ps_id=$cart_ps_id";
         $result3=mysqli_query($con,$sql3);
@@ -39,25 +47,42 @@ $seller_id=$_GET['seller_id'];
                 { 
                     $sql5="INSERT INTO cart_tbl (customerreg_id, ps_id) VALUES ($userid,$ps_id)";
                     mysqli_query($con,$sql5);
+                    // echo true;
+                    // update cart_qty in index page
+                    $sqlc="select count(ps_id) as count from cart_tbl where customerreg_id=$userid"; 
+                    $resultc=mysqli_query($con,$sqlc);
+                    $rowc=mysqli_fetch_array($resultc);
+                    echo $rowc['count'];
+
                 }
                 else{
                     $sql5="UPDATE cart_tbl SET cart_qty=cart_qty+1 where customerreg_id=$userid AND ps_id=$ps_id";
                     mysqli_query($con,$sql5);
+                    // echo true;
+                    // update cart_qty in index page
+                    $sqlc="select count(ps_id) as count from cart_tbl where customerreg_id=$userid"; 
+                    $resultc=mysqli_query($con,$sqlc);
+                    $rowc=mysqli_fetch_array($resultc);
+                    echo $rowc['count'];
                  }   
             
             } 
-
            
+        }
+        else
+        {
+            echo false;
+            // echo "this is an error";
         }
     
      
     }
 
 //update cart_qty in index page
-$sqlc="select count(ps_id) as count from cart_tbl where customerreg_id=$userid"; 
-$resultc=mysqli_query($con,$sqlc);
-$rowc=mysqli_fetch_array($resultc);
-echo $rowc['count'];
+// $sqlc="select count(ps_id) as count from cart_tbl where customerreg_id=$userid"; 
+// $resultc=mysqli_query($con,$sqlc);
+// $rowc=mysqli_fetch_array($resultc);
+// echo $rowc['count'];
 
 
 ?>

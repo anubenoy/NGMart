@@ -350,10 +350,6 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 			</center>
 		</div>
 
-		<!-- <div class="tick" id="tic" >
-        <div class="check icon"></div>
-    </div> -->
-
 		<div class="container_body">
 			<center>
 				<div class="bdy">
@@ -470,6 +466,10 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 			</center>
 		</div>
 
+		<div class="tick" id="tic">
+            <div class="check icon"></div>
+        </div>
+
 		<!-- <--- category wise sorted prod only if id iseet-->
 
 
@@ -492,14 +492,22 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 			var xmlhttp = new XMLHttpRequest();
 
 			function purchase(x,y) {
-				// alert(x);
 				var sup = document.getElementById("ss");
 				var url = "addtocart.php?seller_id=" + y + "&id=" + x;
 				var xhttp = new XMLHttpRequest();
 				xhttp.onreadystatechange = function() {
 					if (this.readyState == 4 && this.status == 200) {
 						// alert(this.responseText);
-						sup.innerHTML = this.responseText;
+						if(this.responseText == false){
+							console.log("returning false");
+							console.log("seller_id : "+y+" ps_id="+x)
+							window.location="php/cust/cart.php?alert=true&seller_id="+y+"&ps_id="+x;
+						}
+						else{
+							sup.innerHTML = this.responseText;
+							document.getElementById("tic").style.display="block";
+            				setTimeout(diss, 700);
+						}
 					}
 				};
 				xhttp.open("GET", url, true);
@@ -507,6 +515,7 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 			}
 		</script>
 
+		<!-- loagin animation  -->
 		<div class="animationOnLoad" id="animationonload">
 			<p>NGMART</p>
 			<img src="images/loading.gif" alt="loading" loading="lazy">

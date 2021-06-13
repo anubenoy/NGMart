@@ -24,8 +24,7 @@ if(isset($_SESSION['id'])){
                 $result=mysqli_query($con,$sql);
                 $row=mysqli_fetch_array($result); 
                 echo '<a href="#">'.$row['name'].'</a>';
-                           
-
+            
 			?>
 			
 		</div>
@@ -49,6 +48,29 @@ if(isset($_SESSION['id'])){
 			
 		</div>
 	</div>	
+
+
+<!-- //popup box -->
+<?php 
+    if(isset($_GET['alert'])){
+        ?>
+        <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <p>The selected items are not from the same seller. You can either delete current cart items and add products from this seller or cancel the item to add.</p>
+            <center><div class="bottom_buttons">
+                <a href="cart.php"><button style="color:black;background:linear-gradient( #CFD7CF 0%,#E3E3E3 45%,#D8D8D8 50%,#E3E3E3 55%,#CFD7CF 100%);">Cancel</button></a>
+                <a href="delAndadd.php?seller_id=<?php echo($_GET['seller_id']) ?>&ps_id=<?php echo($_GET['ps_id']) ?>"><button style="background-color:#05CE91">Delete and Add</button></a>
+            </div></center>
+        </div>
+        </div>
+    <?php 
+    }
+?>
+
+<!-- pop up box ends here  -->
+
+
 <!-- --------------------------------top nav bar done  -->
 <div class="item_display">
 <div class="margin" style="margin-top: 10px;">
@@ -170,17 +192,17 @@ if(isset($_SESSION['id'])){
 
 </body>
 
-    </html>
+</html>
 
 <!--session logout!-->
 <?php
 	}
 	else
- 		{?>
-			<script>
-			alert("Already Logout! \n Login to continue.");
-			window.location.href="../../login_reg.php";
-			</script>
-			
-			<?php
-		}?>
+    {?>
+		<script>
+		alert("Already Logout! \n Login to continue.");
+		window.location.href="../../login_reg.php";
+		</script>
+		
+		<?php
+	}?>

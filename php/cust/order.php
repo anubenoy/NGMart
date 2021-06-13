@@ -4,8 +4,10 @@ session_start();
 if(isset($_SESSION['reg_id']))
 {
     include("../dbconnection.php");
+    require('../payment/pconfig.php');
     $reg_id=$_SESSION['reg_id'];
     $add_id=$_GET['add'];
+    $_SESSION['addr_id']=$add_id;
 
 ?>
 <!DOCTYPE html>
@@ -213,6 +215,8 @@ if(isset($_SESSION['reg_id']))
         } 
         $tax = (10/100) * $subtotal; 
         $total =  $subtotal + $delivery_charge + $tax;
+        $paise_total=$total*100;
+        $_SESSION['paise_total']=$paise_total;
         ?>
         </table>
         </div>
@@ -252,10 +256,21 @@ if(isset($_SESSION['reg_id']))
     if($response){
         ?>
         <div class="pay_btn">
-            <a href="place_order.php?add=<?php echo $add_id;?>"><button class="deliver_btn1" style="font-size: 11px; width:150px;height:35px;position:relative; left:890px">Proceed to Pay</button></a> <br><br>
+            <form action="../payment/submit.php" method="post" style="font-size: 11px; width:150px;height:35px;position:relative; left:922px; margin-top:30px;">
+	           <script
+	        	src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+	        	data-key="<?php echo $publishableKey?>"
+	        	data-amount="<?php echo $paise_total ?>"
+	        	data-name="Payment"
+	        	data-description="Purchace with NGMart"
+	        	data-currency="inr"
+	        	data-email="anubenoy@mca.ajce.in">
+	            </script>
+            </form>
+            <!-- <a href="place_order.php?add=<?php //echo $add_id;?>"><button class="deliver_btn1" style="font-size: 11px; width:150px;height:35px;position:relative; left:890px">Proceed to Pay</button></a> <br><br> -->
         </div>
         <?php
-    }
+   }
     ?>
     
 </div>

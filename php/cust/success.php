@@ -6,52 +6,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Success</title>
     <style>
-    .tick{
-    display:block;
-    transition: transform 1s;
-    top:50%;
-    left:50%;
-    transform: translate(-50%, -30%);
-    position: fixed;
-    margin:10px;
-    width:250px;
-    height:250px;
-    background-color: rgba(170, 167, 167, 0.76);
-    border-radius: 10px;
+
+.sucessmesage{
+  width: 600px;
+  height:400px;
+  position: absolute;
+  left: 50%;
+  top:40%;
+  transform: translate(-50%,-50%);
+  text-align: center;
+  font-family: sans-serif;
+  font-size: 20px;
 }
-.check.icon {
-    color: white;
-    position: absolute;
-    top: 30%;
-    left: 30%;
-    margin-left:auto;
-    margin-top:auto;
-    width: 100px;
-    height: 45px;
-    border-bottom: solid 1px currentColor;
-    border-left: solid 1px currentColor;
-    -webkit-transform: rotate(-45deg);
-            transform: rotate(-45deg);
-}
-.msg{
+img{
   position: relative;
-  
-  top:60%;
-  left:30%;
- 
+  height: 280px;
 }
-
+.sucessmesage h4{
+  margin-top: 30px;
+}
+.sucessmesage p {
+  display:inline ;
+  margin-top: 20px;
+}
     </style>
+    <script>
+      function timerfunc()
+      {
+        var timeleft = 9;
+        var downloadTimer = setInterval( function(){
+          if(timeleft <= 0){
+            window.location.href = "../../index.php";
+          }
+        document.getElementById("min").innerHTML =timeleft;
+        timeleft -= 1;
+        }, 1000);
+      }
+    </script>
 </head>
-<body>
-    
-<div class="tick" id="tic" >
-   <div class="check icon"></div>
- </div>
+<body onload=timerfunc()>
 
- <div class="msg">
-  <h2>Order Placed!</h2>
+<div class="sucessmesage">
+  <center><img src="../../images/Success.jpg" alt=""></center>
+  <h4 style = "color:black">Redirecting in <p id="min">10</p> sec  </h4>
 </div>
-    
+ 
 </body>
 </html>

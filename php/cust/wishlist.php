@@ -201,39 +201,47 @@ else if(isset($_GET['id'])){
 	</center>
 </div>
 
-<!-- <div class="tick" id="tic" >
-        <div class="check icon"></div>
-    </div> -->
+
 
 <?php 
 }
 ?>
 
+<div class="tick" id="tic">
+    <div class="check icon"></div>
+</div>
 <!-- <--- category wise sorted prod only if id iseet-->
 
 
 <script>
 
-function diss(){
-            document.getElementById("tic").style.display="none";
-        }
+	function diss(){
+        document.getElementById("tic").style.display="none";
+    }
 
-var xmlhttp = new XMLHttpRequest();
-        function purchase(x,y){
-			var sup=document.getElementById("ss");
-            var url="../../addtocart.php?seller_id=" + y + "&id=" + x;
-			var xhttp = new XMLHttpRequest();
-			xhttp.onreadystatechange = function() 
+	var xmlhttp = new XMLHttpRequest();
+    function purchase(x,y){
+		var sup=document.getElementById("ss");
+        var url="../../addtocart.php?seller_id=" + y + "&id=" + x;
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
 			{
-				if (this.readyState == 4 && this.status == 200) 
-				{
-					// alert(this.responseText);
-                    sup.innerHTML=this.responseText;
+				if(this.responseText == false){
+					window.location="cart.php?alert=true&seller_id="+y+"&ps_id="+x;
 				}
-			};
-			xhttp.open("GET", url, true);
-			xhttp.send();
-        }
+				else{
+					sup.innerHTML = this.responseText;
+					document.getElementById("tic").style.display="block";
+            		setTimeout(diss, 700);
+				}
+			}
+		};
+		xhttp.open("GET", url, true);
+		xhttp.send();
+    }
+
 </script>
 
 </body>

@@ -71,7 +71,7 @@ if(isset($_SESSION['id']))
 <div style="padding:26px 26px;">
 	<center>
 	
-    	 <!-- listing all products -->
+    	 <!-- listing all orders -->
 	
     <table width="100%">
 		 <col style="width:4%">

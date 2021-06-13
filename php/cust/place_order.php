@@ -1,10 +1,13 @@
 <?php
 session_start();
 include("../dbconnection.php");
+
 $userid=$_SESSION['reg_id'];
-$trans_ftail="#qlk2021";
-$trans_btail=1;
-$add_id=$_GET['add'];
+$seed = str_split('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789');
+    shuffle($seed);
+    $rand = '';
+    foreach (array_rand($seed, 60) as $k) $rand .= $seed[$k];
+$add_id=$_SESSION['addr_id'];
 
 $response = true;
 
@@ -41,15 +44,14 @@ $response = true;
         $result2=mysqli_query($con,$sql2);
         while($row2=mysqli_fetch_array($result2))
         {
-            $trans_btail+=1; //to be generated only if payment done.
-            $transaction_id=$trans_ftail.$trans_btail;
+           
         
             date_default_timezone_set("Asia/Kolkata");
             $o_date=date('y-m-d h:i:s');
            
             //checking if paid or not
             $order_status="";
-            if(isset($transaction_id)){$order_status="paid";}
+            if(isset($rand)){$order_status="paid";}
             else{$order_status="pending";}
            
             $ps_id=$row2['ps_id'];
@@ -77,10 +79,11 @@ $response = true;
                 if(mysqli_query($con,$sql6))
                 {
                       // insert into order tbl cart items only if prod deducted from inventory tbl.
-                    $sql5="INSERT INTO order_tbl (order_transaction_id,order_date,order_status,order_customer_id,order_product_seller_id,order_ps_id,order_quantity,order_price,order_add_id) VALUES ('$transaction_id','$o_date','$order_status',$userid,$product_seller_id,$ps_id,$cart_qty,$current_price,$add_id)";
+                    $sql5="INSERT INTO order_tbl (order_transaction_id,order_date,order_status,order_customer_id,order_product_seller_id,order_ps_id,order_quantity,order_price,order_add_id) VALUES ('$rand','$o_date','$order_status',$userid,$product_seller_id,$ps_id,$cart_qty,$current_price,$add_id)";
                     $result5=mysqli_query($con,$sql5);
-                    echo "sucess";
+                   
                 }
+                
    
             }
             else
@@ -92,7 +95,12 @@ $response = true;
            
 
         }
-
+        //echo "sucess";
+        $sql="delete FROM cart_tbl WHERE customerreg_id=$userid";
+        if(mysqli_query($con,$sql)){
+            header("location:success.php");
+        }
+        
         
         
     }
