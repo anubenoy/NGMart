@@ -17,7 +17,7 @@ if(isset($_SESSION['id'])){
 </head>
 <body>
     <div class="topblack">
-		<div class="leftblock"><p>For enquiry call 911 | email on <a style="color:rgba(255, 255, 255, 0.851);" href="mailto:admin@gmail.com"> admin@gmail.com </a></p></div>
+		<div class="leftblock"><p>For enquiry call 123 | email on <a style="color:rgba(255, 255, 255, 0.851);" href="mailto:admin@gmail.com"> admin@gmail.com </a></p></div>
 		<div class="rightblack">
 			<?php 
 

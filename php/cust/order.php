@@ -80,10 +80,18 @@ if(isset($_SESSION['reg_id']))
                             {
                                 if(mysqli_num_rows($result)>=1) //proceed to buy if  cart  has atleast one item for a cust
                                 {   
+                                    
                                     $ps_id=$row['ps_id'];
                                     $sql4="SELECT * FROM product_seller_tbl as ps,cart_tbl as c WHERE c.ps_id=ps.ps_id AND ps.ps_id=$ps_id";
                                     $result4=mysqli_query($con,$sql4);
                                     $row4=mysqli_fetch_array($result4);
+
+                                    // dynamic price entered while ordering
+		                            $current_price=0;
+		                            $discount=$row4['ps_discount_perct'];
+		                            $org_price=$row4['ps_price'];
+		                            $offer_price=$org_price-($discount/100)*$org_price;
+
                                     $cart_qty=$row4['cart_qty'];
                                     $ps_stock=$row4['ps_total_stock'];
                                     if($cart_qty > $ps_stock)
@@ -103,7 +111,7 @@ if(isset($_SESSION['reg_id']))
                                                     <p class="name"><?php echo $product_name ?></p> 
                                                 </div>
                                                 <center><p class="qty">Avl. Qty <?php echo $row4['ps_total_stock'] ?> </p></center>
-                                                <center><div class="price"> &#8377 <?php echo $row4['ps_price']?> </div></center>
+                                                <center><div class="price"> &#8377 <?php echo $offer_price?> </div></center>
                                                 <!-- <button>Save for later</button> -->
                                                 <a href="deleteupdate.php?add_id=<?php echo $add_id ?> &order_final=true&id=<?php echo $row4['cart_id']?>&ps_id=<?php echo $row4['ps_id'] ?>"><button>Save for later</button></a>
                                             </div>
@@ -189,19 +197,24 @@ if(isset($_SESSION['reg_id']))
             $result=mysqli_query($con,$sql);
             while($row=mysqli_fetch_array($result))
             {
-        
                 $item_id=$row["ps_id"];
-                // $q="select * from product_seller_tbl where ps_id=$item_id";
                 $sql2="select *,p.prod_name as prod,s.seller_name as seller from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l,product_tbl as p where ps.ps_seller_id=l.login_id and p.product_id=ps.ps_product_id and s.seller_login_id=l.login_id and ps_id=$item_id and ps.ps_total_stock>0";
 
                 $resulti=mysqli_query($con,$sql2);
                 $rowi=mysqli_fetch_array($resulti);
+
+                // dynamic price entered while ordering
+		        $current_price=0;
+		        $discount=$rowi['ps_discount_perct'];
+		        $org_price=$rowi['ps_price'];
+		        $offer_price=$org_price-($discount/100)*$org_price; 
+
                 $image="../../images/".$rowi['ps_image'];
                 ?>
                 <tr height=150px>
                     <td width=150px><a href=""><img class="table_image" src="../../images/<?php echo $rowi['ps_image'] ?>"></td>
                     <td><h2 style="margin-bottom:0px;"><?php echo $rowi['prod'] ?></h2><div class="seller">Sold by <?php echo $rowi['seller'] ?></div></td>
-                    <td>&#8377 <?php echo $rowi['ps_price']?></td>
+                    <td>&#8377 <?php echo  $offer_price?></td>
                     <td width=100px>x <?php echo $row['cart_qty'] ?></td>
                     <td width=150px>
                         <a href="delete_cartitems.php?add_id=<?php echo $add_id ?> &order_final=true&id=<?php echo $row['cart_id'] ?>"><button class="carttablebuttons">Delete from cart</button></a><br><BR>
@@ -211,7 +224,7 @@ if(isset($_SESSION['reg_id']))
                 
         <?php 
         $item_count+=$row['cart_qty'];
-        $subtotal+= $rowi['ps_price']*$row['cart_qty'];
+        $subtotal+= $offer_price*$row['cart_qty'];
         } 
         $tax = (10/100) * $subtotal; 
         $total =  $subtotal + $delivery_charge + $tax;
@@ -237,15 +250,11 @@ if(isset($_SESSION['reg_id']))
                 <td class="pay_head">Tax <label class="sub_head"> GST 10% (included)</label></td>
                 <td style="text-align:right">&#8377 <?php echo $tax ?></td>
             </tr>
-            <tr>
-                <td class="pay_head">Total paid by customer</td>
-                <td style="text-align:right">&#8377 <?php echo $total ?></td>
-            </tr>
         </table>
         <div class="color_bottom">
             <table width=100%><tr>
-                <td class="pay_head">Total paid by customer</td>
-                <td style="text-align:right">&#8377 <?php echo $total ?></td>
+                <td class="pay_head"><b>Total paid by customer<b></td>
+                <td style="text-align:right; font-size:medium">&#8377 <?php echo $total ?></td>
             </tr></table>
         </div>
         

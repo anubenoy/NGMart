@@ -310,7 +310,8 @@ body{
     border:1px rgba(255, 0, 0, 0.714) solid;
 }
 .cust_items img{
-    width:120px;
+    width: 120px;
+    height:120px;
 }
 .item_name{
     text-align: center;

@@ -78,11 +78,6 @@ $seller_id=$_GET['seller_id'];
      
     }
 
-//update cart_qty in index page
-// $sqlc="select count(ps_id) as count from cart_tbl where customerreg_id=$userid"; 
-// $resultc=mysqli_query($con,$sqlc);
-// $rowc=mysqli_fetch_array($resultc);
-// echo $rowc['count'];
 
 
 ?>

@@ -3,7 +3,6 @@ session_start();
 include("../dbconnection.php");
 
 $price=$_POST['price'];
-$qty=$_POST['qty'];
 $desc=$_POST['desc'];
 $file=$_FILES['file']['name'];
 
@@ -23,7 +22,7 @@ if($result=mysqli_query($con,$sql))
            move_uploaded_file($_FILES["file"]["tmp_name"], $file_path);   
        }
 
-       $sql1="update product_seller_tbl set ps_price='$price', ps_total_stock='$qty', ps_desc='$desc' where ps_id=$ps_id";
+       $sql1="update product_seller_tbl set ps_price='$price', ps_desc='$desc' where ps_id=$ps_id";
        if(mysqli_query($con,$sql1))
        {
            header("location:seller.php?id=-1");

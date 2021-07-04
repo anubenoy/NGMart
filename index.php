@@ -2,9 +2,60 @@
 session_start();
 include("php/dbconnection.php");
 del();
-if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
+if (isset($_SESSION['reg_id']))
+{
+	$reg_id = $_SESSION['reg_id'];
+
+	// update wish_tbl if products already expired
+	date_default_timezone_set("Asia/Kolkata");
+	$now = new DateTime(date('y-m-d h:i:s'));
+
+	$sql = "SELECT * FROM `inventory_tbl` as inv, wish_tbl as ws where ws.ps_id = inv.inventory_ps_id and ws.customerreg_id = $reg_id" ;
+	$result = mysqli_query($con, $sql);
+
+	while($row=mysqli_fetch_array($result)){
+
+	    $wish_id = $row['wish_id'];
+	    $ExpiryDate = new DateTime(date($row['inventory_expiry_date']));
+	    $ManDate = new DateTime(date($row['inventory_date']));
+
+	    $diffOfManWithExpiry = $ManDate -> diff($ExpiryDate);
+	    $diffOfTodayWithExpiry = $ManDate -> diff($now);
+
+	    if ($diffOfTodayWithExpiry->days < $diffOfManWithExpiry->days){
+			
+	        // delete query here ;
+	        $sqlDelete = "DELETE FROM wish_tbl WHERE wish_id = $wish_id";
+	        mysqli_query($con, $sqlDelete);
+	    }
+	
+	}
+	// update cart_tbl if products already expired
+	// $sql = "SELECT * FROM `inventory_tbl` as inv, cart_tbl as c where c.ps_id = inv.inventory_ps_id and c.customerreg_id = $reg_id" ;
+	// $result = mysqli_query($con, $sql);
+
+	// while($row=mysqli_fetch_array($result)){
+
+	//     $cart_id = $row['cart_id'];
+	//     $ExpiryDate = new DateTime(date($row['inventory_expiry_date']));
+	//     $ManDate = new DateTime(date($row['inventory_date']));
+
+	//     $diffOfManWithExpiry = $ManDate -> diff($ExpiryDate);
+	//     $diffOfTodayWithExpiry = $ManDate -> diff($now);
+
+	//     if ($diffOfTodayWithExpiry->days < $diffOfManWithExpiry->days){
+	//         // delete query here ;
+	//         $sqlDelete = "DELETE FROM cart_tbl WHERE cart_id = $cart_id";
+	//         mysqli_query($con, $sqlDelete);
+	//     }
+	
+	// }
+
+} 
 // echo $_SESSION['reg_id'];
 // echo $_SESSION['id'];
+
+
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +80,7 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 <body>
 	<div class="topblack">
 		<div class="leftblock">
-			<p>For enquiry call 911 | email on <a style="color:rgba(255, 255, 255, 0.851);" href="mailto:admin@gmail.com"> admin@gmail.com </a></p>
+			<p>For enquiry call 123 | email on <a style="color:rgba(255, 255, 255, 0.851);" href="mailto:admin@gmail.com"> admin@gmail.com </a></p>
 		</div>
 		<div class="rightblack">
 			<?php
@@ -65,16 +116,18 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 				$rown = mysqli_fetch_array($resultn);
 
 			?>
-				<a href="php/cust/wishlist.php" style="margin-right:20px">Wishlist
+				
+				<a href="php/cust/wishlist.php" style="margin-right:15px">Wishlist
 					<sup id="wss" style="background-color:red;border-radius:100%; padding:2px 4px;"><?php echo $rown['count2'] ?> </sup>
 				</a>
-				<a href="php/cust/cart.php" style="margin-right:20px">Cart
+				<a href="php/cust/cart.php" style="margin-right:15px">Cart
 					<sup id="ss" style="background-color:red;border-radius:100%; padding:2px 4px;"><?php echo $row['count'] ?> </sup>
 				</a>
+				<a href="php/cust/orderHistory.php" style="margin-right:15px">Orders</a>
 				<a href="php/logout.php">Logout</a>
 			<?php
 			} else {
-				echo '<a href="login_reg.php">Cart</a>';
+				// echo '<a href="login_reg.php">Cart</a>';
 			}
 
 			?>
@@ -162,10 +215,15 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 								while ($row = mysqli_fetch_array($result)) {
 									$ps_id = $row['ps_id'];
 									$seller_id=$row['ps_seller_id'];
-									$sql2 = "select s.seller_name from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
+									$sql2 = "select * from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
 
 									if ($result2 = mysqli_query($con, $sql2)) {
 										$row2 = mysqli_fetch_array($result2);
+										
+										$org_price=$row2['ps_price'];
+										$discount=$row2['ps_discount_perct'];
+										$offer_price=$org_price-($discount/100)*$org_price;
+										
 					?>
 										<!-- part where displays stuff  -->
 
@@ -176,7 +234,22 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 											<div class="btm_sec">
 												<h1><?php echo $row['prod_name'] ?></h1>
 												<p><?php echo $row2['seller_name'] ?></p>
-												<h2>Rs.<?php echo $row['ps_price'] ?> </h2>
+												<!-- dynamic pricing display -->
+												<?php if($offer_price < $org_price)
+												{?>
+											
+													<h2 style="color:red"> &#8377 <?php echo $offer_price;?> &nbsp;<label style="background-color:yellow; opacity: 0.7; width:30%; color:black"><?php echo $discount?>%  Offer</label></h2>
+													<h5 style="color:grey"><s>&#8377 <?php echo $row['ps_price']; ?> </s></h5>
+
+										  <?php } 
+										  		else{?>
+											
+													<h2> &#8377 <?php  echo $row['ps_price'];?> </h2>
+													<h5 style="visibility:hidden">...</h5>
+
+											   <?php }?>
+										  
+
 												<?php
 												if (isset($_SESSION['id'])) {
 
@@ -202,10 +275,14 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 						if ($result = mysqli_query($con, $sql)) {
 							while ($row = mysqli_fetch_array($result)) {
 								$ps_id = $row['ps_id'];
-								$sql2 = "select s.seller_name from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
+								$sql2 = "select * from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
 
 								if ($result2 = mysqli_query($con, $sql2)) {
 									$row2 = mysqli_fetch_array($result2);
+									$org_price=$row2['ps_price'];
+									$discount=$row2['ps_discount_perct'];
+									$offer_price=$org_price-($discount/100)*$org_price;
+									
 									?>
 									<!-- part where displays stuff  -->
 
@@ -216,7 +293,21 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 										<div class="btm_sec">
 											<h1><?php echo $row['prod_name'] ?></h1>
 											<p><?php echo $row2['seller_name'] ?></p>
-											<h2>Rs.<?php echo $row['ps_price'] ?> </h2>
+											<!-- dynamic pricing display -->
+											<?php if($offer_price < $org_price)
+											{?>
+										
+												<h2 style="color:red"> &#8377 <?php echo $offer_price;?> &nbsp;<label style="background-color:yellow; opacity: 0.7; width:30%; color:black"><?php echo $discount?>%  Offer</label></h2>
+												<h5 style="color:grey"><s>&#8377 <?php echo $row['ps_price']; ?> </s></h5>
+
+									  <?php } 
+											  else{?>
+										
+												<h2> &#8377 <?php  echo $row['ps_price'];?> </h2>
+												<h5 style="visibility:hidden">...</h5>
+
+										   <?php }?>
+											
 											<?php
 											if (isset($_SESSION['id'])) {
 
@@ -270,11 +361,14 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 							if ($result = mysqli_query($con, $sql)) {
 								while ($row = mysqli_fetch_array($result)) {
 									$ps_id = $row['ps_id'];
-									$sql2 = "select s.seller_name from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
+									$sql2 = "select * from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
 
 									if ($result2 = mysqli_query($con, $sql2)) {
 										$row2 = mysqli_fetch_array($result2);
-					?>
+										$org_price=$row2['ps_price'];
+										$discount=$row2['ps_discount_perct'];
+										$offer_price=$org_price-($discount/100)*$org_price;
+										?>
 										<!-- part where displays stuff  -->
 
 										<div class="itembox">
@@ -284,7 +378,22 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 											<div class="btm_sec">
 												<h1><?php echo $row['prod_name'] ?></h1>
 												<p><?php echo $row2['seller_name'] ?></p>
-												<h2>Rs.<?php echo $row['ps_price'] ?> </h2>
+												<!-- dynamic pricing display -->
+												<?php if($offer_price < $org_price)
+												{?>
+											
+													<h2 style="color:red"> &#8377 <?php echo $offer_price;?> &nbsp;<label style="background-color:yellow; opacity: 0.7; width:30%; color:black"><?php echo $discount?>%  Offer</label></h2>
+													<h5 style="color:grey"><s>&#8377 <?php echo $row['ps_price']; ?> </s></h5>
+
+										  <?php } 
+										  		else{?>
+											
+													<h2> &#8377 <?php  echo $row['ps_price'];?> </h2>
+													<h5 style="visibility:hidden">...</h5>
+
+											   <?php }?>
+
+
 												<?php
 												if (isset($_SESSION['id'])) {
 
@@ -311,12 +420,16 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 						if ($result = mysqli_query($con, $sql)) {
 							while ($row = mysqli_fetch_array($result)) {
 								$ps_id = $row['ps_id'];
-								$sql2 = "select s.seller_name from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
+								$sql2 = "select * from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
 
 								if ($result2 = mysqli_query($con, $sql2)) {
 									$row2 = mysqli_fetch_array($result2);
+									$org_price=$row2['ps_price'];
+									$discount=$row2['ps_discount_perct'];
+									$offer_price=$org_price-($discount/100)*$org_price;
+									
 									?>
-
+									<!-- part where displays stuff  -->
 									<div class="itembox">
 										<div class="img_sec">
 											<img src="images/<?php echo $row['ps_image'] ?>" alt="" loading="lazy">
@@ -324,7 +437,19 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 										<div class="btm_sec">
 											<h1><?php echo $row['prod_name'] ?></h1>
 											<p><?php echo $row2['seller_name'] ?></p>
-											<h2>Rs.<?php echo $row['ps_price'] ?> </h2>
+											<!-- dynamic pricing display -->
+											<?php if($offer_price < $org_price)
+											{?>
+										
+												<h2 style="color:red"> &#8377 <?php echo $offer_price;?> &nbsp;<label style="background-color:yellow; opacity: 0.7; width:30%; color:black"><?php echo $discount?>%  Offer</label></h2>
+												<h5 style="color:grey"><s>&#8377 <?php echo $row['ps_price']; ?> </s></h5>
+									  <?php } 
+									  		else{?>
+										
+												<h2> &#8377 <?php  echo $row['ps_price'];?> </h2>
+												<h5 style="visibility:hidden">...</h5>
+										   <?php }?>
+
 											<?php
 											if (isset($_SESSION['id'])) {
 
@@ -379,9 +504,12 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 
 											if ($result2 = mysqli_query($con, $sql2)) {
 												$row2 = mysqli_fetch_array($result2);
-					?>
+												$org_price=$row['ps_price'];
+												$discount=$row['ps_discount_perct'];
+												$offer_price=$org_price-($discount/100)*$org_price;
+												
+												?>
 												<!-- part where displays stuff  -->
-
 												<div class="itembox">
 													<div class="img_sec">
 														<img src="images/<?php echo $row['ps_image'] ?>" alt="" loading="lazy">
@@ -389,7 +517,19 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 													<div class="btm_sec">
 														<h1><?php echo $row['prod_name'] ?></h1>
 														<p><?php echo $row2['seller_name'] ?></p>
-														<h2>Rs.<?php echo $row['ps_price'] ?> </h2>
+														<!-- dynamic pricing display -->
+														<?php if($offer_price < $org_price)
+														{?>
+													
+															<h2 style="color:red"> &#8377 <?php echo $offer_price;?> &nbsp;<label style="background-color:yellow; opacity: 0.7; width:30%; color:black"><?php echo $discount?>%  Offer</label></h2>
+															<h5 style="color:grey"><s>&#8377 <?php echo $row['ps_price']; ?> </s></h5>
+												  <?php } 
+														  else{?>
+													
+															<h2> &#8377 <?php  echo $row['ps_price'];?> </h2>
+															<h5 style="visibility:hidden">...</h5>
+													   <?php }?>
+			
 														<?php
 														if (isset($_SESSION['id'])) {
 
@@ -419,9 +559,12 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 
 										if ($result2 = mysqli_query($con, $sql2)) {
 											$row2 = mysqli_fetch_array($result2);
+											$org_price=$row2['ps_price'];
+											$discount=$row2['ps_discount_perct'];
+											$offer_price=$org_price-($discount/100)*$org_price;
+											
 											?>
 											<!-- part where displays stuff  -->
-
 											<div class="itembox">
 												<div class="img_sec">
 													<img src="images/<?php echo $row['ps_image'] ?>" alt="" loading="lazy">
@@ -429,7 +572,19 @@ if (isset($_SESSION['reg_id'])) $reg_id = $_SESSION['reg_id'];
 												<div class="btm_sec">
 													<h1><?php echo $row['prod_name'] ?></h1>
 													<p><?php echo $row2['seller_name'] ?></p>
-													<h2>Rs.<?php echo $row['ps_price'] ?> </h2>
+													<!-- dynamic pricing display -->
+													<?php if($offer_price < $org_price)
+													{?>
+												
+														<h2 style="color:red"> &#8377 <?php echo $offer_price;?> &nbsp;<label style="background-color:yellow; opacity: 0.7; width:30%; color:black"><?php echo $discount?>%  Offer</label></h2>
+														<h5 style="color:grey"><s>&#8377 <?php echo $row['ps_price']; ?> </s></h5>
+											  <?php } 
+											  		else{?>
+												
+														<h2> &#8377 <?php  echo $row['ps_price'];?> </h2>
+														<h5 style="visibility:hidden">...</h5>
+												   <?php }?>
+
 													<?php
 													if (isset($_SESSION['id'])) {
 

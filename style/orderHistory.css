@@ -1,0 +1,207 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+@font-face{
+    font-family: fontone;
+    src:url(../fonts/Rubik.ttf);
+}
+@font-face{
+    font-family: fonttwo;
+    src:url(../fonts/YuseiRegular.ttf);
+}
+
+body{
+    background-color: rgb(255, 255, 255);
+   
+}
+.pg_navbar{
+    position: relative;
+    margin-bottom: 40px;
+    font-family: fontone;
+}
+button:focus{
+    outline: none;
+}
+a{
+    text-decoration: none;
+}
+.topblack{
+    background-color: rgb(40, 40, 40);
+    color:rgba(255, 255, 255, 0.851);
+    height: 40px;
+    font-size: 14px;
+}
+.topblack .leftblock{
+    float:left;
+    padding-top: 12px;
+    padding-left: 20px;
+    margin-left: 100px;
+    cursor: pointer;
+}
+.topblack .rightblack{
+    float: right;
+    padding-top:12px;
+    margin-right: 150px;
+}
+.rightblack a{
+    display: inline;
+    margin-right: 10px;
+    cursor: pointer;
+    color: white;
+}
+.topblack a:hover{
+    color:greenyellow;
+}
+.topbargreen{
+    height:75px;
+    background:linear-gradient(to bottom right,rgb(37,188,176),rgb(53,205,142))
+}
+.topbargreen p{
+    color:white;
+    font-weight: 1000;
+    font-size: 30px;
+    padding-top: 18px;
+    margin-left: 120px;
+    display: inline-block;
+    /* background-color: violet; */
+}
+.topgreen_right{
+    float:right;
+    /* background-color: black; */
+    margin-top:23px;
+    margin-right:150px;
+    /* display: inline-block; */
+}
+.topgreen_right a{
+    color:white;
+    font-size: 19px;
+    display: inline;
+    margin-right: 10px;
+}
+
+
+.orders_main{
+    position: relative;
+    margin-left:180px;
+    font-family:Tahoma;
+   
+   
+}
+.orders{
+    transition: transform .2s; 
+    margin:10px;
+    padding: 10px;
+    width:1000px;
+    min-height:210px;
+    border-bottom: 1px solid rgba(134, 134, 134, 0.3);
+    background-color: rgb(255, 255, 255); 
+    float: left;
+    
+}
+.order_img{
+    position: relative;
+    width:333.3px;
+    float:left;
+}
+.orders img{
+    /* float: left; */
+    border-radius: 20px 0px 0px 20px;
+    width:230px;
+    height: 210px;
+   
+}
+.order_data{
+    position: relative;
+    /* margin-left:50px; */
+    float: left;
+    width:333.3px;
+    height: 210px;
+}
+.order_id{
+    color:grey;
+    font-size:16px;
+    
+}
+.prod{
+    margin-top:20px;
+    margin-bottom: 20px;
+}
+.details{
+    font-size: 15px;;
+    color:rgb(163, 160, 160);
+    font-family: Tahoma;
+}
+.order_btn{
+    height: 210px;
+    position: relative;
+    /* margin-top: 25px;   */
+    width:300.3px;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    /* flex-wrap: wrap; */
+}
+.deliver_btn1 {
+    width:140px;
+    height:30px;
+    border: none;
+    color: rgb(34, 33, 33);
+    font-size: 13px;
+    font-family: fontone;
+    font-weight: 800;
+    border-radius: 2px;
+    margin-top: 6px;
+    background: linear-gradient(
+      to bottom right,
+      rgb(245, 205, 4),
+      hsl(46, 97%, 49%)
+    );
+    box-shadow: 3px 3px 10px rgba(250, 192, 1, 0.966);
+    transition: ease-in-out 0.4s;
+    cursor: pointer;
+  }
+  .deliver_btn2 {
+    width:140px;
+    height:30px;
+    border: none;
+    color: rgb(34, 33, 33);
+    font-size: 13px;
+    font-family: fontone;
+    font-weight: 800;
+    border-radius: 2px;
+    /* margin-top: 6px; */
+    background: linear-gradient(
+      to bottom right,
+      rgb(194, 194, 194),
+      hsl(0, 0%, 65%)
+    );
+    box-shadow: 3px 3px 10px rgba(223, 223, 223, 0.966);
+    transition: ease-in-out 0.4s;
+    cursor: pointer;
+  }
+  .deliver_btn3 {
+    width:140px;
+    height:30px;
+    border: none;
+    color: rgb(34, 33, 33);
+    font-size: 13px;
+    font-family: fontone;
+    font-weight: 800;
+    border-radius: 2px;
+    margin-top: 6px;
+    background: linear-gradient(
+      to bottom right,
+      rgb(248, 90, 42),
+      hsl(9, 94%, 56%)
+    );
+    box-shadow: 3px 3px 10px rgba(250, 121, 1, 0.966);
+    transition: ease-in-out 0.4s;
+    cursor: pointer;
+  }
+  .orders button:hover {
+    font-size: 14px;
+    box-shadow: 3px 3px 10px rgba(182, 182, 182, 0.447);
+  }
+
