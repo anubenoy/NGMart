@@ -10,9 +10,9 @@ include("../dbconnection.php");
       <head>
       <style>
                 /* popup */
-         {
+         /* {
            box-sizing: border-box;
-         }
+         } */
          .Popup {
            text-align: center; 
            position: fixed;

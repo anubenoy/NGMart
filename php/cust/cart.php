@@ -169,6 +169,8 @@ if(isset($_SESSION['id'])){
                 $discount=$rowi['ps_discount_perct'];
                 $org_price=$rowi['ps_price'];
 				$offer_price=$org_price-($discount/100)*$org_price;
+                $ps_id=$rowi['ps_id'];
+                $s_id=$rowi['ps_seller_id'];
                 // $cart_qty=$row['cart_qty'];
                 // $ps_stock=$rowi['ps_total_stock'];
 				
@@ -176,7 +178,7 @@ if(isset($_SESSION['id'])){
                 // {
                 ?>
                 <div class="cartitems">
-                    <img src="../../images/<?php echo $rowi['ps_image'] ?>">
+                    <a href="items.php?seller_id=<?php echo $s_id ?>&ps_id=<?php echo $ps_id ?>"><img src="../../images/<?php echo $rowi['ps_image'] ?>"></a>
                     <div class="dis"><h2 style="margin-left:20px;"><?php echo $rowi['prod'] ?></h2>
                     <div class="seller">Sold by <?php echo $rowi['seller'] ?></div>
                     <!-- dynamic pricing display -->

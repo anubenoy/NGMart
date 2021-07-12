@@ -1,0 +1,165 @@
+.dropbtn {
+    background-color: white;
+    padding-top: 7px;
+    border: none;
+}
+  
+.dropdown {
+    position: absolute;
+    right: 0px;
+    margin-right:10px;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 215px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  top:50px;
+  right: 0;
+}
+
+.dropdown-content a {
+  white-space:nowrap;
+  color: rgb(128, 128, 128);
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+    font-size:17px;
+}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: rgba(128, 128, 128, 0.315);}
+
+.inner_icon{
+    width:30px;
+    height:30px;
+    /* padding-left:20px; */
+    float:left;
+}
+.profile_pic{
+    width:56px;
+    height:56px;
+    /* padding:10px;  */
+}
+.dropdown td{
+    padding:10px;
+}
+
+/* dropdown styles ends here  ---------------------------------- */
+/* change password popupbox ------------------------------------ */
+.ChangePassword {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 2; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+
+}
+.ChangePasswordcontent {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 10px;
+    border: 1px solid #888;
+    width: 450px;
+    font-weight: 800;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.ChangePasswordcontent input[type=password], .ChangePasswordcontent input[type=text] {
+    background-color: rgb(245, 245, 245);
+    box-shadow:inset 10px 10px 10px 1px #0d275006, inset -10px -10px 10px 1px white, 28px 28px 50px 1px #0d275017; 
+    border-radius:4px;
+    height:40px;
+    width:280px;
+    position: relative;
+    padding:10px;
+    border: none;
+    margin:10px 25px 10px 25px;
+}
+input[type=password]:focus, input[type=text]:focus{
+    outline: none;
+}
+.ChangePasswordcontent .change{
+    /* position: relative; */
+    /* left: 0; */
+    height: 45px;
+    border: none;
+    width:300px;
+    color: white;
+    font-weight: 800;
+    border-radius: 2px;
+    background: rgb(9, 188, 219);
+    box-shadow: 3px 3px 10px rgba(9, 188, 219, 0.749);
+    margin-top: 10px;
+    /* transition: ease-in-out 0.4s; */
+    cursor: pointer;
+}
+.ChangePasswordcontent P{
+    Display:none;
+    color:red; 
+    font-size:small;
+    margin-top: 3px;
+    z-index: 10;
+}
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+.close:hover,.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* change password popupbox ends here------------------------------------ */
+
+
+/* edit profile */
+/* .p_label{
+    margin-right:0px;
+} */
+.photo{
+    position:relative;
+    width: 100px;
+    height: 100px;
+    left :10%;
+    /* top:50%; */
+    transform:translate(-50%,-20%);
+    
+}
+.img{
+  /* background-attachment: fixed; */
+    /* background-position: center; */
+      background-size:100px 100px;
+      /* background-repeat: no-repeat; */
+    height:100px;
+    width:100px;
+    /* border-radius:50%; */
+}
+.edit{
+    position:absolute;
+    left :50%;
+    top:50%;
+    transform:translate(-50%,-10%);
+    color:rgb(0, 0, 0);
+    opacity:0;
+    width:100%;
+    height:100%
+    
+}
+.edit:hover{
+    opacity:1;
+} 

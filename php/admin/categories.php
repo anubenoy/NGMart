@@ -6,32 +6,25 @@ if(isset($_SESSION['id']))
       <!DOCTYPE html>
       <html>
       <head>
-        <?php include('adminHeader.php'); ?>
-        
-        <script>
-                // highlighting active page link
-                document.getElementById("active1").removeAttribute("class");
-                document.getElementById("active3").setAttribute("class",'active');
-
-        </script>
+      <link rel="stylesheet" href="../../style/headerStyle.css">
         
        <style>
                 /* spacing */
 
-                table {
+                .adminUser table {
                 table-layout: fixed;
                 border-collapse: collapse;
                 background:#ffffff;
                 
                 }
                 
-                th, td {
+                .adminUser th,.adminUser  td {
                 padding: 13px;
                 border-bottom: 1px solid #ddd;
               
                 }
                 
-                tr:hover {background-color: #f5f5f5;}
+                .adminUser tr:hover {background-color: #f5f5f5;}
 
                 /* typography */
                 body{
@@ -39,18 +32,18 @@ if(isset($_SESSION['id']))
                         font-size: 16px;
                 }
                 
-                th {
+                .adminUser th {
                 letter-spacing: 2px;
                 background:#e6e8e8;
                 color:#808080;    
                 }
                 
-                td {
+                .adminUser td {
                 letter-spacing: 1px;
                 text-align:center;
                 }
 
-                caption {
+                .adminUser caption {
                 background:#ffffff;
                 color: rgb(0,5,5);
                 padding: 16px 16px;
@@ -156,14 +149,18 @@ if(isset($_SESSION['id']))
                    visibility:hidden;
                  }
 
-
-                
         </style>
          
         </head>
 
       <body>
-      <div style="margin-left:15%;padding:26px 26px;">
+      <?php include('adminHeader.php'); ?>
+      <script>
+          // highlighting active page link
+          document.getElementsByClassName("active")[0].removeAttribute("class")
+          document.getElementById("active3").setAttribute("class",'active');
+        </script>
+      <div style="margin-left:15%;padding:26px 26px;" class="adminUser">
       <center>
                
         <!-- listing all products -->

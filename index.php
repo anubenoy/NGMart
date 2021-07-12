@@ -22,7 +22,7 @@ if (isset($_SESSION['reg_id']))
 	    $diffOfManWithExpiry = $ManDate -> diff($ExpiryDate);
 	    $diffOfTodayWithExpiry = $ManDate -> diff($now);
 
-	    if ($diffOfTodayWithExpiry->days < $diffOfManWithExpiry->days){
+	    if ($diffOfTodayWithExpiry->days > $diffOfManWithExpiry->days){
 			
 	        // delete query here ;
 	        $sqlDelete = "DELETE FROM wish_tbl WHERE wish_id = $wish_id";
@@ -223,13 +223,14 @@ if (isset($_SESSION['reg_id']))
 										$org_price=$row2['ps_price'];
 										$discount=$row2['ps_discount_perct'];
 										$offer_price=$org_price-($discount/100)*$org_price;
+										$s_id=$row['ps_seller_id'];
 										
 					?>
 										<!-- part where displays stuff  -->
 
 										<div class="itembox">
 											<div class="img_sec">
-												<img src="images/<?php echo $row['ps_image'] ?>" alt="" loading="lazy">
+												<a href="php/cust/items.php?seller_id=<?php echo $s_id ?>&ps_id=<?php echo $ps_id ?>"><img src="images/<?php echo $row['ps_image'] ?>" alt="" loading="lazy"></a>
 											</div>
 											<div class="btm_sec">
 												<h1><?php echo $row['prod_name'] ?></h1>
@@ -275,6 +276,7 @@ if (isset($_SESSION['reg_id']))
 						if ($result = mysqli_query($con, $sql)) {
 							while ($row = mysqli_fetch_array($result)) {
 								$ps_id = $row['ps_id'];
+								$s_id=$row['ps_seller_id'];
 								$sql2 = "select * from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
 
 								if ($result2 = mysqli_query($con, $sql2)) {
@@ -288,7 +290,7 @@ if (isset($_SESSION['reg_id']))
 
 									<div class="itembox">
 										<div class="img_sec">
-											<img src="images/<?php echo $row['ps_image'] ?>" alt="" loading="lazy">
+											<a href="php/cust/items.php?seller_id=<?php echo $s_id ?>&ps_id=<?php echo $ps_id ?>"><img src="images/<?php echo $row['ps_image'] ?>" alt="" loading="lazy"></a>
 										</div>
 										<div class="btm_sec">
 											<h1><?php echo $row['prod_name'] ?></h1>
@@ -361,6 +363,7 @@ if (isset($_SESSION['reg_id']))
 							if ($result = mysqli_query($con, $sql)) {
 								while ($row = mysqli_fetch_array($result)) {
 									$ps_id = $row['ps_id'];
+									$s_id=$row['ps_seller_id'];
 									$sql2 = "select * from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
 
 									if ($result2 = mysqli_query($con, $sql2)) {
@@ -373,7 +376,8 @@ if (isset($_SESSION['reg_id']))
 
 										<div class="itembox">
 											<div class="img_sec">
-												<img src="images/<?php echo $row['ps_image'] ?>" alt="" loading="lazy">
+											
+											<a href="php/cust/items.php?seller_id=<?php echo $s_id ?>&ps_id=<?php echo $ps_id ?>"><img src="images/<?php echo $row['ps_image'] ?>" alt="" loading="lazy"></a>
 											</div>
 											<div class="btm_sec">
 												<h1><?php echo $row['prod_name'] ?></h1>
@@ -420,6 +424,7 @@ if (isset($_SESSION['reg_id']))
 						if ($result = mysqli_query($con, $sql)) {
 							while ($row = mysqli_fetch_array($result)) {
 								$ps_id = $row['ps_id'];
+								$s_id=$row['ps_seller_id'];
 								$sql2 = "select * from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
 
 								if ($result2 = mysqli_query($con, $sql2)) {
@@ -432,7 +437,7 @@ if (isset($_SESSION['reg_id']))
 									<!-- part where displays stuff  -->
 									<div class="itembox">
 										<div class="img_sec">
-											<img src="images/<?php echo $row['ps_image'] ?>" alt="" loading="lazy">
+											<a href="php/cust/items.php?seller_id=<?php echo $s_id ?>&ps_id=<?php echo $ps_id ?>"><img src="images/<?php echo $row['ps_image'] ?>" alt="" loading="lazy"></a>
 										</div>
 										<div class="btm_sec">
 											<h1><?php echo $row['prod_name'] ?></h1>
@@ -500,6 +505,7 @@ if (isset($_SESSION['reg_id']))
 									if ($result = mysqli_query($con, $sql)) {
 										while ($row = mysqli_fetch_array($result)) {
 											$ps_id = $row['ps_id'];
+											$s_id=$row['ps_seller_id'];
 											$sql2 = "select s.seller_name from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
 
 											if ($result2 = mysqli_query($con, $sql2)) {
@@ -512,7 +518,7 @@ if (isset($_SESSION['reg_id']))
 												<!-- part where displays stuff  -->
 												<div class="itembox">
 													<div class="img_sec">
-														<img src="images/<?php echo $row['ps_image'] ?>" alt="" loading="lazy">
+													<a href="php/cust/items.php?seller_id=<?php echo $s_id ?>&ps_id=<?php echo $ps_id ?>"><img src="images/<?php echo $row['ps_image'] ?>" alt="" loading="lazy"></a>
 													</div>
 													<div class="btm_sec">
 														<h1><?php echo $row['prod_name'] ?></h1>
@@ -555,6 +561,7 @@ if (isset($_SESSION['reg_id']))
 								if ($result = mysqli_query($con, $sql)) {
 									while ($row = mysqli_fetch_array($result)) {
 										$ps_id = $row['ps_id'];
+										$s_id=$row['ps_seller_id'];
 										$sql2 = "select s.seller_name from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
 
 										if ($result2 = mysqli_query($con, $sql2)) {
@@ -567,7 +574,7 @@ if (isset($_SESSION['reg_id']))
 											<!-- part where displays stuff  -->
 											<div class="itembox">
 												<div class="img_sec">
-													<img src="images/<?php echo $row['ps_image'] ?>" alt="" loading="lazy">
+													<a href="php/cust/items.php?seller_id=<?php echo $s_id ?>&ps_id=<?php echo $ps_id ?>"><img src="images/<?php echo $row['ps_image'] ?>" alt="" loading="lazy"></a>
 												</div>
 												<div class="btm_sec">
 													<h1><?php echo $row['prod_name'] ?></h1>

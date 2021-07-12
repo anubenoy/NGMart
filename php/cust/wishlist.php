@@ -32,23 +32,18 @@ if(isset($_SESSION['id'])){
 	</div>
 	<div class="topbargreen">
 		<p onclick="location.href='../../index.php'">NGMART</p>
-		<div class="centerdiv">
-			<input type="text" placeholder="Search products">
-			<button>Search</button>
-		</div>
+	
 		<div class="topgreen_right">
-			<?php 
-						
-							
-							$sql="select count(ps_id) as count from cart_tbl where customerreg_id=$reg_id";
-							$result=mysqli_query($con,$sql);
-							$row=mysqli_fetch_array($result);
-							
-							?>
-							<a href="cart.php" style="margin-right:20px">Cart
-								<sup id="ss" style="background-color:red;border-radius:100%; padding:2px 4px;"><?php echo $row['count']?> </sup>
-							</a>
-							<a href="../logout.php">Logout</a>
+			<?php 				
+			$sql="select count(ps_id) as count from cart_tbl where customerreg_id=$reg_id";
+			$result=mysqli_query($con,$sql);
+			$row=mysqli_fetch_array($result);
+			
+			?>
+			<a href="cart.php" style="margin-right:20px">Cart
+				<sup id="ss" style="background-color:red;border-radius:100%; padding:2px 4px;"><?php echo $row['count']?> </sup>
+			</a>
+			<a href="../logout.php">Logout</a>
 						
 			<!-- <a href="">About us</a> -->
 			
@@ -101,6 +96,7 @@ if(!isset($_GET['id'])){
 				while($row=mysqli_fetch_array($result))
 				{
 					$ps_id=$row['ps_id'];
+					$s_id=$row['ps_seller_id'];
 					$sql2="select s.* from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l where ps.ps_seller_id=l.login_id and s.seller_login_id=l.login_id and ps_id=$ps_id;";
 					
 					if($result2=mysqli_query($con,$sql2))
@@ -111,7 +107,7 @@ if(!isset($_GET['id'])){
 
 			<div class="itembox">
 				<div class="img_sec">
-					<img src="../../images/<?php echo $row['ps_image'] ?>" alt="">
+				<a href="items.php?seller_id=<?php echo $s_id ?>&ps_id=<?php echo $ps_id ?>"><img src="../../images/<?php echo $row['ps_image'] ?>" alt=""></a>
 				</div>
 				<div class="btm_sec">
 					<h1><?php echo $row['prod_name'] ?></h1>

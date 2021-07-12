@@ -68,7 +68,7 @@ if(isset($_SESSION['id']))
 	<div class="topbargreen">
 		<p><a href="seller.php?id=-1" style="color:white;"> NGMART</a></p>
 		<div class="topgreen_right" style="margin-right:140px;">
-		<a href="shopOrders.php?id=1">Orders</a>
+		<a href="product_review.php?id=1">Complaints</a>
 		<a href="../logout.php">Logout</a>	
 		</div>
 	</div>
@@ -139,7 +139,7 @@ if($_GET['id']==1)
 				$i++;
 				echo "<tr>";
 				echo "<td>$i</td>";
-				echo "<td onclick='displayOrderDetails(".$orders['order_id'].");'>#".$orders['order_transaction_id']."</td>";
+				echo "<td style='text-decoration: underline; color:rgb(9, 188, 219);' onclick='displayOrderDetails(".$orders['order_id'].");'>#".$orders['order_transaction_id']."</td>";
 				echo "<td>".$orders['order_date']."</td>";
 				echo "<td>".$cust['name']."</td>";
 				// echo "<td>"."COD"."</td>";
@@ -217,7 +217,7 @@ if($_GET['id']==1)
 	   $i++;
 	   echo "<tr>";
 	   echo "<td>$i</td>";
-	   echo "<td onclick='displayOrderDetails(".$orders['order_id'].");'>#".$orders['order_transaction_id']."</td>";
+	   echo "<td class='order_id' onclick='displayOrderDetails(".$orders['order_id'].");'>#".$orders['order_transaction_id']."</td>";
 	   echo "<td>".$orders['order_date']."</td>";
 	   echo "<td>".$cust['name']."</td>";
 	   // echo "<td>"."COD"."</td>";

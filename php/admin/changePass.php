@@ -1,8 +1,8 @@
-
+<!-- 
 <!-- change pass -->
 <?php
-   if( isset($_GET['edit'])=='true' && isset($_GET['id']) )
-   {
+//    if( isset($_GET['edit'])=='true' && isset($_GET['id']) )
+//    {
         ?>
         <div class="change_password" style="padding:80px 1px;width:75%">
              <h3>Change Password</h3>
@@ -18,7 +18,7 @@
                 </div>
              </form>
         <?Php
-   }?>
+//    }?>
 
 
        <!DOCTYPE html>
@@ -62,7 +62,7 @@
            <!-- edit button -->
            <a href="?edit=true&id=<?php echo $row['login_id'];?>"><button>Edit</button></a>
        </body>
-       </html>
+       </html> -->
 
 
        
