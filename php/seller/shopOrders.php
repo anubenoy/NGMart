@@ -309,7 +309,7 @@ if($_GET['id']==2)
 				?>
 					<td>
 						<a href="cancelOrder.php?o_id=<?php echo $orders['order_id']; ?>"><button style="background-color:#ff3300;padding:7px;border:none;color:white;">Cancel</button></a>
-						<a href="deliveredOrder.php?id=<?php echo $orders['order_id']; ?>"><button style="background-color:#3366ff;padding:7px;border:none;color:white;">Delivered</button></a>
+						<a href="deliveredOrder.php?o_id=<?php echo $orders['order_id'];?>"><button style="background-color:#3366ff;padding:7px;border:none;color:white;">Delivered</button></a>
 					</td>
 				</tr>
 			 <?php
@@ -388,7 +388,7 @@ if($_GET['id']==4)
 				echo "<td>".'₹'.$orders['order_quantity']*$orders['order_price']."</td>";
 				?>
 					<td>
-						<a href="productReview.php?id=<?php echo $orders['order_id']; ?>&ps_id=<?php echo $orders['order_ps_id']; ?>"><button style="background:linear-gradient(to bottom right, rgb(240, 120, 55),rgb(242, 85, 73));padding:7px;border:none;color:white;width:120px;">Product Review</button></a>
+						<a href="product_review.php?o_id=<?php echo $orders['order_id']; ?>&ps_id=<?php echo $orders['order_ps_id']; ?>&id=2"><button style="background:linear-gradient(to bottom right, rgb(240, 120, 55),rgb(242, 85, 73));padding:7px;border:none;color:white;width:120px;">Product Review</button></a>
 					</td>
 				</tr>
 			 <?php

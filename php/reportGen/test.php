@@ -52,7 +52,7 @@
 
 
 	// second section
-	echo '<div class="sessions"> <h4>Expaired Stock:</h4> <hr>';
+	echo '<div class="sessions"> <h4>Expired Stock:</h4> <hr>';
 		echo '
 		<table>
 		<tr>
@@ -66,7 +66,8 @@
 		</tr>';
 		$totalstock=0;
 		$totalprice=0;
-		$sql2="SELECT * FROM inventory_tbl WHERE inventory_status=0";
+		$ig=0;
+		$sql2="SELECT * FROM inventory_tbl WHERE inventory_stock>0 and inventory_status=0 ";
 		$result2=mysqli_query($con,$sql2);
 		while($row2=mysqli_fetch_array($result2))
 		{
@@ -81,15 +82,15 @@
 			$sql3="SELECT DISTINCT ps.ps_id,p.*,ps.* from product_tbl as p,product_seller_tbl as ps where p.product_id=ps.ps_product_id and  ps.ps_seller_id=$id and ps.ps_id=$ps_id order by p.product_id desc";
 			if($result3=mysqli_query($con,$sql3))
 			{
-				$i=0;
+
 				while($row=mysqli_fetch_array($result3))
 				{	
 					$totalstock+=$row4['s'];
 					$totalprice+=$row4['s']*$row['ps_price'];
-					$i=$i+1;
+					$ig=$ig+1;
 					?>
 					<tr>
-					<td style="padding:10px 20px"><?php echo $i?></td>
+					<td style="padding:10px 20px"><?php echo $ig?></td>
 					<td style="padding:10px 20px"><?php echo $row['prod_name']?></td>
 					<td style="padding:10px 20px"><?php echo $row['ps_price']?></td>
 					<td style="padding:10px 20px"><?php echo $row2['inventory_stock'] //actually display sum of stock of same ps_id and manu_date?> </td> 

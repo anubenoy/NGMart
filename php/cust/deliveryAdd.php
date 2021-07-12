@@ -66,7 +66,7 @@ if(isset($_SESSION['reg_id'])){
         {
             elem=document.getElementById(val2);
             x=document.getElementById(val);
-            patt=/^[a-zA-Z0-9\.\s\(\)]{3,30}$/;
+            patt=/^[a-zA-Z0-9\.\,\s\(\)]{3,30}$/;
             if(!elem.value.match(patt)|| elem.value.trim()=='')
             {   
                 x.style.cssText="display:block; margin-top:-34px; left:32.6vw ";
@@ -80,7 +80,7 @@ if(isset($_SESSION['reg_id'])){
         {
             elem=document.getElementById(val2);
             x=document.getElementById(val);
-            patt=/^[a-zA-Z0-9\.\s]{3,30}$/;
+            patt=/^[a-zA-Z0-9\.\,\s]{3,30}$/;
             if(!elem.value.match(patt)|| elem.value.trim()=='')
             {   
                 x.style.cssText="display:block; left:32.6vw ";
@@ -94,7 +94,7 @@ if(isset($_SESSION['reg_id'])){
         {
             elem=document.getElementById(val2);
             x=document.getElementById(val);
-            patt=/^[a-zA-Z0-9\.\s]{3,30}$/;
+            patt=/^[a-zA-Z0-9\.\,\s]{3,30}$/;
             if(!elem.value.match(patt)|| elem.value.trim()=='')
             {   
                 x.style.cssText="display:block; left:32.6vw ";

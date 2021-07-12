@@ -113,6 +113,34 @@ $seller_id = $_GET['seller_id'];
         }
 
     </style>
+    <script>
+        function diss() {
+			document.getElementById("tic").style.display = "none";
+		}
+
+        function purchase(x,y) {
+            // console.log("comes here")
+            var sup = document.getElementById("ss");
+            var url = "../../addtocart.php?seller_id="+y+"&id="+x;
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // alert(this.responseText);
+                    if(this.responseText == false){
+                        console.log("returning false");
+                        console.log("seller_id : "+y+" ps_id="+x)
+                        window.location="cart.php?alert=true&seller_id="+y+"&ps_id="+x;
+                    }
+                    else{
+                        sup.innerHTML = this.responseText;
+                        window.location="cart.php";
+                    }
+                }
+            };
+            xhttp.open("GET", url, true);
+            xhttp.send();
+        }
+    </script>
 </head>
 <body>
 
@@ -187,7 +215,6 @@ $seller_id = $_GET['seller_id'];
                 $org_price=$row2['ps_price'];
                 $discount=$row2['ps_discount_perct'];
                 $offer_price=$org_price-($discount/100)*$org_price;
-              
             }
         }
     ?>
@@ -223,7 +250,7 @@ $seller_id = $_GET['seller_id'];
                 <?php
                 if (isset($_SESSION['id'])) 
                 {?>
-                    <a href="deliveryAdd.php"><button class="opt firstone">Buy Now</button><a>
+                    <button onclick="purchase(<?php echo $ps_id ?>,<?php echo $seller_id ?>)" class="opt firstone">Buy Now</button>
                     <a href="addtoWishlist.php?ps_id=<?php echo $ps_id?>"><button class="opt" style="background-color:white; border:1px solid rgba(0,0,0,.6);color:black">Add to wishlist</button><a></a> 
                 <?php
                 }
@@ -267,25 +294,5 @@ $seller_id = $_GET['seller_id'];
             </div>
         </div>
     </div>
-    <!-- <div class="shopesavl">
-        <p>Available Shops</p><br>
-        <div class="scrollView">
-            <a href=""><button>shope1</button></a>
-            <a href=""><button>shope1</button></a>
-            <a href=""><button>shope1</button></a>
-            <a href=""><button>shope1</button></a>
-            <a href=""><button>shope1</button></a>
-            <a href=""><button>shope1</button></a>
-            <a href=""><button>shope1</button></a>
-            <a href=""><button>shope1</button></a>
-            <a href=""><button>shope1</button></a>
-            <a href=""><button>shope1</button></a>
-            <a href=""><button>shope1</button></a>
-            <a href=""><button>shope1</button></a>
-            <a href=""><button>shope1</button></a>
-            <a href=""><button>shope1</button></a>
-            <a href=""><button>shope1</button></a>
-        </div>
-    </div> -->
 </body>
 </html>

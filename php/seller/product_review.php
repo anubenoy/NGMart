@@ -15,6 +15,7 @@ if(isset($_SESSION['id']))
     <title>Product Reviews</title>
     <link href="../../style/style.css" rel="stylesheet" />
     <link href="../../style/seller_style.css" rel="stylesheet" />
+	<link href="../../style/headerStyle.css" rel="stylesheet" />
 </head>
 
 	<style>
@@ -50,7 +51,7 @@ if(isset($_SESSION['id']))
 			margin:0px;
 			color:rgb(250, 250, 250);
 		}
-        .ratingBox{
+        .ChangePassword{
             display:none;
             position:absolute;
             width:400px;
@@ -62,7 +63,7 @@ if(isset($_SESSION['id']))
             transform: translate(-50%,-50%);
             padding-top:30px;
         }
-        .ratingBox .data{
+        .ChangePassword .data{
             width: 300px;
             height: 250px;
             margin: 0;
@@ -71,10 +72,10 @@ if(isset($_SESSION['id']))
             font-size: 14px;
             margin-top: 10px;
         }
-        .ratingBox .data:focus{
+        .ChangePassword .data:focus{
             outline: none;
         }
-        .ratingBox input[type='button']{
+        .ChangePassword input[type='button']{
             width: 400px;
             height: 50px;
             background: rgb(9, 188, 219);
@@ -88,7 +89,7 @@ if(isset($_SESSION['id']))
             color:white;
             cursor: pointer;
         }
-        .ratingBox h3{
+        .ChangePassword h3{
             font-size: 20px;
             font-family: sans-serif;
 
@@ -124,9 +125,99 @@ if(isset($_SESSION['id']))
 		</center>
 	</div>
 <!-- ------------------------------------------top nav bar done ------------------------------------------------->
+
+<!-- to view review for each prod delivered based on btn click frm delivered orders page -->
 <?php
-if($_GET['id']==1)
-{?>
+if(isset($_GET['o_id'])&&$_GET['id']==2)
+{
+	$o_id=$_GET['o_id'];
+	$psid=$_GET['ps_id'];
+	?>
+	
+	<div class="order_table" style="padding:26px 26px;"><center>
+
+	    	 <!-- listing all orders -->
+
+	    <table width="100%">
+			 <col style="width:4%">
+			 <col style="width:20%">
+			 <col style="width:20%">
+			 <col style="width:30%">
+			 <col style="width:26%">
+
+	      <thead>
+	      <caption >
+			  <h3> Orders recieved</h3>
+	      </caption>
+		  <tr>
+			 <th>#</th>
+			 <th>Product</th>
+		     <th>Rating</th>
+			 <th>Feedback</th>
+			 <th></th>
+		     
+	      </tr>
+		  </thead>
+
+	      <tbody> 
+			<?php
+			  $i=0;
+			  $sql="SELECT * FROM feedback_tbl WHERE f_ps_id=$psid";
+			  $result= mysqli_query($con,$sql);
+			  while($feedback=mysqli_fetch_array($result))
+			  {
+				$ps_id=$feedback['f_ps_id'];
+				$f_id=$feedback['f_id'];
+				$sql2="SELECT *,p.prod_name as prod,s.seller_name as seller from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l,product_tbl as p where ps.ps_seller_id=l.login_id and p.product_id=ps.ps_product_id and s.seller_login_id=l.login_id and ps_id=$ps_id";
+				$result2= mysqli_query($con,$sql2);
+				$prod=mysqli_fetch_array($result2);
+
+				// $cust_id=$feedback['order_customer_id'];
+				// // $sql3="SELECT * FROM customerreg_tbl WHERE customerreg_id=$cust_id";
+				// // $result3=mysqli_query($con,$sql3);
+	            // // $cust=mysqli_fetch_array($result3);     
+	            
+				$i++;
+				echo "<tr>";
+				echo "<td>$i</td>";
+                echo "<td>".$prod['prod_name']."</td>";
+				echo "<td>".$feedback['f_rate']."</td>";
+				echo "<td>".$feedback['f_content']."</td>";
+				
+				?>
+                <td>
+					<button style="background: rgb(9, 188, 219); box-shadow: 3px 3px 10px rgba(9, 188, 219, 0.749);padding:7px;border:none;color:white;width:120px;" onclick="showChangeBox(<?php echo $f_id ?>)">Reply</button>
+				</td>
+				</tr>
+			 <?php
+			 }
+			?>
+	       </tbody>
+	    </table>
+        </center>
+    </div>
+            
+        <!-- reply popup -->
+        <div id="ChangePasswordModal" class="ChangePassword">
+          <div class="ratingBox">
+            <span class="close" onclick="closeChangeBox()">&times;</span>
+            <center>
+              <h3>Reply to User Complaint</h3><br>
+              <form method="POST" id="feedbackform">
+                <div>
+                  <textarea name="reply" id="reply" class="data" placeholder="Write reply here"></textarea>
+                  <input type="button" class="change" value="Reply" name="change" onclick="sendFeedback()">
+                </div>
+              </form>
+            </center>
+          </div>
+        </div>
+    
+ <?php
+}
+else if($_GET['id']==2)
+{
+?>
 	<div class="order_table" style="padding:26px 26px;"><center>
 
 	    	 <!-- listing all orders -->
@@ -156,6 +247,90 @@ if($_GET['id']==1)
 			<?php
 		  	$i=0;
 			  $sql="SELECT * FROM feedback_tbl";
+			  $result= mysqli_query($con,$sql);
+			  while($feedback=mysqli_fetch_array($result))
+			  {
+				$ps_id=$feedback['f_ps_id'];
+				$f_id=$feedback['f_id'];
+				$sql2="SELECT *,p.prod_name as prod,s.seller_name as seller from sellerreg_tbl as s,product_seller_tbl as ps,login_tbl as l,product_tbl as p where ps.ps_seller_id=l.login_id and p.product_id=ps.ps_product_id and s.seller_login_id=l.login_id and ps_id=$ps_id";
+				$result2= mysqli_query($con,$sql2);
+				$prod=mysqli_fetch_array($result2);
+
+				// $cust_id=$feedback['order_customer_id'];
+				// // $sql3="SELECT * FROM customerreg_tbl WHERE customerreg_id=$cust_id";
+				// // $result3=mysqli_query($con,$sql3);
+	            // // $cust=mysqli_fetch_array($result3);     
+	            
+				$i++;
+				echo "<tr>";
+				echo "<td>$i</td>";
+                echo "<td>".$prod['prod_name']."</td>";
+				echo "<td>".$feedback['f_rate']."</td>";
+				echo "<td>".$feedback['f_content']."</td>";
+				
+				?>
+                <td>
+					<button style="background: rgb(9, 188, 219); box-shadow: 3px 3px 10px rgba(9, 188, 219, 0.749);padding:7px;border:none;color:white;width:120px;" onclick="showChangeBox(<?php echo $f_id ?>)">Reply</button>
+				</td>
+				</tr>
+			 <?php
+			 }
+			?>
+	       </tbody>
+	    </table>
+        </center>
+    </div>
+            
+        <!-- reply popup -->
+        <div id="ChangePasswordModal" class="ChangePassword">
+          <div class="ratingBox">
+            <span class="close" onclick="closeChangeBox()">&times;</span>
+            <center>
+              <h3>Reply to User Complaint</h3><br>
+              <form method="POST" id="feedbackform">
+                <div>
+                  <textarea name="reply" id="reply" class="data" placeholder="Write reply here"></textarea>
+                  <input type="button" class="change" value="Reply" name="change" onclick="sendFeedback()">
+                </div>
+              </form>
+            </center>
+          </div>
+        </div>
+    
+ <?php
+}
+
+else if($_GET['id']==1)
+{?>
+	<div class="order_table" style="padding:26px 26px;"><center>
+
+	    	 <!-- listing all orders -->
+
+	    <table width="100%">
+			 <col style="width:4%">
+			 <col style="width:20%">
+			 <col style="width:20%">
+			 <col style="width:30%">
+			 <col style="width:26%">
+
+	      <thead>
+	      <caption >
+			  <h3> Orders recieved</h3>
+	      </caption>
+		  <tr>
+			 <th>#</th>
+			 <th>Product</th>
+		     <th>Rating</th>
+			 <th>Feedback</th>
+			 <th></th>
+		     
+	      </tr>
+		  </thead>
+
+	      <tbody> 
+			<?php
+		  	$i=0;
+			  $sql="SELECT * FROM feedback_tbl WHERE f_rate<3";
 			  $result= mysqli_query($con,$sql);
 			  while($feedback=mysqli_fetch_array($result))
 			  {
@@ -208,6 +383,8 @@ if($_GET['id']==1)
  <?php
 }
 ?>
+
+
     
 </body>
 <script>
@@ -216,6 +393,7 @@ if($_GET['id']==1)
 
     function showChangeBox(fid){
         feedback=fid
+		document.getElementById("reply").value=""
         feedbackmodel.style.display = "block" ;
 
     }

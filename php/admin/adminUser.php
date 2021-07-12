@@ -143,16 +143,17 @@ if(isset($_SESSION['id']))
         position:relative;
       }
       .formContainer .errorText{
-        position:absolute;
-        top:57px;
-        left:0px;
-        width:100%;
+        position:relative;
+        margin-top: -15px;
+        margin-bottom: 5px;
+        /* width:100%; */
         color: #cc0033;
         transition: height 2s;
         font-size: 13px;
-        line-height: 15px;
+        /* line-height: 15px; */
         font-style: italic;
-        visibility:hidden;
+        display:none;
+        /* z-index:3; */
       } 
 
     
@@ -238,22 +239,22 @@ if(isset($_SESSION['id']))
           <!-- email  --> 
           <div class="addInput">
               <input type="text" id="email" name="email" onchange="checkEmail('err3','email')" placeholder="Email" required>
-              <div class="errorText">
-              <p id="err3">Invaild Email! eg:something@something.com</p> 
+              <div class="errorText" id="err3">
+                Invalid Email! eg:something@something.com
               </div>
           </div>
           <!-- password  -->
           <div class="addInput">
               <input type="password" id="password"  name="password" onchange="checkPassword('err4','password')" placeholder="Password" required>
-              <div class="errorText">
-              <p id="err4">Invalid! eg:#Ay&iou31 min:8chars</p> 
+              <div class="errorText" id="err4">
+                Invalid! eg:#Ay&iou31 min:8chars
               </div>
           </div>
           <!-- confirm password  -->
           <div class="addInput">
               <input type="password" id="ConfirmPass" name="confirm_password" onchange="checkConfirmPass('err5','password','ConfirmPass')" placeholder="Confirm Password" required>
-              <div class="errorText">
-              <p id="err5">Passwords don't match!</p> 
+              <div class="errorText" id="err5">
+                 Passwords don't match!
               </div>
           </div>         
           <button type="button" class="btn" onclick="subm_cust() ">Add User</button>
@@ -287,11 +288,11 @@ if(isset($_SESSION['id']))
             patt=/^([A-Za-z0-9\.]{4,30})+@[a-z.]+\.+[a-z]+$/;
             if(!elem.value.match(patt)|| elem.value.trim()=='')
             {   
-                x.style.cssText="visibility:visible";
+                x.style.cssText="display:block";
                 email_val=false
                 return false;
             } 
-            x.style.cssText="visibility:hidden";
+            x.style.cssText="display:none";
             email_val=true;
             return true; 
         }
@@ -303,12 +304,12 @@ if(isset($_SESSION['id']))
             patt=/^(?=.*[!@#$%^&*(),.?":{}|<>\ )(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
             if(elem.value.trim()=="" || !elem.value.match(patt))
             {
-                x.style.cssText="visibility:visible";
+                x.style.cssText="display:block";
                 password_val=false;
                 return false;
 
             } 
-            x.style.cssText="visibility:hidden";
+            x.style.cssText="display:none";
             password_val=true
             return true; 
         }
@@ -318,11 +319,11 @@ if(isset($_SESSION['id']))
             x=document.getElementById(val);        
             if((document.getElementById(val2).value)!=(document.getElementById(val3).value))
             {
-                x.style.cssText="visibility:visible";
+                x.style.cssText="display:block";
                 confirm_val=false
                 return false;
             } 
-            x.style.cssText="visibility:hidden";
+            x.style.cssText="display:none";
             confirm_val=true;
             return true; 
         }

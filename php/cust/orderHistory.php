@@ -190,7 +190,7 @@ if(isset($_SESSION['id'])){
         <h2> Your Orders </h2><br><br>
 
             <?php
-            $sql="SELECT * FROM order_tbl ORDER BY order_status DESC";
+            $sql="SELECT * FROM order_tbl WHERE order_customer_id=$reg_id ORDER BY order_status DESC";
             $result= mysqli_query($con,$sql);
             while($orders=mysqli_fetch_array($result))
             {
