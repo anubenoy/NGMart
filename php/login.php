@@ -44,10 +44,10 @@ $sql = "SELECT * FROM login_tbl WHERE email='$email' and status=1";
                       $user_homepg = '../index.php'; 
                   }
                   else if($row['user_type']=='seller'){ 
-                    $sql="SELECT * FROM customerreg_tbl WHERE login_id=$login_id";
+                    $sql="SELECT * FROM sellerreg_tbl WHERE seller_login_id=$login_id";
                     $result=mysqli_query($con,$sql);
                     $row=mysqli_fetch_array($result);
-                    $_SESSION['reg_id'] = $row['customerreg_id']; //for easy fetching cutomer details
+                    $_SESSION['reg_id'] = $row['seller_id']; //for easy fetching cutomer details
                     
                     $user_homepg = 'seller/seller.php?id=-1'; 
                   }

@@ -22,7 +22,7 @@ if(mysqli_num_rows($result)<1)
             $_SESSION['temp_id']=$n;
             // echo $_SESSION['id'];
             // header("location:seller/seller.php?id=-1");
-            header("location:seller/shopdetails.php");
+            header("location:seller/shopDetails.php");
 
         }
         //check redirection later

@@ -43,7 +43,7 @@ $reg_id=$_SESSION['reg_id'];
   <li><a class="active" href="dashboard.php" id="active1">Dashboard</a></li>
   <li><a href="adminUser.php" id="active2">Admin Users</a></li>
   <li><a href="categories.php" id="active3"> Product Categories</a></li>
-  <li><a href="" id="active4">Sellers</a></li>
+  <li><a href="displaySellers.php" id="active4">Sellers</a></li>
   <!-- <li><a href="" id="active5">Seller Listings</a></li> -->
   <!-- <li><a href="#contact" id="active6" >Contact Us</a></li> -->
   <!-- <li><a href="../logout.php" id="active7" >Logout</a></li> -->

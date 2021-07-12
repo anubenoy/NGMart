@@ -13,12 +13,27 @@ include("../dbconnection.php");
     if($row['status']==1){
             $sql="UPDATE login_tbl SET status=0 WHERE login_id=$id";
             mysqli_query($con,$sql);
-            header("Location:adminUser.php");
+            if(isset($_GET['seller'])=='true')
+            {
+                header("Location:displaySellers.php");
+            }
+            else
+            {
+                header("Location:adminUser.php");
+            }
+           
     }
     else{
             $sql="UPDATE login_tbl SET status=1 WHERE login_id=$id";
             mysqli_query($con,$sql);
-           header("Location:adminUser.php");
+            if(isset($_GET['seller'])=='true')
+            {
+                header("Location:displaySellers.php");
+            }
+            else
+            {
+                header("Location:adminUser.php");
+            }
     }
     
 }

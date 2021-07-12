@@ -122,7 +122,7 @@ if($_GET['id']==1)
 	      <tbody> 
 			<?php
 		  	$i=0;
-			  $sql="SELECT * FROM order_tbl";
+			  $sql="SELECT * FROM order_tbl WHERE order_product_seller_id=$id";
 			  $result= mysqli_query($con,$sql);
 			  while($orders=mysqli_fetch_array($result))
 			  {
@@ -200,7 +200,7 @@ if($_GET['id']==1)
 <tbody> 
 	<?php
 	 $i=0;
-	 $sql="SELECT * FROM order_tbl WHERE order_status='cancelled'";
+	 $sql="SELECT * FROM order_tbl WHERE order_product_seller_id=$id AND order_status='cancelled'";
 	 $result= mysqli_query($con,$sql);
 	 while($orders=mysqli_fetch_array($result))
 	 {
@@ -281,7 +281,7 @@ if($_GET['id']==2)
 	      <tbody> 
 			<?php
 		  	$i=0;
-			  $sql="SELECT * FROM order_tbl WHERE order_status='paid'";
+			  $sql="SELECT * FROM order_tbl WHERE order_product_seller_id=$id AND order_status='paid'";
 			  $result= mysqli_query($con,$sql);
 			  while($orders=mysqli_fetch_array($result))
 			  {
@@ -361,7 +361,7 @@ if($_GET['id']==4)
 	      <tbody> 
 			<?php
 		  	$i=0;
-			  $sql="SELECT * FROM order_tbl WHERE order_status='delivered'";
+			  $sql="SELECT * FROM order_tbl WHERE order_product_seller_id=$id AND order_status='delivered'";
 			  $result= mysqli_query($con,$sql);
 			  while($orders=mysqli_fetch_array($result))
 			  {

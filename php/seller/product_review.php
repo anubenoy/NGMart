@@ -162,7 +162,7 @@ if(isset($_GET['o_id'])&&$_GET['id']==2)
 	      <tbody> 
 			<?php
 			  $i=0;
-			  $sql="SELECT * FROM feedback_tbl WHERE f_ps_id=$psid";
+			  $sql="SELECT * FROM feedback_tbl WHERE f_seller_id=$id AND f_ps_id=$psid";
 			  $result= mysqli_query($con,$sql);
 			  while($feedback=mysqli_fetch_array($result))
 			  {
@@ -246,7 +246,7 @@ else if($_GET['id']==2)
 	      <tbody> 
 			<?php
 		  	$i=0;
-			  $sql="SELECT * FROM feedback_tbl";
+			  $sql="SELECT * FROM feedback_tbl WHERE f_seller_id=$id ";
 			  $result= mysqli_query($con,$sql);
 			  while($feedback=mysqli_fetch_array($result))
 			  {
@@ -330,7 +330,7 @@ else if($_GET['id']==1)
 	      <tbody> 
 			<?php
 		  	$i=0;
-			  $sql="SELECT * FROM feedback_tbl WHERE f_rate<3";
+			  $sql="SELECT * FROM feedback_tbl WHERE f_seller_id=$id AND f_rate<3";
 			  $result= mysqli_query($con,$sql);
 			  while($feedback=mysqli_fetch_array($result))
 			  {
